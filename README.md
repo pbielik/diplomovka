@@ -6,6 +6,10 @@ Tento repozitár je pripravený pre písanie diplomovej práce s workflow:
 - **Word** = finálny rukopis s živými citáciami
 - **Repo** = drafty, výpisky, analýzy, tabuľky, grafy, prompty a pomocný `.bib` export
 
+## Riadiace dokumenty
+- [Aktuálny stav diplomovky](docs/aktualny-stav-diplomovky.md)
+- [Backlog diplomovky](docs/backlog-diplomovky.md)
+
 ## Základné pravidlo štruktúry práce
 Štruktúra rukopisu sa riadi modelom **IMRaD** a lokálnym sprievodcom.
 
@@ -29,6 +33,8 @@ Tento repozitár je pripravený pre písanie diplomovej práce s workflow:
 
 ## Prvé kroky
 - skontroluj `AGENTS.md`
+- otvor `docs/aktualny-stav-diplomovky.md`
+- otvor `docs/backlog-diplomovky.md`
 - otvor `manuscript/00_outline.md`
 - nastav auto-export Better BibTeX do `references/zotero-thesis.bib`
 - začni vypĺňať `notes/literature/_template.md`

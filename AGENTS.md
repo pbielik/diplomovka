@@ -79,6 +79,20 @@ Má obsahovať:
 - meeting notes dávaj do `notes/meetings/`
 - prompts ukladaj do `prompts/`
 
+## Pravidlá pre dashboard a backlog
+
+- aktuálny stav práce udržuj v `docs/aktualny-stav-diplomovky.md`
+- operatívny backlog a dependency tracking udržuj v `docs/backlog-diplomovky.md`
+- pri každej podstatnej zmene v `manuscript/`, `analysis/`, `references/`, `notes/` alebo workflow aktualizuj:
+  - dátum poslednej aktualizácie,
+  - stav dotknutej oblasti,
+  - nové blokery alebo odblokovania,
+  - najbližší konkrétny krok
+- používaj iba statusy `todo`, `in_progress`, `blocked`, `done` alebo ich stručné slovenské ekvivalenty
+- status `done` používaj len vtedy, keď existuje reálny artefakt v repo alebo finálny milestone vo Worde
+- ak sa zmení dizajn, hypotézy, premenné alebo analytický plán, aktualizuj okrem rukopisu aj dashboard a backlog
+- dashboard a backlog majú zostať krátke, vecné a dobre čitateľné na GitHube; preferuj tabuľky, checklisty a Mermaid len tam, kde zvyšujú prehľad
+
 ---
 
 # AGENTS_APPENDIX_IMRAD_ZOTERO.md
@@ -329,3 +343,11 @@ Pred presunom textu do Wordu skontroluj:
 - tabuľky a grafy majú jasný názov,
 - metóda a výsledky používajú rovnaké názvy premenných,
 - hypotézy a výsledky sa navzájom nevylučujú.
+
+## 15. Kontrolný checklist po každom väčšom zásahu
+
+Po každom väčšom zásahu skontroluj:
+- bol aktualizovaný `docs/aktualny-stav-diplomovky.md`, ak sa zmenil stav práce,
+- bol aktualizovaný `docs/backlog-diplomovky.md`, ak sa zmenili priority alebo dependency,
+- nezostal v texte nový placeholder bez jasného dôvodu,
+- sedí stále väzba medzi úvodom, metódou, výsledkami a diskusiou.

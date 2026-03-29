@@ -32,9 +32,9 @@ Podobne zaujímavá je aj otázka vnímaného pôvodu rozhovoru. Ak rozhovory s 
 
 ### 4.5 Porovnanie s literatúrou
 
-Výsledky práce je potrebné interpretovať v širšom kontexte troch oblastí literatúry. Prvou sú práce o štandardizovaných prípadoch, vinietach a modelových materiáloch vo výučbe a výskume. Tieto práce dlhodobo ukazujú, že štandardizácia je užitočná, ale vždy sa pohybuje v napätí s prirodzenosťou a ekologickou validitou [@placeholder_vignettes_training]. Zistenia predkladanej práce na tento problém nadväzujú, ale prenášajú ho do prostredia generatívnej AI.
+Výsledky práce je potrebné interpretovať v širšom kontexte troch oblastí literatúry. Prvou sú práce o štandardizovaných prípadoch, vinietach a modelových materiáloch vo výučbe a výskume. Tieto práce dlhodobo ukazujú, že štandardizácia je užitočná, ale vždy sa pohybuje v napätí s prirodzenosťou a ekologickou validitou [@evans2015vignettes; @williams2017simulationmentalhealth]. Zistenia predkladanej práce na tento problém nadväzujú, ale prenášajú ho do prostredia generatívnej AI.
 
-Druhou oblasťou sú práce o generatívnej AI a kvalite textových výstupov. Tie spravidla zdôrazňujú, že jazyková plynulosť neznamená automaticky obsahovú správnosť a že aj veľmi presvedčivý text môže obsahovať nekonzistentnosti alebo halucinácie [@placeholder_hallucination_or_clinical_llm]. Ak sa v našich výsledkoch objavia red-flag chyby aj pri jazykovo plynulých rozhovoroch, bude to s týmito zisteniami v zhode.
+Druhou oblasťou sú práce o generatívnej AI a kvalite textových výstupov. Tie spravidla zdôrazňujú, že jazyková plynulosť neznamená automaticky obsahovú správnosť a že aj veľmi presvedčivý text môže obsahovať nekonzistentnosti alebo halucinácie [@roustan2025cliniciansguide; @asgari2025hallucinationframework]. Ak sa v našich výsledkoch objavia red-flag chyby aj pri jazykovo plynulých rozhovoroch, bude to s týmito zisteniami v zhode.
 
 Treťou oblasťou sú metodologické práce o hodnotení kvality meracích a simulačných materiálov odborníkmi. Predkladaná práca k nim prispieva tým, že nepoužíva iba celkový dojem, ale kombinuje primárne kvalitatívne ratingy, symptom fidelity logiku a defect dimenziu. Práve toto viacvrstvové hodnotenie považujem za jeden z hlavných metodologických prínosov práce.
 

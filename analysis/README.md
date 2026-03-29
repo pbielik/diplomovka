@@ -4,6 +4,7 @@
 - `codebook_rating_study.csv`
 - `methods_variables_table.csv`
 - `hypotheses_H1_H6.md`
+- `data_clean/` — clean analytické vstupy pre pipeline
 - `templates/` — CSV šablóny
 - `scripts/thesis_rating_pipeline.R` — R kostra
 
@@ -14,6 +15,7 @@
 `outcome ~ guardrail * profile + (1 | seed_id) + (1 | rater_id)`
 
 ## Pred analýzou
-- doplň `S2_anchor`,
+- dostaň reálne exporty do `analysis/data_clean/`,
+- over finálne anchor hodnoty vrátane `S2_anchor`,
 - skontroluj recode škál,
 - nechaj názvy premenných konzistentné medzi metódou, CSV a R skriptom.
