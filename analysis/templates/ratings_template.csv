@@ -1,0 +1,2 @@
+record_id,rater_id,transcript_id,seed_id,guardrail,profile,variant_id,backend_model,target_turns,actual_turns,rating_duration_sec,G1,G2,G3,G4,G5,A1,A2,A3,A4,A5,A6,A7,A8,A9,S1,S2,R1,R2,R3,R4,R5,guessed_origin,guess_confidence,comment
+rec_0001,rater_01,tx_S01_G1_R2,S01,1,R2,G1_R2,gpt-x,24,24,500,4,4,5,4,5,2,2,1,1,0,2,1,2,0,2,2,0,1,0,0,1,human_simulated,4,"Rozhovor pôsobil konzistentne, mierne šablónovito."

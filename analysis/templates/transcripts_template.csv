@@ -1,0 +1,2 @@
+transcript_id,seed_id,guardrail,profile,variant_id,backend_model,target_turns,actual_turns,chat_variability,created_at,transcript_path
+tx_S01_G1_R2,S01,1,R2,G1_R2,gpt-x,24,24,locked,2026-03-27T09:00:00+01:00,transcripts/tx_S01_G1_R2.md

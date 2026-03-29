@@ -1,0 +1,2 @@
+seed_id,A1_anchor,A2_anchor,A3_anchor,A4_anchor,A5_anchor,A6_anchor,A7_anchor,A8_anchor,A9_anchor,S1_anchor,S2_anchor,target_severity_label,functional_impact_label,notes
+S01,2,2,1,1,0,2,1,2,0,2,2,moderate,moderate,Doplň podľa final seeding tabuľky.
