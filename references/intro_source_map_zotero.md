@@ -1,6 +1,8 @@
 # Source map pre úvod a Zotero citekeys
 
 Tento súbor prepája citekeys použité v `manuscript/20_introduction.md` s konkrétnymi zdrojmi, ktoré majú byť vložené do Zotera.
+Je to iba intro-výrez zo širšieho literature bundle so vstupným rozcestníkom v `docs/literature/literature_map_diplomovka.md`.
+Ak pridávaš nový zdroj, najprv ho zaraď do tematického klastru v `docs/literature/source_clusters.md` a až potom ho doplň sem, ak naozaj vstupuje do úvodu.
 
 Odporúčanie:
 - importuj zdroj do Zotera cez DOI / PMID / URL,

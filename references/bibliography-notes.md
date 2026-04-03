@@ -28,6 +28,32 @@ roustan2025cliniciansguide | PMCID: PMC11815294 | URL: https://pmc.ncbi.nlm.nih.
 asgari2025hallucinationframework | PMCID: PMC12075489 | URL: https://pmc.ncbi.nlm.nih.gov/articles/PMC12075489/
 ```
 
+## P1 expansion pass — nové citekeys
+
+```text
+mcintyre2019mddvsbipolar | PMID: 31091027 | DOI: 10.4088/JCP.ot18043ah2 | URL: https://pubmed.ncbi.nlm.nih.gov/31091027/
+hirschfeld2014bipolardifferential | PMID: 25533909 | DOI: 10.1016/S0165-0327(14)70004-7 | URL: https://pubmed.ncbi.nlm.nih.gov/25533909/
+stein2021anxietycharacterization | PMID: 34505377 | PMCID: PMC8429350 | DOI: 10.1002/wps.20919 | URL: https://pubmed.ncbi.nlm.nih.gov/34505377/
+dubovsky2021psychoticdepression | PMID: 33166960 | DOI: 10.1159/000511348 | URL: https://pubmed.ncbi.nlm.nih.gov/33166960/
+lynn1986contentvalidity | PMID: 3640358 | DOI: 10.1097/00006199-198611000-00017 | URL: https://pubmed.ncbi.nlm.nih.gov/3640358/
+polit2007cvi | PMID: 17654487 | DOI: 10.1002/nur.20199 | URL: https://pubmed.ncbi.nlm.nih.gov/17654487/
+hasson2000delphi | PMID: 11095242 | DOI: 10.1046/j.1365-2648.2000.t01-1-01567.x | URL: https://pubmed.ncbi.nlm.nih.gov/11095242/
+boateng2018scaledevelopment | PMID: 29942800 | PMCID: PMC6004510 | DOI: 10.3389/fpubh.2018.00149 | URL: https://pubmed.ncbi.nlm.nih.gov/29942800/
+rutherfordhemming2015simulationcvi | PMID: 26753299 | DOI: 10.5480/15-1640 | URL: https://pubmed.ncbi.nlm.nih.gov/26753299/
+cook2010computerizedvirtualpatients | PMID: 20703150 | DOI: 10.1097/ACM.0b013e3181edfe13 | URL: https://pubmed.ncbi.nlm.nih.gov/20703150/
+kononowicz2019virtualpatients | PMID: 31267981 | PMCID: PMC6632099 | DOI: 10.2196/14676 | URL: https://pubmed.ncbi.nlm.nih.gov/31267981/
+who2021ethicsaiforhealth | URL: https://www.who.int/publications/i/item/9789240029200
+who2024lmmguidance | URL: https://iris.who.int/handle/10665/375579
+goddard2012automationbias | PMID: 21685142 | PMCID: PMC3240751 | DOI: 10.1136/amiajnl-2011-000089 | URL: https://pubmed.ncbi.nlm.nih.gov/21685142/
+howell2024genaipatientsafety | PMID: 39048292 | PMCID: PMC11503140 | DOI: 10.1136/bmjqs-2023-016690 | URL: https://pubmed.ncbi.nlm.nih.gov/39048292/
+khera2023automationbiasassistiveai | PMID: 38112824 | DOI: 10.1001/jama.2023.22557 | URL: https://pubmed.ncbi.nlm.nih.gov/38112824/
+mchugh2012kappa | PMID: 23092060 | PMCID: PMC3900052 | URL: https://pubmed.ncbi.nlm.nih.gov/23092060/
+jakobsson2005ordinalagreement | PMID: 16324069 | DOI: 10.1111/j.1471-6712.2005.00368.x | URL: https://pubmed.ncbi.nlm.nih.gov/16324069/
+marasini2016weightedindexes | PMID: 24740999 | DOI: 10.1177/0962280214529560 | URL: https://pubmed.ncbi.nlm.nih.gov/24740999/
+nelson2015manyratersordinal | PMID: 26095449 | PMCID: PMC4560692 | DOI: 10.1002/sim.6546 | URL: https://pubmed.ncbi.nlm.nih.gov/26095449/
+mitani2017ordinalsummarymeasures | PMID: 29029991 | PMCID: PMC5687310 | DOI: 10.1016/j.annepidem.2017.09.001 | URL: https://pubmed.ncbi.nlm.nih.gov/29029991/
+```
+
 ---
 
 ## Import blok pre Zotero — Add Item by Identifier
@@ -50,6 +76,32 @@ PMC7491646
 20975323
 PMC11815294
 PMC12075489
+```
+
+## Import blok pre Zotero — P1 expansion pass
+
+Skopíruj a vkladaj po riadkoch. WHO guidance položky importuj cez URL alebo ručne.
+
+```text
+31091027
+25533909
+34505377
+33166960
+3640358
+17654487
+11095242
+29942800
+26753299
+20703150
+31267981
+21685142
+39048292
+38112824
+23092060
+16324069
+24740999
+26095449
+29029991
 ```
 
 ---

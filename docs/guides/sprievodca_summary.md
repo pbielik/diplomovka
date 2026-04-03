@@ -14,6 +14,7 @@ Tento súbor nie je kópia sprievodcu. Je to pracovné zhrnutie toho, čo je pre
 
 ## Praktický dopad na tento repo
 - používame IMRaD súbory v `manuscript/`,
+- literárny workflow začína v `docs/literature/literature_map_diplomovka.md` a detail pokračuje v ostatných súboroch v `docs/literature/`,
 - výpisky držíme v `notes/literature/`,
 - citácie riešime cez Zotero + Word,
 - v draftoch používame citekeys.

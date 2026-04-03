@@ -40,6 +40,8 @@ Veľké jazykové modely preukázali vysokú schopnosť generovať súvislý, pl
 
 Z metodologického hľadiska je preto dôležité odlíšiť dva typy kvality. Prvý typ možno označiť ako **povrchová jazyková kvalita**, teda to, či text znie prirodzene, plynulo a bez zjavne strojových formulácií. Druhý typ predstavuje **klinická obsahová kvalita**, teda to, či rozhovor zodpovedá symptomatickému obrazu, nevykazuje významné kontradikcie a nepôsobí tak, že smeruje k inej psychopatológii alebo k neprimeranej dramatizácii. V oblasti psychologickej simulácie je druhý typ kvality minimálne rovnako dôležitý ako prvý.
 
+Doterajšia literatúra tak vytvára pomerne jasný rámec, ale zároveň necháva otvorenú konkrétnu metodologickú medzeru. Vieme, že štandardizované prípady a simulácie sú vo výučbe a vo výskume užitočné [@evans2015vignettes; @williams2017simulationmentalhealth], vieme aj to, že veľké jazykové modely dokážu generovať plynulý text [@meng2024llmmedicine; @yu2025simulatedpatientsystems], no podstatne menej vieme o tom, ako odborníci hodnotia **klinickú kvalitu kontrolovane generovaných, symptomaticky anchorovaných AI rozhovorov** a či sa táto kvalita mení v závislosti od konkrétneho nastavenia generovania. Práve na túto medzeru reaguje predkladaná práca.
+
 #### 1.2.4 Potreba metodologicky ukotveného hodnotenia
 
 Ak chceme AI-generované interview skúmať zmysluplne, nestačí vyhodnotiť, či odborníkovi text „pripadá dobrý“. Potrebujeme štruktúrované dimenzie hodnotenia. V tejto práci sú jadrom hodnotenia tri vrstvy:
@@ -62,6 +64,10 @@ Tretím pojmom je **vnútorná konzistentnosť rozhovoru**, teda súlad medzi je
 
 Napokon zavádzam aj pojem **defect alebo red-flag dimenzia**, ktorým označujem súbor vlastností znižujúcich kvalitu rozhovoru. Patria sem vnútorné kontradikcie, klišé, nesúlad kontextu a symptomatiky, podozrenie na inú primárnu psychopatológiu a neprimeraná dramatizácia. Táto dimenzia je dôležitá preto, že umožňuje zachytiť kvalitu negatívne, teda cez typické zlyhania simulácie.
 
+Osobitne dôležitým pojmom je aj **tréningová a výučbová použiteľnosť** rozhovoru. Týmto pojmom označujem mieru, do akej možno transkript rozumne použiť ako modelový materiál pri výučbe, tréningu interview alebo pri pilotovaní metodiky. Rozhovor môže byť jazykovo plynulý, ale ak nie je klinicky logický alebo symptomaticky ukotvený, jeho tréningová hodnota ostáva limitovaná.
+
+Tieto pojmy spolu vytvárajú premostenie medzi teoretickým problémom a empirickými outcome-mi práce. V ďalších kapitolách sú preto systematicky preložené do položiek ratingového nástroja, kompozitných indexov a hypotéz `H1-H6`.
+
 ### 1.4 Cieľ práce
 
 Hlavným cieľom diplomovej práce je **pilotne metodologicky overiť kvalitu AI-generovaných simulovaných klinických interview s depresívnou symptomatikou prostredníctvom odborného human-rated hodnotenia a preskúmať, či sa hodnotená kvalita mení v závislosti od experimentálne manipulovaných vlastností generovania rozhovoru**.
@@ -73,9 +79,14 @@ Sekundárnymi cieľmi práce sú:
 - preskúmať, či sú rozhovory vnímané ako použiteľné na tréningové alebo výučbové účely,
 - preskúmať, či vyššia plausibilita a nižšia miera defektov súvisia s tým, ako hodnotitelia odhadujú pôvod rozhovoru.
 
-### 1.5 Výskumné hypotézy
+### 1.5 Výskumné otázky a hypotézy
 
-Na základe východísk práce boli formulované tieto hypotézy:
+Na úrovni výskumného problému sa práca opiera o dve hlavné otázky:
+
+- Do akej miery sú AI-generované simulované klinické interview s depresívnou symptomatikou odbornými hodnotiteľmi vnímané ako klinicky vierohodné, prirodzené, vnútorne konzistentné, symptomaticky ukotvené a tréningovo použiteľné?
+- Menia sa tieto hodnotenia v závislosti od prítomnosti guardrailu a od realizačného profilu odpovedí?
+
+Tieto všeobecné otázky sú ďalej rozpracované do konkrétnych hypotéz. Ich poradie zodpovedá logike, v akej budú následne riešené vo výsledkoch:
 
 **H1.** Rozhovory generované s aktívnym guardrailom budú hodnotené vyššie v klinickej plausibilite než rozhovory bez guardrailu, a to na úrovni `plausibility_index` aj položiek `G1`, `G3` a `G4`.
 

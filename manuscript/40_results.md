@@ -6,16 +6,18 @@
 
 ### 3.1 Logika prezentácie výsledkov
 
-Výsledky sú prezentované v logike, ktorá zodpovedá analytickému plánu výskumu. Najprv uvádzam základné charakteristiky datasetu a ratingového nástroja, následne prezentujem výsledky reliabilitných a deskriptívnych analýz a potom výsledky inferenčných modelov viazaných na jednotlivé hypotézy. V závere kapitoly uvádzam exploratórne výsledky súvisiace s odhadovaným pôvodom rozhovorov a otvorenými komentármi hodnotiteľov.
+Výsledky sú prezentované v logike, ktorá zodpovedá analytickému plánu výskumu aj poradiu hypotéz `H1-H6`. Najprv uvádzam základné charakteristiky datasetu a ratingového nástroja, následne prezentujem výsledky deskriptívnych, reliabilitných a interrater analýz a potom výsledky inferenčných modelov viazaných na jednotlivé hypotézy. V závere kapitoly uvádzam doplnkové a exploratórne výsledky súvisiace s odhadovaným pôvodom rozhovorov a otvorenými komentármi hodnotiteľov.
+
+V texte reportujem len tie číselné údaje, ktoré sú potrebné na interpretáciu hypotéz. Rozsiahlejšie výstupy patria do tabuliek a grafov, aby sa číselné prehľady zbytočne nezdvojovali s textom.
 
 ### 3.2 Charakteristika datasetu a základné deskriptíva
 
 Do finálnej analýzy bolo zaradených **[doplniť počet]** hodnotiteľov, ktorí spolu vytvorili **[doplniť počet]** platných ratingov. Hodnotených bolo 72 transkriptov generovaných z 12 seed scenárov a 6 experimentálnych variantov. Priemerný počet hodnotení na jeden transkript bol **[doplniť]**. Základné charakteristiky datasetu uvádza Tabuľka 1.
 
-**Sem vlož:**
-- tabuľku s počtom raterov, počtom ratingov, počtom transcriptov
-- rozdelenie podľa guardrail a profile
-- prípadne priemernú dĺžku hodnotenia a počet turnov
+Táto úvodná deskriptívna časť má ukázať, na akom rozsahu dát sú postavené ďalšie inferenčné výsledky, a zároveň stručne zdokumentovať rozloženie ratingovej záťaže medzi experimentálne podmienky.
+
+> Doplniť:
+> Tabuľku s počtom raterov, počtom ratingov, počtom transkriptov, rozdelením podľa `guardrail` a `profile` a prípadne s priemernou dĺžkou hodnotenia alebo počtom turnov, ak sú tieto údaje dostupné a metodicky zmysluplné.
 
 ### 3.3 Frekvenčné rozdelenie odpovedí a vnútorná konzistencia
 
@@ -23,13 +25,14 @@ Najprv boli analyzované frekvenčné rozdelenia odpovedí na hlavné položky r
 
 V ďalšom kroku bola analyzovaná vnútorná konzistencia vybraných blokov položiek. Blok `G1–G5` dosiahol **[doplniť α / ω]**, plausibility blok `G1`, `G3`, `G4` dosiahol **[doplniť α / ω]** a blok `R1–R5` dosiahol **[doplniť α / ω]**. Tieto výsledky naznačujú, že **[doplniť interpretáciu: kompozity boli / neboli dostatočne konzistentné pre ďalšie použitie]**.
 
-**Sem vlož:**
-- tabuľku reliabilít
-- prípadne tabuľku item-total korelácií
+> Doplniť:
+> Tabuľku reliabilít a len v prípade, že to prinesie interpretačnú hodnotu, aj prehľad item-total korelácií alebo stručnú poznámku k položkám s problematickým fungovaním.
 
 ### 3.4 Interrater reliabilita
 
 Interrater reliabilita bola vyhodnotená pre hlavné kompozitné ukazovatele, najmä `plausibility_index`, `defect_index` a `symptom_error_mean`. Hodnoty ICC naznačili, že zhoda medzi hodnotiteľmi bola **[doplniť: nízka / stredná / dobrá]** pri `plausibility_index`, **[doplniť]** pri `defect_index` a **[doplniť]** pri `symptom_error_mean`. Výsledky podporujú záver, že **[doplniť stručnú interpretáciu: aspoň časť kompozitov bola dostatočne stabilná pre inferenčnú analýzu / zhoda bola limitovaná a preto treba interpretovať opatrne]**.
+
+Pri reporte bude pri každom ICC explicitne uvedené, o aký typ koeficientu ide a aká interpretačná kategória zhody sa použila.
 
 ### 3.5 Primárne outcome-y
 
@@ -37,7 +40,10 @@ Interrater reliabilita bola vyhodnotená pre hlavné kompozitné ukazovatele, na
 
 Na overenie hypotézy H1 bol použitý lineárny zmiešaný model s `plausibility_index` ako závislou premennou, fixnými efektmi `guardrail`, `profile` a ich interakcie a náhodnými interceptmi pre `seed_id` a `rater_id`. Výsledky ukázali, že efekt guardrailu bol **[doplniť: štatisticky významný / nevýznamný]**, pričom rozhovory generované s aktívnym guardrailom dosahovali **[vyššie / porovnateľné / nižšie]** hodnoty klinickej plausibility než rozhovory bez guardrailu. Hypotéza H1 bola preto **[podporená / nepodporená / podporená čiastočne]**.
 
-Okrem kompozitu boli analyzované aj jednotlivé položky `G1`, `G3` a `G4`. Na úrovni položiek sa ukázalo, že **[doplniť stručné zistenie]**.
+Okrem kompozitu boli analyzované aj jednotlivé položky `G1`, `G3` a `G4` ako doplnkové položkové výstupy, ktoré pomáhajú lokalizovať, či sa prípadný efekt guardrailu prejavil najmä vo vierohodnosti, konzistentnosti alebo symptomatickom súlade. Na úrovni položiek sa ukázalo, že **[doplniť stručné zistenie]**.
+
+> Doplniť:
+> Odhad hlavného efektu `guardrail`, 95 % interval spoľahlivosti, testovú štatistiku alebo `p`, a pri interpretácii aj odhadované marginálne priemery podľa podmienok.
 
 #### 3.5.2 H2: Vplyv guardrailu na defect index
 
@@ -45,18 +51,22 @@ Na overenie hypotézy H2 bol použitý zmiešaný model s `defect_index` ako zá
 
 Na úrovni jednotlivých položiek sa najvýraznejší rozdiel objavil pri **[doplniť R položky]**, zatiaľ čo pri položkách **[doplniť]** sa efekt nepreukázal.
 
+> Doplniť:
+> Hlavný odhad pre `defect_index` a len tie položkové rozdiely `R1-R5`, ktoré reálne dopĺňajú interpretáciu kompozitu.
+
 #### 3.5.3 H3: Vplyv realizačného profilu na prirodzenosť jazyka
 
 Hypotéza H3 predpokladala, že rozvinutejší realizačný profil `R3` bude spojený s vyššou prirodzenosťou jazyka než profily `R1` a `R2`. Analýza položky `G2` ukázala, že profil mal **[doplniť: významný / nevýznamný]** efekt. Rozhovory v profile `R3` boli hodnotené ako **[prirodzenejšie / rovnako prirodzené / menej prirodzené]** než rozhovory v profiloch `R1` a `R2`. Hypotéza H3 bola **[podporená / nepodporená / podporená čiastočne]**.
+
+> Doplniť:
+> Kontrast `R3` voči `R1` a `R2` a pri ordinálnom modeli uviesť zrozumiteľnú interpretáciu smeru efektu, nie iba holý softvérový výstup.
 
 #### 3.5.4 H4: Interakcia guardrail × profile
 
 Hypotéza H4 predpokladala interakčný efekt medzi guardrailom a realizačným profilom, pričom priaznivý efekt guardrailu sa mal prejaviť výraznejšie pri profile `R3`. Výsledky ukázali, že interakcia bola **[doplniť]** pri `plausibility_index` a **[doplniť]** pri `defect_index`. Ak bola interakcia prítomná, naznačovala, že **[doplniť stručnú interpretáciu]**.
 
-**Sem vlož:**
-- tabuľku hlavných mixed modelov
-- graf odhadovaných marginálnych priemerov pre plausibility_index
-- graf pre defect_index a/alebo G2
+> Doplniť:
+> Tabuľku hlavných mixed modelov a graf odhadovaných marginálnych priemerov aspoň pre `plausibility_index` a `defect_index`; graf pre `G2` len vtedy, ak významne pomôže interpretácii profilu.
 
 ### 3.6 Sekundárne outcome-y
 
@@ -66,15 +76,18 @@ Hypotéza H5 predpokladala, že rozhovory generované s aktívnym guardrailom bu
 
 Výsledky ukázali, že guardrail mal **[doplniť]** efekt na `symptom_error_mean`, pričom rozhovory s aktívnym guardrailom vykazovali **[nižšiu / porovnateľnú / vyššiu]** priemernú absolútnu chybu voči seed anchorom. Podobne bol efekt guardrailu **[doplniť]** aj pri `severity_error` a `impact_error`. Hypotéza H5 bola preto **[podporená / nepodporená / podporená čiastočne]**.
 
-Na úrovni jednotlivých symptomatických domén sa ukázalo, že najvyššia zhoda bola pri oblastiach **[doplniť]**, zatiaľ čo najproblematickejšie boli oblasti **[doplniť]**.
+Na úrovni jednotlivých symptomatických domén sa ukázalo, že najvyššia zhoda bola pri oblastiach **[doplniť]**, zatiaľ čo najproblematickejšie boli oblasti **[doplniť]**. Tieto doménové výsledky treba interpretovať ako doplnkové, teda ako spresnenie hlavného error-based výsledku, nie ako novú samostatnú hypotetickú vetvu.
 
-### 3.7 Explorácie
+### 3.7 Doplnkové a exploratórne analýzy
 
 #### 3.7.1 H6: Súvislosť plausibility, defectov a vnímaného pôvodu rozhovoru
 
 Hypotéza H6 predpokladala, že vyššia klinická plausibilita a nižšia miera defektov budú spojené s vyššou tréningovou použiteľnosťou rozhovoru a s nižšou pravdepodobnosťou, že bude rozhovor označený ako `ai_generated`. Výsledky ukázali, že `plausibility_index` bol **[doplniť: pozitívne / nevýznamne]** asociovaný s `G5`, zatiaľ čo `defect_index` bol s `G5` asociovaný **[negatívne / nevýznamne]**.
 
 Pri položke `guessed_origin` sa ukázalo, že rozhovory s vyššou plausibilitou a nižším defect indexom boli **[menej / rovnako / viac]** často označované ako `ai_generated`. Tieto výsledky naznačujú, že **[doplniť stručnú interpretáciu]**.
+
+> Doplniť:
+> Pri `G5` reportovať smer a veľkosť asociácie; pri `guessed_origin` uviesť buď proporcie, alebo pri modelovaní aj zrozumiteľne interpretované odds ratio.
 
 #### 3.7.2 Otvorené komentáre hodnotiteľov
 
@@ -83,8 +96,8 @@ Otvorené komentáre boli analyzované stručným tematickým kódovaním. Najč
 2. **[doplniť tému, napr. šablónovitosť alebo priveľmi učebnicové formulácie]**
 3. **[doplniť tému, napr. slabší súlad medzi symptomatikou a osobným kontextom]**
 
-Tieto komentáre dopĺňajú kvantitatívne výsledky tým, že ukazujú, v čom hodnotitelia spontánne videli silné a slabé stránky rozhovorov.
+Tieto komentáre dopĺňajú kvantitatívne výsledky tým, že ukazujú, v čom hodnotitelia spontánne videli silné a slabé stránky rozhovorov. Ich funkciou nie je vytvoriť samostatnú kvalitatívnu líniu, ale stručne pomenovať opakujúce sa dôvody pozitívneho a negatívneho hodnotenia.
 
 ### 3.8 Stručné zhrnutie výsledkov
 
-Výsledky naznačili, že **[doplniť: guardrail bol / nebol prínosný pre klinickú plausibilitu]**, že realizačný profil ovplyvňoval najmä **[prirodzenosť / defecty / oboje]** a že zhoda so seed anchorami bola **[doplniť]**. Pilotný charakter štúdie zároveň ukázal, že ratingový rámec je použiteľný aj na systematické porovnávanie variantov generovania a že jeho ďalšie rozšírenie by mohlo podporiť budúci výskum v tejto oblasti.
+Výsledky naznačili, že **[doplniť: guardrail bol / nebol prínosný pre klinickú plausibilitu]**, že realizačný profil ovplyvňoval najmä **[prirodzenosť / defecty / oboje]** a že zhoda so seed anchorami bola **[doplniť]**. Záverečné zhrnutie má v tejto časti zostať vecné a sumarizačné: má stručne odpovedať na hypotézy, nie pridávať novú interpretáciu, ktorá patrí až do diskusie.

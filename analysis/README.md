@@ -18,4 +18,5 @@
 - dostaň reálne exporty do `analysis/data_clean/`,
 - over finálne anchor hodnoty vrátane `S2_anchor`,
 - skontroluj recode škál,
-- nechaj názvy premenných konzistentné medzi metódou, CSV a R skriptom.
+- nechaj názvy premenných konzistentné medzi metódou, CSV a R skriptom,
+- skontroluj, že kľúčové metodické rozhodnutia majú oporu v literature bundle v `docs/literature/`, najmä v `source_clusters.md` a `gaps_and_missing_sources.md` pre seed anchoring, content validity rating nástroja a agreement metrics pri ordinálnych ratingoch.

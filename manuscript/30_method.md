@@ -12,6 +12,8 @@ Výskum bol navrhnutý ako **faktorový experiment v rámci human-rated hodnoten
 
 Zvolený dizajn bol koncipovaný ako kontrolovaná modelová situácia, v ktorej bolo možné systematicky sledovať vplyv experimentálnych faktorov na kvalitu generovaného rozhovoru pri zachovaní klinickej variability medzi seedmi. Keďže jednotlivé hodnotenia boli zároveň viazané na konkrétny seed aj na konkrétneho hodnotiteľa, už pri projektovaní výskumu sa počítalo s viacúrovňovou štruktúrou dát.
 
+Primárna konfirmačná analytická línia bola viazaná na hypotézy `H1-H5`, teda na vplyv `guardrail`, `profile` a ich interakcie na hlavné outcome-y kvality a fidelity. Hypotéza `H6` a otvorené komentáre hodnotiteľov tvorili doplnkovú vrstvu, ktorá rozširuje interpretáciu hlavných výsledkov, ale netvorí jadro experimentálneho testu.
+
 ### 2.2 Výskumný súbor
 
 Výskumný súbor tvorili **odborní hodnotitelia** z oblasti psychológie, psychoterapie a psychiatrie, ktorí mali skúsenosť s klientmi s depresívnou symptomatikou alebo s diagnózou MDD. Výber mal charakter **účelového výberu**, pretože cieľom nebolo reprezentatívne zachytiť celú populáciu odborníkov, ale získať kvalifikované expertné posúdenie transkriptov. Do výskumu boli zaradení iba tí hodnotitelia, ktorí spĺňali odborné kritériá a súhlasili s účasťou na hodnotení.
@@ -19,6 +21,8 @@ Výskumný súbor tvorili **odborní hodnotitelia** z oblasti psychológie, psyc
 Inklúznymi kritériami boli: (a) odborné vzdelanie alebo odborná prax v oblasti psychológie, psychoterapie alebo psychiatrie, (b) skúsenosť s prácou s depresívnou symptomatikou alebo s diagnózou MDD, (c) ochota zúčastniť sa na hodnotení textových transkriptov. Exklúznym kritériom bola absencia relevantnej odbornej skúsenosti alebo nedokončené hodnotenie v rozsahu znemožňujúcom jeho analytické použitie.
 
 Počet zaradených hodnotiteľov bol **[doplniť finálny počet]**. Každý hodnotiteľ posudzoval podmnožinu transkriptov podľa finálneho rozvrhu ratingu. Jednotkou analýzy nebol samotný hodnotiteľ ani samotný transkript, ale **jedno hodnotenie jedného transkriptu jedným hodnotiteľom**. Dataset preto nadobudol dlhý formát, v ktorom jeden riadok reprezentoval jedno expertné hodnotenie.
+
+Po doplnení finálnych údajov budú v tejto kapitole uvedené len tie charakteristiky hodnotiteľov, ktoré sú relevantné pre interpretáciu expertnej povahy hodnotenia a nezdvojujú informácie, ktoré nepatria do jadra výskumného problému.
 
 ### 2.3 Výskumný materiál
 
@@ -38,6 +42,8 @@ Tretí blok tvorili **QC a defect položky** `R1–R5`, zamerané na kontradikci
 
 Položky `G1–G5` a `guess_confidence` boli koncipované ako 5-bodové Likertove škály. Položky `A1–A9`, `S1`, `S2` a `R1–R5` boli ukotvené na škále `0–3`, aby boli lepšie naviazané na seed anchory a aby umožnili výpočet odchýlky medzi očakávaným a hodnoteným profilom. Súčasťou nástroja bola aj nominálna položka `guessed_origin` a otvorená textová položka `comment`.
 
+Takéto členenie nástroja umožnilo oddeliť jadro kvality rozhovoru od fidelity voči seed anchorom a od QC vrstvy. Zároveň tým vznikol priamy most medzi teoretickými konštruktmi v úvode a empirickými premennými použitými v analýze.
+
 ### 2.5 Premenné a operacionalizácia
 
 Hlavnými **nezávislými premennými** boli `guardrail` a `profile`. Premenná `guardrail` mala dve úrovne: vypnutý a zapnutý guardrail. Premenná `profile` mala tri úrovne: `R1` (rezervovanejší profil), `R2` (baseline profil) a `R3` (rozvinutejší profil). Ako blokovací faktor bol použitý `seed_id`, ktorý reprezentoval klinický základ scenára. Na úrovni modelovania bol zároveň zohľadnený `rater_id`, teda identita hodnotiteľa.
@@ -47,6 +53,8 @@ Hlavnými **nezávislými premennými** boli `guardrail` a `profile`. Premenná 
 **Sekundárne premenné** tvorili položky `A1–A9`, `S1` a `S2`. Keďže pre každý seed boli vopred definované anchor hodnoty, bolo možné okrem samotných ratingov odvodiť aj **error-based ukazovatele**, konkrétne absolútnu odchýlku hodnotenia od seed anchoru. Takto vznikli premenné `symptom_error_mean`, `severity_error` a `impact_error`.
 
 **QC premenné** tvorili položky `R1–R5`, z ktorých bol odvodený aj kompozit `defect_index`. Ich účelom bolo zachytiť tie nedostatky rozhovorov, ktoré mohli znižovať ich klinickú alebo výučbovú použiteľnosť.
+
+V celej práci používam rovnaké názvy premenných ako v ratingovom codebooku a analytickom datasete, aby nevznikal nesúlad medzi metódou, výsledkami a tabuľkami. V empirickom jazyku to znamená, že `H1` testuje hlavný efekt `guardrail` na `plausibility_index` a položky `G1`, `G3`, `G4`, `H2` hlavný efekt `guardrail` na `defect_index` a položky `R1–R5`, `H3` efekt `profile` na `G2`, `H4` interakciu `guardrail × profile` na `plausibility_index` a `defect_index`, `H5` efekt `guardrail` na `symptom_error_mean`, `severity_error` a `impact_error` a `H6` vzťah `plausibility_index` a `defect_index` k `G5` a `guessed_origin`.
 
 ### 2.6 Procedúra
 
@@ -60,15 +68,17 @@ Pri exporte odpovedí sa odpovede ukladané v JSON štruktúre konvertovali do t
 
 Pred analýzou boli všetky exportované odpovede skontrolované, vyčistené a prekódované. Likertove odpovede boli konvertované zo stringového exportu na numerické alebo ordinálne premenné podľa typu analýzy. Následne boli vytvorené odvodené premenné `plausibility_index`, `defect_index`, `symptom_error_mean`, `severity_error` a `impact_error`.
 
-Najprv bola spracovaná **deskriptívna štatistika** položiek a kompozitov. Pri ordinálnych položkách boli sledované frekvencie, mediány a interkvartilové rozpätia, pri kompozitných ukazovateľoch aj priemery a smerodajné odchýlky. V ďalšom kroku bola analyzovaná **vnútorná konzistencia** vybraných blokov položiek, najmä bloku `G1–G5`, plausibility bloku a bloku `R1–R5`.
+Analýza postupovala v štyroch krokoch. Najprv boli overené **základné vlastnosti dát**, najmä rozsah datasetu, rozdelenie ratingov medzi experimentálne varianty a využiteľnosť odpoveďových kategórií pri hlavných položkách. Následne bola spracovaná **deskriptívna štatistika** položiek a kompozitov. Pri ordinálnych položkách boli sledované frekvencie, mediány a interkvartilové rozpätia, pri kompozitných ukazovateľoch aj priemery a smerodajné odchýlky.
 
-Interrater reliabilita bola vyhodnocovaná prostredníctvom **intraclass correlation coefficient (ICC)** pre agregované ukazovatele. Pri reporte ICC sa počítalo s explicitným uvedením zvoleného typu koeficientu a spôsobu jeho interpretácie.
+V ďalšom kroku bola analyzovaná **vnútorná konzistencia** vybraných blokov položiek, najmä bloku `G1–G5`, plausibility bloku a bloku `R1–R5`. Interrater reliabilita bola vyhodnocovaná prostredníctvom **intraclass correlation coefficient (ICC)** pre agregované ukazovatele. Pri reporte ICC bude explicitne uvedený zvolený typ koeficientu aj spôsob jeho interpretácie.
 
 Hlavná inferenčná analýza bola realizovaná pomocou **mixed-effects modelov**, keďže jednotkou analýzy bolo hodnotenie, ktoré bolo zároveň viazané na hodnotiteľa aj na seed. Pre kompozitné a error-based ukazovatele boli použité lineárne zmiešané modely s fixnými efektmi `guardrail`, `profile` a ich interakcie a s náhodnými interceptmi pre `seed_id` a `rater_id`. Základný model mal tvar:
 
 `outcome ~ guardrail * profile + (1 | seed_id) + (1 | rater_id)`
 
-Pre jednotlivé ordinálne položky, najmä `G2`, `G5` a `guess_confidence`, boli plánované **ordinal mixed models** typu cumulative link mixed model ako citlivostná alebo doplnková analýza. Exploratórne bola plánovaná aj analýza položky `guessed_origin`, a to najmä pomocou frekvenčného rozdelenia a prípadne logistického modelu nad binarizovanou premennou „vnímané ako AI vs. nie AI“.
+Pre jednotlivé ordinálne položky, najmä `G2`, `G5` a `guess_confidence`, boli použité **ordinal mixed models** typu cumulative link mixed model ako doplnková alebo citlivostná analýza tam, kde to lepšie zodpovedalo povahe škály. Doplnková analýza položky `guessed_origin` vychádzala z frekvenčného rozdelenia odpovedí a podľa potreby aj z logistického modelu nad binarizovanou premennou „vnímané ako AI vs. nie AI“.
+
+Pri reporte modelov budú v texte uvádzané prednostne tie odhady, ktoré priamo odpovedajú na výskumné hypotézy: smer a veľkosť efektu, interval spoľahlivosti, testová štatistika alebo `p`-hodnota a pri hlavných outcome-och aj odhadované marginálne priemery alebo kontrasty. Analýzy, ktoré priamo neodpovedajú na `H1-H5`, budú v kapitole Výsledky explicitne označené ako doplnkové alebo exploratórne.
 
 Otvorené komentáre hodnotiteľov boli analyzované kvalitatívne prostredníctvom stručného tematického kódovania. Cieľom tejto analýzy nebolo budovať samostatnú kvalitatívnu časť práce, ale doplniť kvantitatívne výsledky o opakujúce sa dôvody pozitívneho a negatívneho hodnotenia.
 
