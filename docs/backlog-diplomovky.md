@@ -1,6 +1,6 @@
 # Backlog diplomovky
 
-> Posledná aktualizácia: 2026-03-30
+> Posledná aktualizácia: 2026-04-06
 > Používaj tento súbor ako operatívny backlog. Stav `done` patrí len položkám, ktoré majú jasný artefakt v repo alebo vo Word milestone.
 
 ## Prioritný backlog
@@ -8,7 +8,7 @@
 | ID | Priorita | Stav | Úloha | Závisí od | Výstup |
 | --- | --- | --- | --- | --- | --- |
 | B00 | `P2` | `done` | Zapracovať literature review map do workflow dokumentov a šablón | nový literature bundle v `docs/literature/` | aktualizované workflow docs, agent rules a template pre výpisky |
-| B01 | `P1` | `todo` | Zosúladiť Zotero kolekcie, tagy a Better BibTeX export s literature bundle | Zotero kolekcia `Diplomovka` | mapové kolekcie, tagy a aktuálny `.bib` export s platnými citekeys |
+| B01 | `P1` | `done` | Dokončiť Zotero cleanup po bibliography-notes importe: case-duplicate `yu`, legacy duplicity a finálny Better BibTeX export | Zotero kolekcia `Diplomovka`, audit `docs/literature/bbt_seed_audit_2026-04-06.md`, seed import script | `references/zotero-thesis.bib`, zosúladený `references/zotero-thesis-seed.bib`, exact coverage `36 / 36` a odstránený `yu` case-conflict |
 | B02 | `P1` | `todo` | Vytvoriť jadro literárnych výpiskov podľa must-read klastrov z literature bundle | B01 nie je striktne nutné, ale pomáha | 8-12 súborov alebo Zotero notes pre kľúčové zdroje vrátane MDD, validácie, simulated patients a safety |
 | B03 | `P1` | `todo` | Dostať reálny rating export do `analysis/data_clean/` | hotový zber alebo export zo survey engine | clean CSV pre ratingy a prípadné master tabuľky |
 | B04 | `P1` | `todo` | Overiť finálne anchor hodnoty seedov a názvy premenných | B03 | konzistentné seedy a naming medzi CSV, metódou a R pipeline |
@@ -21,7 +21,13 @@
 | B11 | `P2` | `todo` | Vytvoriť Word milestone draft so živými citáciami | B01, B07, B08, B10 | exportovateľný rukopis pre školiteľa |
 | B12 | `P2` | `done` | Spraviť checklist revision pass cez Introduction, Method a Results s pomocou `docs/resources/thesis-writing-md/README.md` | nový markdown balík thesis writing materiálov | revidované drafty v `manuscript/20_introduction.md`, `manuscript/30_method.md`, `manuscript/40_results.md` |
 | B13 | `P2` | `done` | Zapracovať master outline v2 do workflowu, guides a agent promptov | nové metodické usmernenia | `docs/guides/master-outline-diplomovky-v2.md`, aktualizované `AGENTS.md` a prompt súbory |
-| B14 | `P2` | `done` | Pripraviť P1 expansion pass s konkrétnymi citekey-ready zdrojmi pre gaps A-E | literature bundle a PubMed/WHO metadata | `docs/literature/p1_expansion_pass.md`, aktualizované `references/bibliography-notes.md` a `references/zotero-thesis-seed.bib` |
+| B14 | `P2` | `done` | Pripraviť P1 expansion pass s konkrétnymi citekey-ready zdrojmi pre gaps A-E | literature bundle a PubMed/WHO metadata | `docs/literature/p1_expansion_pass.md`, aktualizované `references/bibliography-notes.md` a pracovný seed candidate v `references/zotero-thesis-seed.bib` |
+| B15 | `P1` | `done` | Spraviť audit Better BibTeX seed workflow proti manuscriptu a literature bundle | lokálne workflow docs, source mapy a seed `.bib` | `docs/literature/bbt_seed_audit_2026-04-06.md` s gap listom, duplicitami a cleanup poradím |
+| B16 | `P1` | `done` | Automatizovať import `references/bibliography-notes.md` do Zotera a dostať exact citekeys do aktuálneho seed exportu | lokálny Zotero connector, BBT JSON-RPC a notes bridge | `references/scripts/import_bibliography_notes_to_zotero.py`, hromadný import do Zotera a exact coverage `36 / 36` |
+| B17 | `P1` | `done` | Vyčistiť Zotero duplicity a doplniť finálny export workflow | B16, lokálny Zotero DB cleanup a BBT export | `references/scripts/cleanup_zotero_duplicates_and_enable_export.py`, `references/scripts/export_cleaned_collection_to_bib.py`, finálny `references/zotero-thesis.bib` |
+| B18 | `P2` | `done` | Roztriediť novú imported literatúru z top-level Zotero kolekcie do tematických subkolekcií podľa literature bundle | B16, B17 | `references/scripts/assign_zotero_subcollections.py` a prvý batch priradení do `01.*`, `02.*`, `03.*`, `04.*`, `07` a `08.2` subkolekcií bez odstránenia položiek z hlavnej kolekcie |
+| B19 | `P2` | `done` | Zosynchronizovať hlavnú Zotero kolekciu s jej subkolekciami, aby bibliografické položky zo subkolekcií boli aj na top-level | B18 | `references/scripts/sync_zotero_root_collection.py` a doplnené priame členstvo chýbajúcich položiek v hlavnej kolekcii |
+| B20 | `P2` | `done` | Pridať manuálnu vrstvu thesis tagov pre core citekey-ready literatúru | B18, B19 | `references/scripts/assign_zotero_tags.py` a priradené tagy `must-read`, `should-read`, `optional`, `methods`, `validation`, `ethics`, `llm`, `depression`, `seeding`, `analysis` |
 
 ## Závislosti a poradie práce
 
@@ -36,15 +42,14 @@
 
 ## Najbližší odporúčaný sled
 
-1. `B01` dostať P1 expansion pass do Zotera a nastaviť export.
-2. `B02` spraviť minimálne jadro výpiskov vrátane mapových gapov.
-3. `B03` a `B04` pripraviť clean dáta a overiť naming.
-4. `B05` a `B06` dostať z pipeline prvé reálne výstupy.
-5. `B07` až `B10` dopísať manuscript.
+1. `B02` spraviť minimálne jadro výpiskov vrátane mapových gapov.
+2. `B03` a `B04` pripraviť clean dáta a overiť naming.
+3. `B05` a `B06` dostať z pipeline prvé reálne výstupy.
+4. `B07` až `B10` dopísať manuscript.
 
 ## Definition of done pre kritické položky
 
-- `B01` je hotové až vtedy, keď súbor `references/zotero-thesis.bib` reálne existuje, citekeys sedia s markdown draftmi a zdroje sú roztriedené podľa literature bundle.
+- `B01` je hotové až vtedy, keď súbor `references/zotero-thesis.bib` reálne existuje, citekeys sedia s markdown draftmi a seed audit nemá blocking gaps pre current bibliography-notes workflow.
 - `B03` je hotové až vtedy, keď máš clean CSV v `analysis/data_clean/` a vieš ho bez ručných zásahov znovu vytvoriť.
 - `B05` je hotové až vtedy, keď `analysis/outputs/` obsahuje reálne exporty z pipeline, nie iba placeholdery.
 - `B07` je hotové až vtedy, keď v `40_results.md` nezostanú analytické placeholdery typu `[doplniť]`.

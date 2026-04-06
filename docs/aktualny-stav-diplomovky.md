@@ -1,18 +1,18 @@
 # Aktuálny stav diplomovky
 
-> Posledná aktualizácia: 2026-03-30
+> Posledná aktualizácia: 2026-04-06
 > Tento súbor je operatívny dashboard. Má ukazovať reálny stav repa, nie želaný stav.
 
 ## Verdikt k dnešnému stavu
 
-Práca nie je v počiatočnej fáze. Máš hotový výskumný rámec, revidovaný draft úvodu a metódy, vyčistenú kostru výsledkov, nový rozdelený literature bundle v `docs/literature/` a markdown knižnicu pomocných materiálov pre thesis writing v `docs/resources/thesis-writing-md/`. Kritická cesta je teraz jasnejšia: spraviť z literature bundle reálny Zotero a note workflow, dobudovať 4 slabšie literárne miesta (klinické ukotvenie MDD, content validity rating nástroja, simulated patient literatúru a safety framing), dostať reálne rating dáta do `analysis/data_clean/`, spustiť pipeline na reálnych vstupoch a z toho doplniť výsledky, diskusiu, záver a finálny abstrakt.
+Práca nie je v počiatočnej fáze. Máš hotový výskumný rámec, revidovaný draft úvodu a metódy, vyčistenú kostru výsledkov, nový rozdelený literature bundle v `docs/literature/` a markdown knižnicu pomocných materiálov pre thesis writing v `docs/resources/thesis-writing-md/`. Kritická cesta je teraz jasnejšia: Zotero seed workflow je po importe a cleanup-e funkčný, `references/zotero-thesis.bib` už existuje, `references/bibliography-notes.md` má exact coverage `36 / 36`, nové jadro zdrojov je priradené do tematických subkolekcií, hlavná kolekcia je zosynchronizovaná tak, aby obsahovala aj položky, ktoré predtým existovali len v subkolekciách, a thesis jadro už má aj manuálnu vrstvu priorít a tematických tagov. Ďalší reálny posun je doplniť výpisky pre nové jadro zdrojov, dostať reálne rating dáta do `analysis/data_clean/`, spustiť pipeline na reálnych vstupoch a z toho doplniť výsledky, diskusiu, záver a finálny abstrakt.
 
 ## Stav repa po oblastiach
 
 | Oblasť | Stav | Čo už je v repo | Čo chýba na ďalší posun |
 | --- | --- | --- | --- |
 | Rukopis | `rozpracované` | outline, názov/abstrakt, revidovaný úvod, revidovaná metóda, vyčistená kostra výsledkov, diskusný draft | finálne počty, výsledky z analýzy, doplnenie placeholderov, finálne prepojenie na Word |
-| Literatúra | `in_progress` | source map, import checklist, citekey seed workflow, rozdelený literature bundle s klastrami, gapmi, agent taskmi, plánom a `P1 expansion pass` s konkrétnymi citekeys | chýba `references/zotero-thesis.bib`, chýbajú reálne výpisky v `notes/literature/`, treba dostať P1 balík do Zotera a výpiskov |
+| Literatúra | `in_progress` | source map, import checklist, citekey seed workflow, rozdelený literature bundle s klastrami, gapmi, agent taskmi, plánom, `P1 expansion pass`, audit seed workflow v `docs/literature/bbt_seed_audit_2026-04-06.md`, importér `references/scripts/import_bibliography_notes_to_zotero.py`, cleanup script `references/scripts/cleanup_zotero_duplicates_and_enable_export.py`, export script `references/scripts/export_cleaned_collection_to_bib.py`, script na prvé roztriedenie do subkolekcií `references/scripts/assign_zotero_subcollections.py`, script na sync hlavnej kolekcie `references/scripts/sync_zotero_root_collection.py`, script na manuálne thesis tagy `references/scripts/assign_zotero_tags.py`, finálny export `references/zotero-thesis.bib`, zosúladený `references/zotero-thesis-seed.bib`, prvý batch roztriedenia nových zdrojov do relevantných subkolekcií, sync hlavnej kolekcie so subkolekciami a manuálne priority + tematické tagy pre jadro citekey-ready zdrojov | doplniť reálne výpisky v `notes/literature/` a podľa potreby jemne doladiť priority/tagy pre širší thesis corpus |
 | Dáta a analýza | `skelet pripravený` | codebook, premenné, hypotézy, R pipeline, CSV šablóny | clean data v `analysis/data_clean/`, beh pipeline na reálnych dátach, exporty do `analysis/outputs/`, `tables/`, `figures/` |
 | Písacie podklady | `done` | konvertované materiály v `docs/resources/thesis-writing-md/`, syntetický README a nový brief `docs/guides/master-outline-diplomovky-v2.md` | používať ich pri draftingu, outline a auditovaní sekcií |
 | Operatívny tracking | `zavedené` | tento dashboard, backlog, aktualizačné pravidlá pre agentov, workflow README pre literatúru | priebežná údržba po každej väčšej zmene |
@@ -47,19 +47,18 @@ flowchart LR
 
 | Dependency | Stav | Blokuje | Poznámka |
 | --- | --- | --- | --- |
-| `references/zotero-thesis.bib` | `chýba` | finálnu kontrolu citekeys a Word workflow | source map je pripravený, ale export ešte nie je v repo |
+| `references/zotero-thesis.bib` | `done` | nič blokujúce | finálny cleaned export už reálne existuje v repo a sedí s current bibliography-notes workflow; hlavná Zotero kolekcia je zosynchronizovaná so subkolekciami a core zdroje majú manuálne thesis tagy |
+| `references/zotero-thesis-seed.bib` | `done` | nič blokujúce | helper seed je zosúladený s finálnym exportom; `bibliography-notes` coverage je `36 / 36 exact` |
 | Výpisky v `notes/literature/` | `takmer prázdne` | rýchle prepisovanie intro/discussion | zatiaľ je tam len template |
-| Mapové literárne medzery A-D | `čiastočne rozpracované` | silnejšiu Method a Discussion | P1 expansion pass už má konkrétne zdroje, ale ešte nie sú pretavené do Zotera a výpiskov |
+| Mapové literárne medzery A-D | `in_progress` | silnejšiu Method a Discussion | P1 expansion pass je už importnutý do Zotera, pretavený do čistého exportu a prvotne roztriedený do subkolekcií, ale ešte treba spraviť výpisky |
 | Clean ratings dataset | `chýba` | výsledky, tabuľky, grafy, záver | bez neho je `40_results.md` iba šablóna |
 | Exporty v `tables/` a `figures/` | `chýbajú` | Word milestone a finálny Results | priečinky existujú, ale sú prázdne |
 | Finálne počty raterov/ratingov | `chýbajú` | Method, Results, Abstract | placeholdery ostali v texte |
 
 ## Čo môžeš robiť hneď
 
-- zosúladiť Zotero kolekcie a tagy s bundle v `docs/literature/`
-- importovať `P1 expansion pass` z `docs/literature/p1_expansion_pass.md` do Zotera
-- nastaviť Better BibTeX auto-export do `references/zotero-thesis.bib`
 - vytvoriť 8-12 krátkych výpiskov pre must-read jadro a 4 literárne gaps v `notes/literature/`
+- jemne doladiť priority/tagy a prípadné sekundárne subkolekcie pre širší thesis corpus
 - pripraviť clean export ratingov do `analysis/data_clean/`
 - doplniť finálne počty raterov a ratingov do `manuscript/30_method.md` a `manuscript/40_results.md`
 - pri ďalšom draftingu používať aj `docs/guides/master-outline-diplomovky-v2.md`, nie len starší sprievodca a outline

@@ -22,6 +22,7 @@ Bibliografický zdroj pravdy ostáva v Zotere. Tento bundle je plánovacia a ope
 - [Tematické klastre a jadro literatúry](source_clusters.md)
 - [Literárne medzery a coverage risks](gaps_and_missing_sources.md)
 - [P1 expansion pass s konkrétnymi zdrojmi](p1_expansion_pass.md)
+- [Audit Better BibTeX seed workflow](bbt_seed_audit_2026-04-06.md)
 - [Zadania pre agentov](agent_tasks.md)
 - [Krátky praktický plán](action_plan.md)
 - [Workflow README](README.md)
@@ -54,6 +55,7 @@ Detaily a očakávané využitie v práci sú v [gaps_and_missing_sources.md](ga
 
 ## Najbližšie kroky
 
+- zosúladiť `references/zotero-thesis-seed.bib` s auditom v [bbt_seed_audit_2026-04-06.md](bbt_seed_audit_2026-04-06.md),
 - zosúladiť Zotero kolekcie a tagy s klastrami v [source_clusters.md](source_clusters.md),
 - doplniť `must-read` jadro pre medzery A až E,
 - aktualizovať výpisky v `notes/literature/`,
