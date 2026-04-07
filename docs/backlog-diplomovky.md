@@ -1,6 +1,6 @@
 # Backlog diplomovky
 
-> Posledná aktualizácia: 2026-04-07
+> Posledná aktualizácia: 2026-04-08
 > Používaj tento súbor ako operatívny backlog. Stav `done` patrí len položkám, ktoré majú jasný artefakt v repo alebo vo Word milestone.
 
 ## Prioritný backlog
@@ -29,6 +29,8 @@
 | B19 | `P2` | `done` | Zosynchronizovať hlavnú Zotero kolekciu s jej subkolekciami, aby bibliografické položky zo subkolekcií boli aj na top-level | B18 | `references/scripts/sync_zotero_root_collection.py` a doplnené priame členstvo chýbajúcich položiek v hlavnej kolekcii |
 | B20 | `P2` | `done` | Pridať manuálnu vrstvu thesis tagov pre core citekey-ready literatúru | B18, B19 | `references/scripts/assign_zotero_tags.py` a priradené tagy `must-read`, `should-read`, `optional`, `methods`, `validation`, `ethics`, `llm`, `depression`, `seeding`, `analysis` |
 | B21 | `P2` | `todo` | Doplniť missing full texty alebo snapshoty pre citekey-ready jadro pred systematickými výpiskami | B20 | fulltext attachments podľa `docs/literature/fulltext_checklist_2026-04-07.md`; z MUST-READ bloku už zostávajú len `guidi2011clinicalinterviewdepression` a `polit2007cvi`; navyše treba manuálne overiť `cook2010computerizedvirtualpatients`, kde current attachment vyzerá byť len supplement-only |
+| B22 | `P1` | `todo` | Doplniť 6 nových zdrojov z rozšíreného draftu Úvodu do Zotera a potvrdiť citekeys | rozšírený draft `manuscript/20_introduction.md`, gap F-I v `docs/literature/gaps_and_missing_sources.md` | import do Zotero kolekcie `01 Depresia a MDD` (WHO 2025) a `02 LLM, mental health a psychiatria` (Chaby 2022, Li 2024 CureFun, Wang 2024 PATIENT-ψ, Lee 2025 Adaptive-VP, Kim 2025 MindVoyager), aktualizovaný `references/zotero-thesis.bib`, potvrdené alebo opravené citekeys `who2025depression`, `chaby2022embodiedvirtualpatients`, `li2024curefun`, `wang2024patientpsi`, `lee2025adaptivevp`, `kim2025mindvoyager` a ich zosúladenie s placeholderami v `20_introduction.md` |
+| B23 | `P2` | `todo` | Vytvoriť evidence-anchored výpisky pre 6 nových zdrojov z Úvodu | B22 | výpisky v `notes/literature/` pre `who2025depression`, `chaby2022embodiedvirtualpatients`, `li2024curefun`, `wang2024patientpsi`, `lee2025adaptivevp`, `kim2025mindvoyager` podľa template (opiera sa o + locator + kontextový excerpt + parafráza + use) |
 
 ## Závislosti a poradie práce
 

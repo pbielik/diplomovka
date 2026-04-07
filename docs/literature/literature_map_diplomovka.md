@@ -50,6 +50,10 @@ Detaily, odporúčané zdroje a priority sú v [source_clusters.md](source_clust
 | `C` | simulated patients mimo všeobecných LLM review | framing práce ako simulation/training artifact |
 | `D` | high-stakes limitations a safety | etika, limity, non-diagnostic framing |
 | `E` | agreement metrics pre ordinálne ratingy | metodická obrana pri posudku a obhajobe |
+| `F` | epidemiologický zdroj pre depresiu (WHO fact sheet) | otváracie paragrafy Úvodu a rámcovanie významu témy |
+| `G` | pred-LLM virtual patients v psychiatrickom tréningu | ukotvenie posunu od klasických VP k LLM-based VP v Úvode |
+| `H` | LLM simulovaný pacient so štruktúrujúcim framework-om (CureFun / PATIENT-ψ / Adaptive-VP) | empirická opora pre H1-H5 a variable „štruktúrujúce klinické usmernenie" |
+| `I` | LLM klient s metakogníciou a kontrolou disclosure (MindVoyager) | teoretická opora pre premennú „štýl odpovedania" a H6-H9 |
 
 Detaily a očakávané využitie v práci sú v [gaps_and_missing_sources.md](gaps_and_missing_sources.md).
 

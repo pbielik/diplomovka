@@ -35,6 +35,12 @@ MUST_READ = {
     "who2021ethicsaiforhealth",
     "jakobsson2005ordinalagreement",
     "nelson2015manyratersordinal",
+    "who2025depression",
+    "chaby2022embodiedvirtualpatients",
+    "li2024curefun",
+    "wang2024patientpsi",
+    "lee2025adaptivevp",
+    "kim2025mindvoyager",
 }
 
 OPTIONAL = {
@@ -64,6 +70,10 @@ TOPICAL_TAGS = {
         "khera2023automationbiasassistiveai",
         "omar2024llmpsychiatry",
         "guo2024llmmentalhealth",
+        "li2024curefun",
+        "wang2024patientpsi",
+        "lee2025adaptivevp",
+        "kim2025mindvoyager",
     },
     "depression": {
         "kennedy2008coresymptoms",
@@ -74,6 +84,7 @@ TOPICAL_TAGS = {
         "hirschfeld2014bipolardifferential",
         "stein2021anxietycharacterization",
         "dubovsky2021psychoticdepression",
+        "who2025depression",
     },
     "validation": {
         "lynn1986contentvalidity",
@@ -102,6 +113,11 @@ TOPICAL_TAGS = {
         "nelson2015manyratersordinal",
         "mitani2017ordinalsummarymeasures",
         "terwee2018COSMINMethodologyEvaluating",
+        "chaby2022embodiedvirtualpatients",
+        "li2024curefun",
+        "wang2024patientpsi",
+        "lee2025adaptivevp",
+        "kim2025mindvoyager",
     },
     "ethics": {
         "roustan2025cliniciansguide",
@@ -161,6 +177,12 @@ SEEDING = {
     "omar2024llmpsychiatry",
     "guo2024llmmentalhealth",
     "terwee2018COSMINMethodologyEvaluating",
+    "who2025depression",
+    "chaby2022embodiedvirtualpatients",
+    "li2024curefun",
+    "wang2024patientpsi",
+    "lee2025adaptivevp",
+    "kim2025mindvoyager",
 }
 
 

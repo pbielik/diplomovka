@@ -78,6 +78,12 @@ CITEKEY_COLLECTIONS = {
     "omar2024llmpsychiatry": ["systematic_reviews"],
     "guo2024llmmentalhealth": ["systematic_reviews"],
     "terwee2018COSMINMethodologyEvaluating": ["cosmin", "content_validity"],
+    "who2025depression": ["mdd_symptomatology"],
+    "chaby2022embodiedvirtualpatients": ["simulated_patients"],
+    "li2024curefun": ["simulated_patients", "llm_general"],
+    "wang2024patientpsi": ["simulated_patients", "llm_general"],
+    "lee2025adaptivevp": ["simulated_patients", "llm_general"],
+    "kim2025mindvoyager": ["simulated_patients", "llm_general"],
 }
 
 

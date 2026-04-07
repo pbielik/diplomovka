@@ -39,6 +39,16 @@ WHO_MANUAL_ITEMS = {
         "place": "Geneva",
         "url": "https://iris.who.int/handle/10665/375579",
     },
+    "who2025depression": {
+        "itemType": "webpage",
+        "title": "Depressive disorder (depression)",
+        "creators": [{"name": "World Health Organization", "creatorType": "author"}],
+        "date": "2025",
+        "websiteTitle": "WHO fact sheets",
+        "publisher": "World Health Organization",
+        "place": "Geneva",
+        "url": "https://www.who.int/news-room/fact-sheets/detail/depression",
+    },
 }
 
 
@@ -262,7 +272,13 @@ def map_csl_type(csl_type: str | None) -> str:
         "article-journal": "journalArticle",
         "report": "report",
         "webpage": "webpage",
+        "paper-conference": "conferencePaper",
+        "proceedings-article": "conferencePaper",
     }.get(csl_type or "", "journalArticle")
+
+
+def is_arxiv_doi(doi: str | None) -> bool:
+    return bool(doi) and doi.lower().startswith("10.48550/arxiv.")
 
 
 def enrich_with_entry_ids(item: dict, entry: dict, meta: dict[str, list[str]] | None):
@@ -273,9 +289,14 @@ def enrich_with_entry_ids(item: dict, entry: dict, meta: dict[str, list[str]] | 
 
 
 def item_from_csl(entry: dict, csl: dict, meta: dict[str, list[str]] | None) -> dict:
+    doi_value = entry.get("DOI") or csl_value(csl.get("DOI"))
+    if is_arxiv_doi(doi_value):
+        item_type = "preprint"
+    else:
+        item_type = map_csl_type(csl.get("type"))
     item = {
         "id": entry["citekey"],
-        "itemType": map_csl_type(csl.get("type")),
+        "itemType": item_type,
         "title": csl_value(csl.get("title")),
         "creators": creators_from_csl(csl.get("author")),
         "citationKey": entry["citekey"],

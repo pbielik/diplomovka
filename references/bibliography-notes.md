@@ -28,6 +28,17 @@ roustan2025cliniciansguide | PMCID: PMC11815294 | URL: https://pmc.ncbi.nlm.nih.
 asgari2025hallucinationframework | PMCID: PMC12075489 | URL: https://pmc.ncbi.nlm.nih.gov/articles/PMC12075489/
 ```
 
+## Rozšírený Úvod — nové citekeys (2026-04-08)
+
+```text
+who2025depression | URL: https://www.who.int/news-room/fact-sheets/detail/depression
+chaby2022embodiedvirtualpatients | DOI: 10.3389/frvir.2022.827312 | URL: https://www.frontiersin.org/articles/10.3389/frvir.2022.827312/full
+li2024curefun | DOI: 10.48550/arXiv.2404.13066 | URL: https://arxiv.org/abs/2404.13066
+wang2024patientpsi | DOI: 10.18653/v1/2024.emnlp-main.711 | URL: https://aclanthology.org/2024.emnlp-main.711/
+lee2025adaptivevp | DOI: 10.18653/v1/2025.findings-acl.118 | URL: https://aclanthology.org/2025.findings-acl.118/
+kim2025mindvoyager | DOI: 10.18653/v1/2025.findings-acl.1332 | URL: https://aclanthology.org/2025.findings-acl.1332/
+```
+
 ## P1 expansion pass — nové citekeys
 
 ```text
