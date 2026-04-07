@@ -1,6 +1,6 @@
 # Backlog diplomovky
 
-> Posledná aktualizácia: 2026-04-06
+> Posledná aktualizácia: 2026-04-07
 > Používaj tento súbor ako operatívny backlog. Stav `done` patrí len položkám, ktoré majú jasný artefakt v repo alebo vo Word milestone.
 
 ## Prioritný backlog
@@ -9,7 +9,7 @@
 | --- | --- | --- | --- | --- | --- |
 | B00 | `P2` | `done` | Zapracovať literature review map do workflow dokumentov a šablón | nový literature bundle v `docs/literature/` | aktualizované workflow docs, agent rules a template pre výpisky |
 | B01 | `P1` | `done` | Dokončiť Zotero cleanup po bibliography-notes importe: case-duplicate `yu`, legacy duplicity a finálny Better BibTeX export | Zotero kolekcia `Diplomovka`, audit `docs/literature/bbt_seed_audit_2026-04-06.md`, seed import script | `references/zotero-thesis.bib`, zosúladený `references/zotero-thesis-seed.bib`, exact coverage `36 / 36` a odstránený `yu` case-conflict |
-| B02 | `P1` | `todo` | Vytvoriť jadro literárnych výpiskov podľa must-read klastrov z literature bundle | B01 nie je striktne nutné, ale pomáha | 8-12 súborov alebo Zotero notes pre kľúčové zdroje vrátane MDD, validácie, simulated patients a safety |
+| B02 | `P1` | `in_progress` | Vytvoriť jadro literárnych výpiskov podľa must-read klastrov z literature bundle | B01 nie je striktne nutné, ale pomáha; B21 je praktický predstupeň | evidence-anchored notes už existujú pre `obradovich2024llmpsychiatry`, `kroenke2001phq9`, `terwee2018COSMINMethodologyEvaluating`, `maj2020depressioncharacterization`, `yu2025simulatedpatientsystems`, `boateng2018scaledevelopment`, `meng2024llmmedicine`, `mcintyre2019mddvsbipolar`, `who2021ethicsaiforhealth`, `ajluni2025psychiatriceducation`, `evans2015vignettes`, `kononowicz2019virtualpatients`, `nelson2015manyratersordinal`, `howell2024genaipatientsafety`, `asgari2025hallucinationframework`, `brugge2024patientsimulation`, `goddard2012automationbias`, `jakobsson2005ordinalagreement`, `kennedy2008coresymptoms`, `hirschfeld2014bipolardifferential`, `who2024lmmguidance`, `williams2017simulationmentalhealth`, `dawood2024standardizedpatient`, `stein2021anxietycharacterization`, `baguley2022vignettedata`, `roustan2025cliniciansguide`, `omar2024llmpsychiatry`, `guo2024llmmentalhealth`, `mitani2017ordinalsummarymeasures` a `haltaufderheide2024EthicsChatGPTMedicine`; template aj workflow docs už používajú `opiera sa o + locator + väčší kontextový excerpt + parafráza + use`; z aktuálne PDF-ready core vetvy ostáva bez validovateľného note už len `cook2010computerizedvirtualpatients`, kde current Zotero attachment vyzerá byť len supplement; cieľ `30+` je už splnený, ale B02 ostáva otvorené kvôli zvyšným literárnym gapom a missing fulltextom |
 | B03 | `P1` | `todo` | Dostať reálny rating export do `analysis/data_clean/` | hotový zber alebo export zo survey engine | clean CSV pre ratingy a prípadné master tabuľky |
 | B04 | `P1` | `todo` | Overiť finálne anchor hodnoty seedov a názvy premenných | B03 | konzistentné seedy a naming medzi CSV, metódou a R pipeline |
 | B05 | `P1` | `todo` | Spustiť `analysis/scripts/thesis_rating_pipeline.R` na reálnych dátach | B03, B04 | `analysis/outputs/*.csv` s reálnymi výsledkami |
@@ -28,6 +28,7 @@
 | B18 | `P2` | `done` | Roztriediť novú imported literatúru z top-level Zotero kolekcie do tematických subkolekcií podľa literature bundle | B16, B17 | `references/scripts/assign_zotero_subcollections.py` a prvý batch priradení do `01.*`, `02.*`, `03.*`, `04.*`, `07` a `08.2` subkolekcií bez odstránenia položiek z hlavnej kolekcie |
 | B19 | `P2` | `done` | Zosynchronizovať hlavnú Zotero kolekciu s jej subkolekciami, aby bibliografické položky zo subkolekcií boli aj na top-level | B18 | `references/scripts/sync_zotero_root_collection.py` a doplnené priame členstvo chýbajúcich položiek v hlavnej kolekcii |
 | B20 | `P2` | `done` | Pridať manuálnu vrstvu thesis tagov pre core citekey-ready literatúru | B18, B19 | `references/scripts/assign_zotero_tags.py` a priradené tagy `must-read`, `should-read`, `optional`, `methods`, `validation`, `ethics`, `llm`, `depression`, `seeding`, `analysis` |
+| B21 | `P2` | `todo` | Doplniť missing full texty alebo snapshoty pre citekey-ready jadro pred systematickými výpiskami | B20 | fulltext attachments podľa `docs/literature/fulltext_checklist_2026-04-07.md`; z MUST-READ bloku už zostávajú len `guidi2011clinicalinterviewdepression` a `polit2007cvi`; navyše treba manuálne overiť `cook2010computerizedvirtualpatients`, kde current attachment vyzerá byť len supplement-only |
 
 ## Závislosti a poradie práce
 
@@ -42,10 +43,10 @@
 
 ## Najbližší odporúčaný sled
 
-1. `B02` spraviť minimálne jadro výpiskov vrátane mapových gapov.
-2. `B03` a `B04` pripraviť clean dáta a overiť naming.
-3. `B05` a `B06` dostať z pipeline prvé reálne výstupy.
-4. `B07` až `B10` dopísať manuscript.
+1. `B21` dorobiť missing full texty pre `must-read` jadro.
+2. `B02` spraviť minimálne jadro výpiskov vrátane mapových gapov.
+3. `B03` a `B04` pripraviť clean dáta a overiť naming.
+4. `B05` a `B06` dostať z pipeline prvé reálne výstupy.
 
 ## Definition of done pre kritické položky
 

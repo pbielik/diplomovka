@@ -20,6 +20,19 @@ Tento adresár drží rozdelený literature bundle pre diplomovku. Bibliografick
 5. Ak je zdroj metodicky alebo argumentačne kľúčový, vytvor k nemu výpiskový súbor v `notes/literature/`.
 6. Ak sa citekey objaví v rukopise, skontroluj príslušný source map v `references/` a zhodu s `references/zotero-thesis.bib`.
 
+## Štandard pre validovateľné výpisky
+
+Pri `must-read` a metodicky kritických zdrojoch používaj evidence-first štandard, aby sa dal každý bod rýchlo spätne overiť v PDF alebo snapshote:
+- `opiera sa o:` sekciu, tabuľku, figúru alebo iný pomenovaný blok článku,
+- `locator:` presná strana, tabuľka, sekcia alebo iný locator,
+- `kontrolný excerpt:` väčší súvislý kontextový blok, nie len krátky anchor phrase,
+- `parafráza:` stručná pracovná formulácia,
+- `use:` kde sa to má použiť v rukopise alebo metodike.
+
+Praktické pravidlo:
+- bez locatora a excerptu sa bod nepovažuje za pripravený na bezpečnú parafrázu,
+- ak locator nie je jasný, označ bod ako `needs manual check`.
+
 ## Kedy bundle aktualizovať
 
 - keď pribudne nový tematický okruh, ktorý sa nezmestí do existujúceho klastru,

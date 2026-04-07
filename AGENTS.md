@@ -335,6 +335,17 @@ Odporúčaný formát výpisku:
 - limit alebo poznámka,
 - status (`must-cite`, `maybe`, `discussion`, `method`).
 
+Pri kľúčových alebo metodicky dôležitých zdrojoch používaj validačný evidence-first formát:
+- `opiera sa o:` názov bloku článku, sekcie, tabuľky alebo figúry,
+- `locator:` presná strana, tabuľka, sekcia alebo iný dohľadateľný locator,
+- `kontrolný excerpt:` väčší súvislý kontextový blok, typicky 2-4 vety; pri tabuľkách výsek tabuľky + susedný text,
+- `parafráza:` pracovná formulácia pre rukopis alebo metodiku,
+- `use:` na čo sa bod použije v práci.
+
+Platí prísne pravidlo:
+- bez locatora a kontrolného excerptu nevkladaj do výpisku tvrdenie, ktoré sa má ďalej parafrázovať alebo metodicky použiť,
+- ak locator nevieš určiť presne, označ bod ako `needs manual check` alebo ho do finálneho výpisku nedávaj.
+
 Výpisky nemajú byť prepisom celého článku.
 Majú byť krátke a použiteľné pri písaní.
 

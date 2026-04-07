@@ -168,7 +168,9 @@ Po importe urob tieto 4 kontroly:
 ## 9. Po importe pokračuj takto
 
 - ku každému `must-read` alebo metodicky kritickému zdroju vytvor výpiskový súbor v `notes/literature/`,
-- doplň krátke poznámky do `notes/literature/`
+- doplň krátke poznámky do `notes/literature/`,
+- pri kľúčových bodoch zapisuj `opiera sa o + locator + kontrolný excerpt + parafráza + use`, nie len voľné zhrnutie,
+- `kontrolný excerpt` má byť radšej väčší kontextový blok než 2-3 slovný anchor,
 - v `20_introduction.md` nechaj citekeys v tvare `[@citekey]`
 - pri metódových zdrojoch skontroluj väzbu na `manuscript/30_method.md` alebo `analysis/README.md`
 - finálne citácie rieš až vo Worde cez Zotero plugin

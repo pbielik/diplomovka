@@ -26,6 +26,13 @@
 ## Kľúčová definícia / výsledok / argument
 - 
 
+## Evidenčné bloky
+- opiera sa o: abstract / introduction / methods / results / discussion / table / figure / appendix
+- locator: strana / tabuľka / sekcia
+- kontrolný excerpt: väčší súvislý kontextový blok, typicky 2-4 vety; pri tabuľke výsek tabuľky + susedný text
+- parafráza:
+- use:
+
 ## Limity alebo pozor
 - 
 
