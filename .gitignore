@@ -1,0 +1,20 @@
+# Word preview build artefakty (z `tools/build_word_preview.sh` a
+# `tools/build_word_clean.sh`).
+# AGENTS.md sekcia 11: `.docx` sa do repa nemajú commitovať pri každej drobnosti.
+# Finálne milestone Word súbory ukladaj zámerne, nie cez tieto preview buildy.
+/diplomovka_preview.docx
+/diplomovka_preview_*.docx
+/diplomovka_clean.docx
+/diplomovka_clean_*.docx
+
+# Word lockfiles (Microsoft Word otvorený dokument)
+~$*.docx
+~$*.doc
+
+# macOS systémové súbory
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Ad-hoc PDF výpisky používané pri evidence-anchored notes workflow
+/tmp/pdf-extracts/
