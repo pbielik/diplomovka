@@ -39,6 +39,17 @@ lee2025adaptivevp | DOI: 10.18653/v1/2025.findings-acl.118 | URL: https://aclant
 kim2025mindvoyager | DOI: 10.18653/v1/2025.findings-acl.1332 | URL: https://aclanthology.org/2025.findings-acl.1332/
 ```
 
+## Vzdelávací framing a psychologický tréning — nové citekeys (2026-04-08)
+
+```text
+appeswg2021newreality | DOI: 10.3389/feduc.2021.653269 | URL: https://www.frontiersin.org/journals/education/articles/10.3389/feduc.2021.653269/full
+rice2022simulatedplacements | DOI: 10.3389/feduc.2022.840258 | URL: https://www.frontiersin.org/journals/education/articles/10.3389/feduc.2022.840258/full
+sheen2021simulationeducation | DOI: 10.1080/13284207.2021.1923125 | URL: https://www.tandfonline.com/doi/full/10.1080/13284207.2021.1923125
+glatz2022simulationelements | DOI: 10.1177/14757257221093490 | URL: https://journals.sagepub.com/doi/10.1177/14757257221093490
+schmidt2025client101 | DOI: 10.1186/s12909-025-07668-9 | PMCID: PMC12492891 | URL: https://link.springer.com/article/10.1186/s12909-025-07668-9
+morrison2025virtuallypsychologist | DOI: 10.1080/00050067.2025.2547800 | URL: https://www.tandfonline.com/doi/full/10.1080/00050067.2025.2547800
+```
+
 ## P1 expansion pass — nové citekeys
 
 ```text

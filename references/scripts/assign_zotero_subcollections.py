@@ -84,6 +84,12 @@ CITEKEY_COLLECTIONS = {
     "wang2024patientpsi": ["simulated_patients", "llm_general"],
     "lee2025adaptivevp": ["simulated_patients", "llm_general"],
     "kim2025mindvoyager": ["simulated_patients", "llm_general"],
+    "appeswg2021newreality": ["education_training"],
+    "rice2022simulatedplacements": ["education_training"],
+    "sheen2021simulationeducation": ["education_training"],
+    "glatz2022simulationelements": ["education_training"],
+    "schmidt2025client101": ["simulated_patients", "education_training"],
+    "morrison2025virtuallypsychologist": ["simulated_patients", "education_training"],
 }
 
 

@@ -41,6 +41,8 @@ MUST_READ = {
     "wang2024patientpsi",
     "lee2025adaptivevp",
     "kim2025mindvoyager",
+    "rice2022simulatedplacements",
+    "schmidt2025client101",
 }
 
 OPTIONAL = {
@@ -74,6 +76,7 @@ TOPICAL_TAGS = {
         "wang2024patientpsi",
         "lee2025adaptivevp",
         "kim2025mindvoyager",
+        "schmidt2025client101",
     },
     "depression": {
         "kennedy2008coresymptoms",
@@ -118,6 +121,12 @@ TOPICAL_TAGS = {
         "wang2024patientpsi",
         "lee2025adaptivevp",
         "kim2025mindvoyager",
+        "appeswg2021newreality",
+        "rice2022simulatedplacements",
+        "sheen2021simulationeducation",
+        "glatz2022simulationelements",
+        "schmidt2025client101",
+        "morrison2025virtuallypsychologist",
     },
     "ethics": {
         "roustan2025cliniciansguide",
@@ -183,6 +192,12 @@ SEEDING = {
     "wang2024patientpsi",
     "lee2025adaptivevp",
     "kim2025mindvoyager",
+    "appeswg2021newreality",
+    "rice2022simulatedplacements",
+    "sheen2021simulationeducation",
+    "glatz2022simulationelements",
+    "schmidt2025client101",
+    "morrison2025virtuallypsychologist",
 }
 
 

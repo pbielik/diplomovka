@@ -8,7 +8,7 @@ Hlavným prínosom práce je vytvorenie a overenie viacvrstvového rámca hodnot
 
 Výsledky práce **[doplniť po finálnej analýze 3–5 viet]**.
 
-Na teoretickej a metodologickej úrovni práca ukazuje, že problematika AI-generovaných simulovaných rozhovorov v psychológii si vyžaduje systematické a transparentné hodnotenie. Na praktickej úrovni naznačuje, že takéto materiály môžu mať potenciál pre tréningové, výučbové a výskumné využitie, ak sú generované a hodnotené v dostatočne kontrolovanom rámci.
+Na teoretickej a metodologickej úrovni práca ukazuje, že problematika AI-generovaných simulovaných rozhovorov v psychológii si vyžaduje systematické a transparentné hodnotenie. Na praktickej úrovni naznačuje, že takéto materiály môžu mať potenciál pre tréningové, výučbové a výskumné využitie, ak sú generované a hodnotené v dostatočne kontrolovanom rámci. V tomto zmysle práca nevytvára len jednorazový súbor transkriptov, ale aj metodický podklad pre budúci simulačný rámec, ktorý možno rozširovať na ďalšie poruchy a neskôr aj na multimodálne formy interakcie.
 
 Zároveň však práca ukazuje, že ide o oblasť, ktorá si vyžaduje ďalší výskum, najmä pokiaľ ide o stabilitu výsledkov, rozšírenie seed priestorov, porovnanie modelov a zapojenie väčšieho počtu hodnotiteľov. Predkladanú štúdiu preto chápem ako pilotný krok k systematickejšiemu skúmaniu kvality AI-generovaných psychologických simulácií.
 

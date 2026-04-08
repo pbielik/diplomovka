@@ -26,17 +26,21 @@ Zaujímavé je aj to, ktoré symptomatické domény vychádzajú stabilne a ktor
 
 ### 4.4 Tréningová použiteľnosť a vnímaný pôvod rozhovoru
 
-Pre praktické využitie výsledkov je kľúčové, či sú rozhovory vnímané ako použiteľné na tréningové a výučbové účely. Ak sa ukáže, že vyššia plausibilita a nižší defect index sú spojené s vyššou tréningovou použiteľnosťou, potvrdzuje to logiku, že kvalita simulácie nie je samoúčelná, ale priamo súvisí s tým, či má materiál didaktickú hodnotu.
+Pre praktické využitie výsledkov je kľúčové, či sú rozhovory vnímané ako použiteľné na tréningové a výučbové účely. Ak sa ukáže, že vyššia plausibilita a nižší defect index sú spojené s vyššou tréningovou použiteľnosťou, potvrdzuje to logiku, že kvalita simulácie nie je samoúčelná, ale priamo súvisí s tým, či má materiál didaktickú hodnotu. Pre psychologické vzdelávanie by takýto výsledok znamenal, že simulovaný rozhovor môže slúžiť nielen ako ilustrácia symptómov, ale aj ako nástroj na nácvik vedenia interview, rozpoznávania jadra symptomatiky, citlivého dopytovania na funkčný dopad či suicidálne témy a na učenie sa tolerovať neistotu pri rozhovore s menej otvoreným alebo menej koherentným klientom [@rice2022simulatedplacements; @schmidt2025client101; @morrison2025virtuallypsychologist].
 
-Podobne zaujímavá je aj otázka vnímaného pôvodu rozhovoru. Ak rozhovory s vyššou plausibilitou a nižším defect indexom menej často vyzerajú ako `ai_generated`, naznačuje to, že odborníci pri odhadovaní pôvodu zrejme nereagujú len na povrchové jazykové znaky, ale aj na hlbšiu konzistentnosť a klinickú logiku textu. Ak by sa však takéto prepojenie nepotvrdilo, bolo by to rovnako dôležité zistenie, pretože by naznačovalo, že vnímanie „AI-ovosti“ textu sa môže opierať aj o iné kvality než tie, ktoré sme merali ako primárne outcome-y.
+Toto je dôležité aj preto, že simulation-based literatúra v psychológii opakovane rámcuje simulácie ako most medzi teoretickým učením a prvou supervidovanou praxou, nie ako náhradu reálneho klienta [@appeswg2021newreality; @ajluni2025psychiatriceducation]. Ak by odborníci hodnotili časť našich rozhovorov ako dostatočne použiteľnú na tréning, bolo by možné uvažovať o ich nasadení ako o bezpečnom a opakovateľnom medzikroku pred prvým kontaktom s klientom, prípadne ako o doplnku tam, kde sú placementy alebo case mix limitované [@rice2022simulatedplacements; @williams2017simulationmentalhealth].
+
+Podobne zaujímavá je aj otázka vnímaného pôvodu rozhovoru. Ak rozhovory s vyššou plausibilitou a nižším defect indexom menej často vyzerajú ako `ai_generated`, naznačuje to, že odborníci pri odhadovaní pôvodu zrejme nereagujú len na povrchové jazykové znaky, ale aj na hlbšiu konzistentnosť a klinickú logiku textu. Ak by sa však takéto prepojenie nepotvrdilo, bolo by to rovnako dôležité zistenie, pretože by naznačovalo, že vnímanie „AI-ovosti“ textu sa môže opierať aj o iné kvality než tie, ktoré sme merali ako primárne outcome-y. Z pedagogického hľadiska navyše ani prípadné rozpoznanie AI pôvodu nemusí automaticky rušiť využiteľnosť materiálu; rozhodujúcejšie je, či rozhovor podporuje správne učenie a nevedie študenta k chybným klinickým inferenciám. Štúdia `Client101` napríklad ukazuje, že aj relatívne human-like virtual client môže byť didakticky užitočný a zároveň stále narážať na limity realizmu, najmä ak je príliš compliantný alebo málo komplexný [@schmidt2025client101].
 
 ### 4.5 Porovnanie s literatúrou
 
-Výsledky práce je potrebné interpretovať v širšom kontexte troch oblastí literatúry. Prvou sú práce o štandardizovaných prípadoch, vinietach a modelových materiáloch vo výučbe a výskume. Tieto práce dlhodobo ukazujú, že štandardizácia je užitočná, ale vždy sa pohybuje v napätí s prirodzenosťou a ekologickou validitou [@evans2015vignettes; @williams2017simulationmentalhealth]. Zistenia predkladanej práce na tento problém nadväzujú, ale prenášajú ho do prostredia generatívnej AI.
+Výsledky práce je potrebné interpretovať v širšom kontexte štyroch oblastí literatúry. Prvou sú práce o štandardizovaných prípadoch, vinietach a modelových materiáloch vo výučbe a výskume. Tieto práce dlhodobo ukazujú, že štandardizácia je užitočná, ale vždy sa pohybuje v napätí s prirodzenosťou a ekologickou validitou [@evans2015vignettes; @williams2017simulationmentalhealth]. Zistenia predkladanej práce na tento problém nadväzujú, ale prenášajú ho do prostredia generatívnej AI.
 
-Druhou oblasťou sú práce o generatívnej AI a kvalite textových výstupov. Tie spravidla zdôrazňujú, že jazyková plynulosť neznamená automaticky obsahovú správnosť a že aj veľmi presvedčivý text môže obsahovať nekonzistentnosti alebo halucinácie [@roustan2025cliniciansguide; @asgari2025hallucinationframework]. Ak sa v našich výsledkoch objavia red-flag chyby aj pri jazykovo plynulých rozhovoroch, bude to s týmito zisteniami v zhode.
+Druhou oblasťou je priamo simulation-based vzdelávanie v psychológii. Guidelines a commentary papers od `APPESWG` ukazujú, že simulácie a dokonca simulated placements už majú v profesionálnom psychologickom tréningu legitímne miesto, najmä ak pomáhajú standardizovať tréning, chrániť klientov a vytvárať opakovanú prax so spätnou väzbou [@appeswg2021newreality; @rice2022simulatedplacements]. Empirické práce z klinickopsychologického prostredia zároveň naznačujú, že simulation-based prvky sa môžu spájať s rastom confidence, vnímanej pripravenosti a niekedy aj s vyššou pripravenosťou na practicum podľa supervízorov, hoci väčšina týchto zistení má exploratórny alebo kurikulárno-implementačný charakter [@sheen2021simulationeducation; @glatz2022simulationelements]. To je dôležité pre interpretáciu našich výsledkov: naša štúdia ešte netestuje, či sa študenti na AI simuláciách skutočne učia lepšie, ale poskytuje predchádzajúci krok tým, že overuje kvalitu samotného materiálu, na ktorom by sa takéto učenie mohlo zakladať.
 
-Treťou oblasťou sú metodologické práce o hodnotení kvality meracích a simulačných materiálov odborníkmi. Predkladaná práca k nim prispieva tým, že nepoužíva iba celkový dojem, ale kombinuje primárne kvalitatívne ratingy, symptom fidelity logiku a defect dimenziu. Práve toto viacvrstvové hodnotenie považujem za jeden z hlavných metodologických prínosov práce.
+Treťou oblasťou sú práce o virtuálnych klientoch a chatbotových simuláciách v psychologickom a psychiatrickom vzdelávaní. Prehľad [@chaby2022embodiedvirtualpatients] ukazuje, že tréning komunikácie s pacientom prostredníctvom virtuálnych pacientov má v psychiatrii dlhšiu tradíciu, no pred-LLM nástroje často narážali na obmedzenú konverzačnú flexibilitu. Novšie práce ako `Client101` a `You're virtually a psychologist` ukazujú, že virtual client nástroje sú študentmi a praktikmi vnímané ako bezpečný a dostupný doplnok tréningu, no ich didaktická hodnota závisí od realismu, primeranej komplexity a od zasadenia do ľudskej supervízie [@schmidt2025client101; @morrison2025virtuallypsychologist]. Ak sa v našich výsledkoch ukáže, že niektoré varianty rozhovorov pôsobia príliš ochotne, genericky alebo málo konzistentne, bude to presne v súlade s týmito novšími zisteniami.
+
+Štvrtou oblasťou sú práce o generatívnej AI a kvalite textových výstupov. Tie spravidla zdôrazňujú, že jazyková plynulosť neznamená automaticky obsahovú správnosť a že aj veľmi presvedčivý text môže obsahovať nekonzistentnosti alebo halucinácie [@roustan2025cliniciansguide; @asgari2025hallucinationframework]. Ak sa v našich výsledkoch objavia red-flag chyby aj pri jazykovo plynulých rozhovoroch, bude to s týmito zisteniami v zhode. Predkladaná práca k tejto oblasti prispieva tým, že nepoužíva iba celkový dojem, ale kombinuje primárne kvalitatívne ratingy, symptom fidelity logiku a defect dimenziu. Práve toto viacvrstvové hodnotenie považujem za jeden z hlavných metodologických prínosov práce.
 
 ### 4.6 Limity výskumu
 
@@ -54,24 +58,30 @@ Piatym limitom je **modelová a promptová závislosť výstupov**. Výsledky sa
 
 Napriek uvedeným limitom má práca viacero praktických a metodologických dôsledkov. Po prvé, ukazuje, že AI-generované simulované interview možno hodnotiť systematicky a viacvrstvovo, nie iba intuitívne. Po druhé, naznačuje, že kvalita takýchto výstupov sa dá experimentálne zlepšovať cez kontrolu generovania. Po tretie, vytvára rámec, ktorý môže byť využitý aj pri ďalších témach, nielen pri depresívnej symptomatike.
 
+Z hľadiska psychologického vzdelávania je dôležité najmä to, že práca ponúka argument pre simulácie ako **doplnok**, nie náhradu živej praxe. Ak je kvalita simulovaného rozhovoru dostatočná, môže takýto materiál znižovať vstupnú bariéru pred prvým kontaktom s klientom, vytvárať bezpečný priestor na prvé pokusy, štandardizovať časť výučby naprieč nerovnakými lokálnymi podmienkami a cielene sprístupňovať aj menej časté alebo citlivé situácie, ktoré sa v bežnej výučbe nemusia objaviť včas alebo v dostatočnom rozsahu [@appeswg2021newreality; @rice2022simulatedplacements; @schmidt2025client101; @morrison2025virtuallypsychologist]. Pre študentov psychológie je takýto prínos relevantný najmä pri nácviku vedenia interview, práce s mlčaním či neistotou, symptom recognition, citlivého dopytovania na suicidálne alebo inak zaťažujúce témy a pri učení sa odlíšiť vierohodný klinický obraz od jazykovo plynulej, ale obsahovo problematickej simulácie.
+
+Z prakticko-technologického hľadiska považujem za dôležité aj to, že predmetom práce nie je iba jednorazový prompt alebo jednorazový set transkriptov. V rámci práce vzniká kontrolovaný simulačný rámec, v ktorom sa dajú prípady systematicky pripravovať, porovnávať, hodnotiť a iteratívne zlepšovať. To je relevantné nielen pre túto jednu štúdiu, ale aj ako metodický základ pre budúce tréningové a výskumné využitie pri ďalších klinických scenároch.
+
 Z praktického hľadiska môže byť výstup práce zaujímavý najmä pre:
 - tréning a výučbu psychologického interview,
 - pilotovanie ratingových nástrojov,
 - prípravu štandardizovaných prípadov,
-- metodologický výskum kvality AI-generovaných psychologických materiálov.
+- metodologický výskum kvality AI-generovaných psychologických materiálov,
+- budovanie rozšíriteľného simulačného rámca pre ďalšie klinické scenáre.
 
 Z metodologického hľadiska považujem za dôležité, že práca kombinuje tri úrovne posudzovania: celkovú kvalitu, fidelity voči seed anchorom a defect perspektívu. Táto kombinácia znižuje riziko, že kvalitu rozhovoru budeme hodnotiť iba na základe jazykovej plynulosti alebo iba na základe formálne správneho symptom checklistu.
 
 ### 4.8 Odporúčania pre ďalší výskum
 
-Budúci výskum by mal rozšíriť počet hodnotiteľov, spresniť anchorovanie niektorých domén a overiť, do akej miery sú zistenia replikovateľné pri inom modeli alebo inom prompting-u. Zaujímavým ďalším krokom by bolo aj porovnanie AI-generovaných simulovaných interview s ľudsky simulovanými rozhovormi alebo s iným typom štandardizovaných prípadov.
+Budúci výskum by mal rozšíriť počet hodnotiteľov, spresniť anchorovanie niektorých domén a overiť, do akej miery sú zistenia replikovateľné pri inom modeli alebo inom prompting-u. Zaujímavým ďalším krokom by bolo aj porovnanie AI-generovaných simulovaných interview s ľudsky simulovanými rozhovormi, s peer role-play, so štandardizovanými pacientmi alebo s iným typom štandardizovaných prípadov. Ešte dôležitejšie však bude posunúť sa od expert-rated kvality materiálu k learning outcome-om: teda testovať, či práca s takýmito simuláciami skutočne zlepšuje interview skill, symptom recognition, self-efficacy, pripravenosť na practicum alebo citlivé zvládanie rizikových tém u študentov psychológie [@sheen2021simulationeducation; @glatz2022simulationelements; @schmidt2025client101].
 
-Za metodologicky sľubné považujem aj:
-- rozšírenie seed priestoru,
-- porovnanie viacerých modelov,
+Za metodologicky a aplikačne sľubné považujem aj:
+- rozšírenie seed priestoru a ďalších diagnostických okruhov,
+- porovnanie viacerých modelov a viacerých architektúr riadenia simulácie,
 - využitie longitudinálneho alebo replikačného dizajnu,
-- rozšírenie hodnotenia o multimodálnu rovinu,
-- testovanie, či sa na základe expert feedbacku dá systém iteratívne zlepšovať.
+- rozšírenie hodnotenia o multimodálnu rovinu `voice`, `video` a nonverbálne signály,
+- testovanie, či sa na základe expert feedbacku dá systém iteratívne zlepšovať,
+- overenie, ako simulácie najlepšie integrovať do supervízie, debriefingu a existujúceho kurikula tak, aby zostali doplnkom, nie náhradou reálnej praxe.
 
 ### 4.9 Záver diskusie
 
