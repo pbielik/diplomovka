@@ -5,8 +5,8 @@ Sheen, J., Sutherland-Smith, W., Thompson, E., Youssef, G. J., Dudley, A., King,
 
 ## Identifikacia zdroja
 - DOI / URL: DOI `10.1080/13284207.2021.1923125`, URL `https://www.tandfonline.com/doi/full/10.1080/13284207.2021.1923125`
-- Zotero polozka alebo kolekcia: navrhovane `Diplomovka – AI Interview Depresia` -> `02.3 Education / training use-cases`
-- Overeny attachment: citekey overeny v Zotere; publisher page bola pri priamom CLI fetch blokovana, abstractovy obsah bol zachyteny cez search snippet a sekundarny APS summary
+- Zotero polozka alebo kolekcia: `Diplomovka – AI Interview Depresia` -> `02.3 Education / training use-cases`
+- Overeny attachment: [Sheen 2021 PDF](/Users/pavol.bielik/Zotero/storage/4YNBXDC5/Sheen%20et%20al.%20-%202021%20-%20Evaluating%20the%20impact%20of%20simulation-based%20education%20on%20clinical%20psychology%20students%27%20confidence%20and.pdf)
 
 ## Klaster z literature map
 - `02 LLM, mental health a psychiatria`
@@ -15,54 +15,64 @@ Sheen, J., Sutherland-Smith, W., Thompson, E., Youssef, G. J., Dudley, A., King,
 - should-read
 
 ## Typ zdroja
-- empiricka evaluacia simulation-based education v klinickej psychologii
+- empiricka mixed-methods evaluacia simulation-based education v klinickej psychologii
 
 ## Hlavna myslienka
-- Simulation-based education v klinickej psychologii sa javi ako uzitocna najma pre rast confidence a subjektivne vnimanej pripravenosti aplikovat vedomosti v praktikach blizsich realnemu klinickemu svetu, pricom silnejsie tvrdenia o objektivnej kompetencii treba citat opatrne.
+- Simulation-based education v klinickej psychologii ma v tomto malom pilotnom dizajne najjasnejsiu oporu pri raste confidence a vnimanej priblizenosti realnej praxi, zatial co pri objektivnejsie hodnotenej klinickej kompetencii neukazuje jasnu prevahu nad case-based edukaciou.
 
 ## Na co to pouzijem v diplomovke
 - kapitola alebo sekcia: `manuscript/20_introduction.md`, `manuscript/50_discussion.md`
-- funkcia: supporting literature pre tvrdenie, ze simulacie vo vzdelavani klinickej psychologie nemaju len technologicky, ale aj edukacny efekt
+- funkcia: supporting literature pre tvrdenie, ze simulacne prvky mozu zvysovat vnimanu pripravenost na realnejsie klinicke situacie, ale netreba z nich robit prilis silne tvrdenia o objektivnom vykone
 
 ## Klucove evidencne bloky
 
 ### Blok 1
-- opiera sa o: article abstract zachyteny na publisher search page
-- locator: abstract / search snippet k DOI `10.1080/13284207.2021.1923125`
+- opiera sa o: Abstract
+- locator: PDF p. 2, Abstract
 - kontrolny excerpt:
-  > "post-intervention participants reported significantly higher confidence in applying their knowledge to real-world settings"
-- parafraza: Paper podporuje tvrdenie, ze simulacne prvky mozu zvysovat pocit pripravenosti aplikovat teoreticke vedomosti do realnejsich klinickych situacii.
-- use: opora pre argument o moste medzi teoriou a prvou praxou
+  > "those in the simulation-based education condition rated their confidence in applying knowledge learnt to real-world settings higher"
+- parafraza: V porovnani s case-based edukaciou mala simulation-based vetva vyssi subjektivny efekt na confidence pri prenose ucenia do realnejsich klinickych situacii.
+- use: opora pre opatrne tvrdenie o confidence a perceived readiness
 
 ### Blok 2
-- opiera sa o: article abstract zachyteny na publisher search page
-- locator: abstract / search snippet k DOI `10.1080/13284207.2021.1923125`
+- opiera sa o: Abstract
+- locator: PDF p. 2, Abstract
 - kontrolny excerpt:
-  > "there was no evidence simulation-based education was more effective ... at improving students' clinical skill performance"
-- parafraza: Zdoraznene je aj obmedzenie: paper nepodava jednoznacny dokaz, ze simulacia sama osebe prevysuje ine vyucbove metody v objektivnom klinickom vykone.
-- use: brzda proti prehnanym tvrdeniam v diskusii
+  > "showed increased competence ... however, this improvement was not greater overall than that observed in the case-based education group"
+- parafraza: Obe skupiny sa zlepsovali, ale simulation-based edukacia tu neposkytuje cisty dokaz o vyssej objektivne hodnotenej kompetencii oproti case-based pristupu.
+- use: brzda proti prehnanym tvrdeniam o efektoch simulacie na klinicky vykon
 
 ### Blok 3
-- opiera sa o: APS summary k paperu
-- locator: APS InPsych summary k Sheen et al. 2021
+- opiera sa o: Discussion, section `4.1 The impact of SBE and CBE on psychology students' confidence to practice`
+- locator: PDF p. 9, section `4.1`
 - kontrolny excerpt:
-  > "students viewed the simulations as more like real-world clinical practice than case-based materials"
-- parafraza: Sekundarna profesijna sumarizacia paperu hovori, ze studenti povazovali simulacie za blizsie realnej praxi nez case-based materialy.
-- use: doplnkova opora pre ekologicku validitu simulacii
+  > "students in the SBE group reported significantly greater confidence in applying their learning to real-world settings ... 'I felt much more confident going into the second OSCE after watching videos'"
+- parafraza: Diskusia potvrdzuje, ze hlavny pozitivny signal simulation-based vetvy bol v confidence a v tom, ze studenti vnimali videa ako uzitocny model pre bliziacu sa OSCE a prax.
+- use: pri edukacnom framingu ako overeny confidence/practice bridge
+
+### Blok 4
+- opiera sa o: Discussion, sections `4.2` a `4.5`
+- locator: PDF p. 10-11, Discussion
+- kontrolny excerpt:
+  > "2-hr of an education-specific intervention is not sufficient to demonstrate a measurable effect on clinical competence"
+- parafraza: Autori sami ponukaju opatrne vysvetlenie nuloveho alebo slabeho kompetencneho efektu: mala vzorka, kratka davka intervencie a metodicke limity brzdia silnejsie inferencie.
+- use: pri diskusii limitov a pri opatrnom citani edukacnych efektov simulacie
 
 ## Klucova definicia / vysledok / argument
-- Simulation-based education v klinickej psychologii ma najpresvedcivejsiu oporu v oblasti confidence, engagement a vnimanej pripravenosti; prudke tvrdenia o objektivnych kompetencnych ziskoch si ziadaju silnejsie dizajny.
+- Pre klinickopsychologicke vzdelavanie je paper uzitocny najma ako evidence point, ze simulacia moze zvysovat confidence a perceived alignment s praxou, nie ako silny dokaz, ze sama osebe zlepsuje objektivne klinicke competence outcomes.
 
 ## Limity alebo pozor
-- Priamy fulltext publisher page bol pri terminalovom fetchi blokovany.
-- Dolezite tvrdenia su tu zatial oprete o abstractove zhrnutie a profesijny summary, preto je vhodne pri finalnej Word verzii manualne overit konkretne tabulky a pasaze.
+- Mala pilotna vzorka (`n = 12`) a zmiesany mixed-methods dizajn.
+- Vysledky su pouzitelne na opatrny edukacny framing, nie na silny kauzalny claim o superiorite simulacie.
+- V paperi sa objavili aj prakticke limity pouzitia SBE, najma potreba jasnych instrukcii, casu a lepsieho ukotvenia learning expectations.
 
 ## Klucove citovatelne miesto
-- abstract k DOI `10.1080/13284207.2021.1923125`
-- APS InPsych research summary
+- PDF p. 2, Abstract
+- PDF p. 9, section `4.1`
+- PDF p. 10-11, Discussion / limits
 
 ## Tagy
 - methods / seeding
 
 ## Status pouzitia
-- discussion / needs manual check
+- discussion / checked
