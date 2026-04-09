@@ -1,11 +1,13 @@
-# Word preview build artefakty (z `tools/build_word_preview.sh` a
-# `tools/build_word_clean.sh`).
+# Word preview build artefakty (z `tools/build_word_preview.sh`,
+# `tools/build_word_clean.sh` a `tools/build_word_plan_b_citekeys.sh`).
 # AGENTS.md sekcia 11: `.docx` sa do repa nemajú commitovať pri každej drobnosti.
 # Finálne milestone Word súbory ukladaj zámerne, nie cez tieto preview buildy.
 /diplomovka_preview.docx
 /diplomovka_preview_*.docx
 /diplomovka_clean.docx
 /diplomovka_clean_*.docx
+/diplomovka_plan_b_citekeys.docx
+/diplomovka_plan_b_citekeys_*.docx
 
 # Word lockfiles (Microsoft Word otvorený dokument)
 ~$*.docx

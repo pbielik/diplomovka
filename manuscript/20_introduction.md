@@ -96,15 +96,21 @@ V nadväznosti na hlavný cieľ sledujeme aj niekoľko parciálnych cieľov:
 
 #### Výskumné otázky
 
-Na základe uvedených východísk formulujeme tieto výskumné otázky:
+Na základe uvedených východísk formulujeme výskumné otázky po blokoch sledovaných premenných. Tento spôsob zodpovedá bežnej logike psychologických diplomových prác, v ktorých sa otázky a hypotézy radia podľa skúmaných outcome-ov a nie podľa technickej náročnosti analýz. Výskumné otázky preto v tejto práci tvoria širší opisno-inferenčný rámec, zatiaľ čo hypotézy nižšie predstavujú užšie smerové predpoklady tam, kde má práca silnejšiu literárnu oporu.
+
+**Blok A — globálna kvalita interview a symptom fidelity**
 
 **VO1.** Ako odborní hodnotitelia celkovo hodnotia klinickú vierohodnosť, prirodzenosť, vnútornú konzistentnosť a tréningovú použiteľnosť AI-generovaných simulovaných klinických interview o depresívnej symptomatike?
 
 **VO2.** Do akej miery sú AI-generované simulované klinické interview symptomaticky primerané vzhľadom na cieľový seed scenár, z ktorého vychádzajú?
 
+**Blok B — štýl odpovedania simulovaného pacienta (`profile`)**
+
 **VO3.** Aký vzťah má štýl odpovedania simulovaného pacienta ku klinickej vierohodnosti, prirodzenosti, vnútornej konzistentnosti a tréningovej použiteľnosti interview?
 
 **VO4.** Aký vzťah má štýl odpovedania simulovaného pacienta k symptomatickej primeranosti interview a k výskytu red flags?
+
+**Blok C — interakcia, zhoda a doplnkové výstupy**
 
 **VO5.** Existuje interakčný efekt medzi prítomnosťou štruktúrujúceho klinického usmernenia a štýlom odpovedania simulovaného pacienta vo vzťahu ku kvalite interview?
 
@@ -114,11 +120,13 @@ Na základe uvedených východísk formulujeme tieto výskumné otázky:
 
 **VO8.** Aké typy pozitívnych a negatívnych komentárov sa v otvorených odpovediach odborných hodnotiteľov objavujú najčastejšie?
 
-Za jadrové výskumné otázky pre finálnu verziu považujeme `VO1`, `VO3`, `VO5` a `VO6`. Otázky `VO2`, `VO7` a `VO8` ostávajú ako doplnkové a exploračné.
+Za jadro konfirmačnej analytickej línie v tejto práci považujeme hypotézy `H1`–`H9`. Výskumné otázky `VO1`–`VO6` poskytujú širší rámec pre deskriptívny, inferenčný a merací blok; `VO7` a `VO8` ostávajú exploračné.
 
 #### Hypotézy
 
 Keďže doterajšia literatúra poskytuje najpresvedčivejšiu oporu najmä pre význam klinicky ukotveného a štruktúrovaného riadenia simulácie, jadrové hypotézy práce smerujeme prednostne na premennú prítomnosti štruktúrujúceho klinického usmernenia (`guardrail`). Tieto hypotézy formulujeme jednostranne, pretože predpokladáme konkrétny smer účinku a tento smer je v príbuznej literatúre aspoň čiastočne podporený zisteniami o vyššej prirodzenosti, realizme alebo fidelite klinicky ukotvených simulovaných pacientov v porovnaní s jednoduchšími baseline riešeniami [@li2024curefun; @wang2024patientpsi; @lee2025adaptivevp].
+
+**Blok A — hypotézy ku globálnej kvalite interview a symptom fidelity (`VO1`, `VO2`)**
 
 **H1.** Interview vytvorené so štruktúrujúcim klinickým usmernením (`guardrail = on`) budú odbornými hodnotiteľmi posudzované ako klinicky vierohodnejšie než interview vytvorené bez štruktúrujúceho klinického usmernenia (`guardrail = off`), a to na úrovni `plausibility_index` aj jednotlivých položiek `G1`, `G3` a `G4`.
 
@@ -132,15 +140,23 @@ Keďže doterajšia literatúra poskytuje najpresvedčivejšiu oporu najmä pre 
 
 Popri jadrových hypotézach uvádzame aj rozšírené pracovné hypotézy, ktoré môžu byť pri finálnej redakcii buď ponechané, alebo redukované podľa sily ich literárnej opory:
 
+**Blok B — hypotézy k efektu štýlu odpovedania simulovaného pacienta (`VO3`, `VO4`)**
+
 **H6.** Interview s vyváženým alebo rozvinutým štýlom odpovedania simulovaného pacienta (`profile = R2` alebo `R3`) budú odbornými hodnotiteľmi posudzované ako klinicky vierohodnejšie než interview so zdržanlivým štýlom odpovedania (`profile = R1`).
 
 **H7.** Interview s rozvinutejším štýlom odpovedania (`profile = R3`) budú odbornými hodnotiteľmi posudzované ako prirodzenejšie a tréningovo použiteľnejšie než interview so zdržanlivejším štýlom odpovedania (`profile = R1`, `R2`), najmä na položkách `G2` a `G5`.
 
 **H8.** Interview s rozvinutejším štýlom odpovedania (`profile = R3`) budú poskytovať symptomaticky bohatší a presnejší obraz prípadu než interview so zdržanlivejším štýlom (`profile = R1`), teda budú mať nižšiu `symptom_error_mean`.
 
+Pri širšie formulovanej `VO4` zatiaľ samostatne nehypotetizujeme efekt `profile` pre `severity_error`, `impact_error` a `defect_index`, pretože pre takto špecifický smer účinku nemáme rovnako silnú literárnu oporu ako pre `symptom_error_mean`. Tieto výstupy budú preto v tejto práci interpretované ako inferenčná odpoveď na `VO4`, nie ako samostatné smerové hypotézy.
+
+**Blok C — hypotéza k interakcii a nehypotetické bloky (`VO5`–`VO8`)**
+
 **H9.** Pozitívny účinok štruktúrujúceho klinického usmernenia na kvalitu interview bude výraznejší pri rozvinutejšom štýle odpovedania simulovaného pacienta (`profile = R3`) než pri zdržanlivejšom štýle (`profile = R1`, `R2`); inými slovami, očakávame interakciu `guardrail × profile` v prospech kombinácie `guardrail = on` a `profile = R3`.
 
-Za metodologicky najčistejšie jadro pre finálnu verziu práce momentálne považujeme `H1`–`H5`. Hypotézy `H6`–`H9` sú použiteľné skôr ako rozšírená pracovná vrstva, z ktorej možno podľa potreby uberať.
+Pre `VO6` neformulujeme samostatnú hypotézu, pretože ide o merací blok zameraný na mieru zhody hodnotiteľov, nie o predikčný alebo komparačný výskumný problém. `VO7` a `VO8` ostávajú zámerne exploračné, a preto k nim samostatné hypotézy nevytvárame.
+
+Za metodologicky najčistejšie jadro konfirmačného testu pre finálnu verziu práce momentálne považujeme `H1`–`H5`. Hypotézy `H6`–`H9` sú použiteľné skôr ako rozšírená pracovná vrstva, z ktorej možno podľa potreby uberať.
 
 ### 1.8 Prechod k metodickej časti
 

@@ -6,11 +6,22 @@
 
 ### 3.1 Logika prezentácie výsledkov
 
-Výsledky sú prezentované v poradí, ktoré zodpovedá analytickému plánu výskumu (Metóda, 2.8) a poradiu hypotéz `H1`–`H9` z Úvodu. Najprv uvádzame základné charakteristiky datasetu a ratingového nástroja a ich deskriptívnu analýzu. Následne reportujeme vnútornú konzistenciu nástroja, interrater reliabilitu a inferenčné výsledky pre jadrové hypotézy `H1`–`H5` zamerané na efekt premennej `guardrail`. V ďalšej časti uvádzame výsledky pre rozšírené hypotézy `H6`–`H9` zamerané na premennú `profile` a na interakciu `guardrail × profile`. V závere kapitoly prezentujeme doplnkové a exploratórne analýzy položiek `guessed_origin`, `guess_confidence` a `comment`, ktoré odpovedajú na `VO7` a `VO8`.
+Výsledky sú prezentované po blokoch outcome-ov a v poradí, ktoré zodpovedá Úvodu aj Metóde: najprv deskriptívny blok globálnej kvality interview a symptom fidelity (`VO1`, `VO2`), potom blok kvality merania a zhody (`VO6`), následne konfirmačný blok efektu `guardrail` (`H1`–`H5`, priamy príspevok k `VO1` a `VO2`), rozšírený blok efektu `profile` a interakcie `guardrail × profile` (`VO3`–`VO5`, `H6`–`H9`) a napokon doplnkový exploračný blok (`VO7`, `VO8`). Takéto radenie sleduje logiku skúmaných premenných, nie technickú náročnosť štatistických postupov.
+
+Explicitné mapovanie výskumných otázok na výsledkové bloky je v tejto placeholder verzii nasledovné:
+
+- `VO1`: sekcie 3.2, 3.3, 3.5.1, 3.5.2 a 3.5.5.
+- `VO2`: sekcie 3.2, 3.3 a 3.5.4.
+- `VO3`: sekcie 3.6.1 a 3.6.2.
+- `VO4`: sekcia 3.6.3 vrátane `profile` kontrastov pre `symptom_error_mean`, `severity_error`, `impact_error` a `defect_index`.
+- `VO5`: sekcia 3.6.4.
+- `VO6`: sekcia 3.4.
+- `VO7`: sekcia 3.7.1.
+- `VO8`: sekcia 3.7.2.
 
 V texte reportujeme len číselné údaje, ktoré sú nevyhnutné pre interpretáciu hypotéz a výskumných otázok. Rozsiahlejšie výstupy sú umiestnené do tabuliek a grafov, aby sa údaje zbytočne neopakovali. Pri každom inferenčnom výsledku uvádzame popri `p`-hodnote aj odhad efektu, jeho 95 % interval spoľahlivosti a vecnú interpretáciu smeru a veľkosti rozdielu.
 
-### 3.2 Charakteristika datasetu a základné deskriptíva
+### 3.2 Charakteristika datasetu a základné deskriptíva (`VO1`, deskriptívna časť `VO2`)
 
 Do finálnej analýzy bolo zaradených **[doplniť počet hodnotiteľov]** hodnotiteľov, ktorí spolu vytvorili **[doplniť počet ratingov]** platných ratingov. Hodnotených bolo 72 transkriptov vygenerovaných z 12 seed scenárov a 6 experimentálnych variantov (2 úrovne `guardrail` × 3 úrovne `profile`). Priemerný počet hodnotení na jeden transkript bol **[doplniť priemer]** (`SD` = **[doplniť]**, rozsah **[doplniť]**–**[doplniť]**). Základné charakteristiky datasetu sú uvedené v Tabuľke 1.
 
@@ -21,7 +32,7 @@ Deskriptívne ukazovatele primárnych a sekundárnych premenných sumarizuje Tab
 > - **Tabuľka 2** — deskriptívne ukazovatele pre `G1`–`G5`, `A1`–`A9`, `S1`, `S2`, `R1`–`R5`, `plausibility_index`, `defect_index`, `symptom_error_mean`, `severity_error`, `impact_error` (medián, IQR, prípadne priemer a SD podľa typu premennej).
 > - **Obrázok 1** — histogramy alebo boxploty `plausibility_index` a `defect_index` podľa kombinácií `guardrail × profile`.
 
-### 3.3 Frekvenčné rozdelenie a vnútorná konzistencia ratingového nástroja
+### 3.3 Frekvenčné rozdelenie a vnútorná konzistencia ratingového nástroja (`VO1`, meracia opora pre `VO2`)
 
 Ako prvý analytický krok bolo zostavené frekvenčné rozdelenie odpovedí na položky `G1`–`G5`, `A1`–`A9`, `S1`, `S2` a `R1`–`R5`. Cieľom tohto kroku bolo posúdiť, či hodnotitelia využívali celé spektrum odpoveďových kategórií a či niektoré položky nevykazovali systematicky jednostranné rozdelenie. Frekvenčné analýzy ukázali, že **[doplniť stručné zhrnutie využitia škál: napr. položky `G1`–`G5` pokrývali celé spektrum / niektoré položky `R` boli koncentrované v dolných kategóriách / vybrané `A` domény vykazovali zreteľný strop alebo dno]**.
 
@@ -46,7 +57,7 @@ Hodnoty ICC dosiahli **[doplniť hodnotu]** pri `plausibility_index` (95 % CI **
 > Doplniť:
 > - **Tabuľka 5** — hodnoty ICC, 95 % CI a interpretačné kategórie pre `plausibility_index`, `defect_index` a `symptom_error_mean`.
 
-### 3.5 Jadrové výsledky: efekt štruktúrujúceho klinického usmernenia (`H1`–`H5`)
+### 3.5 Jadrové výsledky: efekt štruktúrujúceho klinického usmernenia (`H1`–`H5`, priamy príspevok k `VO1` a `VO2`)
 
 Jadrové hypotézy boli overované pomocou lineárnych zmiešaných modelov (pre kompozity a error-based ukazovatele) a ordinal cumulative link mixed modelov (pre jednotlivé ordinálne položky), ktorých všeobecná špecifikácia je uvedená v časti 2.8.5 Metódy [@hedeker2016MixedeffectsLocationScaleModel; @christensenCumulativeLinkModels]:
 
@@ -105,35 +116,37 @@ Doplnkovo, na úrovni jednotlivých symptomatických domén `A1`–`A9`, najvyš
 > Doplniť:
 > - Tabuľku odhadov ordinálneho modelu pre `G5`.
 
-### 3.6 Rozšírené výsledky: efekt štýlu odpovedania a interakcia (`H6`–`H9`)
+### 3.6 Rozšírené výsledky: efekt štýlu odpovedania a interakcia (`Blok B` a `Blok C`; `VO3`–`VO5`, `H6`–`H9`)
 
-Rozšírené hypotézy `H6`–`H9` sa týkajú efektu premennej `profile` (štýl odpovedania simulovaného pacienta na úrovniach `R1`, `R2`, `R3`) a interakcie `guardrail × profile`. Tieto výsledky reportujeme ako pracovnú vrstvu, ktorá môže byť pri finálnej redakcii ponechaná alebo redukovaná podľa sily zistení.
+Rozšírené hypotézy `H6`–`H9` sa týkajú efektu premennej `profile` (štýl odpovedania simulovaného pacienta na úrovniach `R1`, `R2`, `R3`) a interakcie `guardrail × profile`. V logike Úvodu a Metódy ide o pokračovanie **Bloku B** (`VO3`, `VO4`, `H6`–`H8`) a **Bloku C** (`VO5`, `H9`), pričom `VO6`–`VO8` ostávajú mimo tejto hypotetickej vetvy.
 
-#### 3.6.1 `H6` — Profile a klinická plausibilita
+#### 3.6.1 `H6` — Profile a klinická plausibilita (`VO3`)
 
 `H6` predpokladala, že interview s vyváženým alebo rozvinutým štýlom odpovedania (`profile = R2` alebo `R3`) budú klinicky vierohodnejšie než interview so zdržanlivým štýlom (`profile = R1`), a to na úrovni `plausibility_index`.
 
 Hlavný efekt `profile` v modeli pre `plausibility_index` bol **[doplniť: významný / nevýznamný]** (`F` = **[doplniť]** alebo `LR` = **[doplniť]**, `p` = **[doplniť]**). Kontrasty `R2` vs. `R1` a `R3` vs. `R1` ukázali odhady **[doplniť]** a **[doplniť]** (95 % CI **[doplniť]** a **[doplniť]**). Hypotéza `H6` bola **[podporená / nepodporená / podporená čiastočne]**.
 
-#### 3.6.2 `H7` — Profile a prirodzenosť/použiteľnosť (`G2`, `G5`)
+#### 3.6.2 `H7` — Profile a prirodzenosť/použiteľnosť (`G2`, `G5`, `VO3`)
 
 `H7` predpokladala, že interview s rozvinutejším štýlom odpovedania (`profile = R3`) budú prirodzenejšie a tréningovo použiteľnejšie než interview so zdržanlivejším štýlom (`profile = R1`, `R2`), najmä na položkách `G2` a `G5`. Ordinal mixed modely ukázali, že efekt `profile` bol **[doplniť]** pre `G2` a **[doplniť]** pre `G5`. Kontrast `R3` vs. `R1`/`R2` bol **[doplniť]** pre `G2` a **[doplniť]** pre `G5`. Hypotéza `H7` bola **[podporená / nepodporená / podporená čiastočne]**.
 
-#### 3.6.3 `H8` — Profile a symptomatická presnosť (`symptom_error_mean`)
+#### 3.6.3 `H8` — Profile, symptomatická presnosť a red flags (`VO4`)
 
-`H8` predpokladala, že interview s rozvinutejším štýlom odpovedania (`profile = R3`) budú poskytovať symptomaticky bohatší a presnejší obraz prípadu než interview so zdržanlivejším štýlom (`profile = R1`), teda budú mať nižší `symptom_error_mean`. Lineárny zmiešaný model ukázal, že efekt `profile` na `symptom_error_mean` bol **[doplniť]** (`F` = **[doplniť]**, `p` = **[doplniť]**). Kontrast `R3` vs. `R1` bol **[doplniť]** (95 % CI **[doplniť]**). Hypotéza `H8` bola **[podporená / nepodporená / podporená čiastočne]**.
+`H8` predpokladala, že interview s rozvinutejším štýlom odpovedania (`profile = R3`) budú poskytovať symptomaticky bohatší a presnejší obraz prípadu než interview so zdržanlivejším štýlom (`profile = R1`), teda budú mať nižší `symptom_error_mean`. Primárne testovaným outcome tejto hypotézy bol preto `symptom_error_mean`. Keďže `VO4` je formulovaná širšie, v tejto podsekcii budú v skrátenej podobe reportované aj hlavné efekty `profile` pre `severity_error`, `impact_error` a `defect_index`, aj keď pre tieto výstupy nebola formulovaná samostatná smerová hypotéza.
 
-#### 3.6.4 `H9` — Interakcia `guardrail × profile`
+Lineárny zmiešaný model ukázal, že efekt `profile` na `symptom_error_mean` bol **[doplniť]** (`F` = **[doplniť]**, `p` = **[doplniť]**). Kontrast `R3` vs. `R1` bol **[doplniť]** (95 % CI **[doplniť]**). Hypotéza `H8` bola **[podporená / nepodporená / podporená čiastočne]**. Na úrovni širšie formulovanej `VO4` bol hlavný efekt `profile` **[doplniť]** aj pri `severity_error`, **[doplniť]** pri `impact_error` a **[doplniť]** pri `defect_index`, čo ukáže, či sa efekt štýlu odpovedania prejavuje iba v symptom fidelity, alebo aj v kvalite problematických prvkov rozhovoru.
+
+#### 3.6.4 `H9` — Interakcia `guardrail × profile` (`VO5`)
 
 `H9` predpokladala, že pozitívny účinok štruktúrujúceho klinického usmernenia bude výraznejší pri rozvinutejšom štýle odpovedania (`profile = R3`), najmä pri `plausibility_index` a `defect_index`.
 
-Interakčný člen `guardrail × profile` bol pri `plausibility_index` **[doplniť: významný / nevýznamný]** (`p` = **[doplniť]**) a pri `defect_index` **[doplniť]** (`p` = **[doplniť]**). Ak interakcia bola prítomná, jej smer naznačoval, že **[doplniť stručnú interpretáciu vzoru: napr. najvyššia plausibilita pri kombinácii `guardrail = on` a `profile = R3` / efekt `guardrail` je viditeľný len pri `R3`]**. Hypotéza `H9` bola **[podporená / nepodporená / podporená čiastočne]**.
+Interakčný člen `guardrail × profile` bol pri `plausibility_index` **[doplniť: významný / nevýznamný]** (`p` = **[doplniť]**) a pri `defect_index` **[doplniť]** (`p` = **[doplniť]**). Aby bola explicitne uzavretá aj `VO5`, v tejto podsekcii sa doplnkovo uvedie, či sa analogický vzor interakcie objavil aj pri `symptom_error_mean`, `severity_error` a `impact_error`. Ak interakcia bola prítomná, jej smer naznačoval, že **[doplniť stručnú interpretáciu vzoru: napr. najvyššia plausibilita pri kombinácii `guardrail = on` a `profile = R3` / efekt `guardrail` je viditeľný len pri `R3`]**. Hypotéza `H9` bola **[podporená / nepodporená / podporená čiastočne]**.
 
 > Doplniť:
 > - **Tabuľka 6** — súhrn odhadov mixed modelov pre `plausibility_index`, `defect_index`, `symptom_error_mean`, `severity_error` a `impact_error` (hlavné efekty + interakcia).
 > - **Obrázok 2** — odhadované marginálne priemery `plausibility_index` a `defect_index` podľa kombinácií `guardrail × profile` s 95 % CI.
 
-### 3.7 Doplnkové a exploratórne analýzy
+### 3.7 Doplnkové a exploratórne analýzy (`VO7`, `VO8`)
 
 #### 3.7.1 Vnímaný pôvod rozhovoru (`guessed_origin`, `guess_confidence`) — `VO7`
 

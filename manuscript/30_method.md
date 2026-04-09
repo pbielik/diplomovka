@@ -157,17 +157,23 @@ V celej práci používam rovnaké názvy premenných ako v ratingovom codebooku
 
 ### 2.6 Empirické výskumné otázky a hypotézy
 
-Lokálny sprievodca uvádza, že po teoretickom vymedzení výskumného problému majú v Metóde nasledovať empirické výskumné otázky a hypotézy formulované v jazyku pozorovateľných alebo odvodených premenných. Výskumné otázky `VO1`–`VO8` a hypotézy `H1`–`H9` sú už v Úvode (časť 1.7) formulované v jazyku konkrétnych premenných ratingového nástroja, takže ich empirická úroveň je s konceptuálnou totožná. V tejto časti ich preto iba znovu uvádzame s explicitným prepojením na empirické modelové schémy, ktoré sú použité vo Výsledkoch.
+Lokálny sprievodca uvádza, že po teoretickom vymedzení výskumného problému majú v Metóde nasledovať empirické výskumné otázky a hypotézy formulované v jazyku pozorovateľných alebo odvodených premenných. Súčasne však nie je účelné duplikovať tú istú analytickú líniu dvoma paralelnými formuláciami bez pridanej hodnoty. V tejto práci preto výskumné otázky `VO1`–`VO8` tvoria širšie bloky podľa skúmaných outcome-ov a hypotézy `H1`–`H9` predstavujú užšie smerové predpoklady najmä pre efekt `guardrail` a rozšírený efekt `profile`/interakcie. Všetky sú už v Úvode (časť 1.7) formulované v jazyku konkrétnych premenných ratingového nástroja, takže ich empirická úroveň je s konceptuálnou totožná. V tejto časti ich preto iba znovu uvádzame s explicitným prepojením na modelové schémy použité vo Výsledkoch.
 
 #### 2.6.1 Empirické výskumné otázky (rekapitulácia z Úvodu, 1.7)
+
+**Blok A — globálna kvalita interview a symptom fidelity**
 
 **`VO1`.** Ako odborní hodnotitelia celkovo hodnotia klinickú vierohodnosť, prirodzenosť, vnútornú konzistentnosť a tréningovú použiteľnosť AI-generovaných simulovaných klinických interview o depresívnej symptomatike (`G1`–`G5`, `plausibility_index`)?
 
 **`VO2`.** Do akej miery sú AI-generované simulované klinické interview symptomaticky primerané vzhľadom na cieľový seed scenár, z ktorého vychádzajú (`A1`–`A9`, `S1`, `S2`, `symptom_error_mean`, `severity_error`, `impact_error`)?
 
+**Blok B — štýl odpovedania simulovaného pacienta (`profile`)**
+
 **`VO3`.** Aký vzťah má štýl odpovedania simulovaného pacienta (`profile`) ku klinickej vierohodnosti, prirodzenosti, vnútornej konzistentnosti a tréningovej použiteľnosti interview (`plausibility_index`, `G2`, `G5`)?
 
 **`VO4`.** Aký vzťah má štýl odpovedania simulovaného pacienta (`profile`) k symptomatickej primeranosti interview a k výskytu red flags (`symptom_error_mean`, `severity_error`, `impact_error`, `defect_index`)?
+
+**Blok C — interakcia, zhoda a doplnkové výstupy**
 
 **`VO5`.** Existuje interakčný efekt medzi prítomnosťou štruktúrujúceho klinického usmernenia (`guardrail`) a štýlom odpovedania simulovaného pacienta (`profile`) vo vzťahu ku kvalite interview (`plausibility_index`, `defect_index`, error-based premenné)?
 
@@ -177,11 +183,13 @@ Lokálny sprievodca uvádza, že po teoretickom vymedzení výskumného problém
 
 **`VO8`.** Aké typy pozitívnych a negatívnych komentárov sa v otvorených odpovediach odborných hodnotiteľov objavujú najčastejšie (`comment`)?
 
-Za jadrové výskumné otázky pre finálnu verziu sa považujú `VO1`, `VO3`, `VO5` a `VO6`. Otázky `VO2`, `VO7` a `VO8` ostávajú ako doplnkové a exploračné.
+V poradí výsledkov budú tieto bloky reportované takto: `VO1`–`VO2` ako deskriptívny a symptom-fidelity blok, `VO3`–`VO4` ako blok efektu `profile`, `VO5` ako interakčný blok, `VO6` ako blok zhody a `VO7`–`VO8` ako doplnkový exploračný blok. Konfirmačný efekt `guardrail` je vzhľadom na silnejšiu literárnu oporu testovaný primárne cez `H1`–`H5`, aby sa zbytočne nezdvojovala výskumná otázka a hypotéza pre ten istý analytický test.
 
 #### 2.6.2 Empirické hypotézy – jadro (`H1`–`H5`)
 
 Jadrové hypotézy práce smerujú prednostne na premennú `guardrail`, pretože doterajšia literatúra poskytuje najpresvedčivejšiu oporu pre význam klinicky ukotveného a štruktúrovaného riadenia simulácie [@li2024curefun; @wang2024patientpsi; @lee2025adaptivevp]. Tieto hypotézy sú formulované jednostranne, pretože predpokladáme konkrétny smer účinku.
+
+**Blok A — hypotézy ku globálnej kvalite interview a symptom fidelity (`VO1`, `VO2`)**
 
 **`H1`.** Interview vytvorené so štruktúrujúcim klinickým usmernením (`guardrail = on`) budú odbornými hodnotiteľmi posudzované ako klinicky vierohodnejšie než interview vytvorené bez štruktúrujúceho klinického usmernenia (`guardrail = off`), a to na úrovni `plausibility_index` aj jednotlivých položiek `G1`, `G3` a `G4`.
 
@@ -197,13 +205,21 @@ Jadrové hypotézy práce smerujú prednostne na premennú `guardrail`, pretože
 
 Popri jadrových hypotézach sú v práci formulované aj rozšírené hypotézy zamerané na efekt `profile` a interakciu `guardrail × profile`. Tieto hypotézy môžu byť pri finálnej redakcii buď ponechané, alebo redukované podľa sily ich literárnej opory.
 
+**Blok B — hypotézy k efektu štýlu odpovedania simulovaného pacienta (`VO3`, `VO4`)**
+
 **`H6`.** Interview s vyváženým alebo rozvinutým štýlom odpovedania simulovaného pacienta (`profile = R2` alebo `R3`) budú odbornými hodnotiteľmi posudzované ako klinicky vierohodnejšie než interview so zdržanlivým štýlom odpovedania (`profile = R1`), a to na úrovni `plausibility_index`.
 
 **`H7`.** Interview s rozvinutejším štýlom odpovedania (`profile = R3`) budú odbornými hodnotiteľmi posudzované ako prirodzenejšie a tréningovo použiteľnejšie než interview so zdržanlivejším štýlom odpovedania (`profile = R1`, `R2`), najmä na položkách `G2` a `G5`.
 
 **`H8`.** Interview s rozvinutejším štýlom odpovedania (`profile = R3`) budú poskytovať symptomaticky bohatší a presnejší obraz prípadu než interview so zdržanlivejším štýlom (`profile = R1`), teda budú mať nižší `symptom_error_mean`.
 
+Pri širšie formulovanej `VO4` zatiaľ samostatne nehypotetizujeme efekt `profile` pre `severity_error`, `impact_error` a `defect_index`, pretože pre takto špecifický smer účinku nemáme rovnako silnú literárnu oporu ako pre `symptom_error_mean`. Tieto výstupy preto budú vo Výsledkoch spracované ako inferenčná odpoveď na `VO4`, nie ako samostatné smerové hypotézy.
+
+**Blok C — hypotéza k interakcii a nehypotetické bloky (`VO5`–`VO8`)**
+
 **`H9`.** Pozitívny účinok štruktúrujúceho klinického usmernenia na kvalitu interview bude výraznejší pri rozvinutejšom štýle odpovedania simulovaného pacienta (`profile = R3`) než pri zdržanlivejšom štýle (`profile = R1`, `R2`); inými slovami, očakávame interakciu `guardrail × profile` v prospech kombinácie `guardrail = on` a `profile = R3`, najmä pri `plausibility_index` a `defect_index`.
+
+Pre `VO6` neformulujeme samostatnú hypotézu, pretože ide o merací blok zameraný na mieru zhody hodnotiteľov. `VO7` a `VO8` ostávajú zámerne exploračné a budú reportované bez samostatných smerových hypotéz.
 
 ### 2.7 Procedúra výskumu
 
@@ -258,6 +274,8 @@ Tento model je použitý pre premenné:
 - `impact_error` (`H4`, časť `H9`).
 
 Pre jednotlivé ordinálne položky, najmä `G2` (`H2`, `H7`), `G5` (`H5`, `H7`) a `guess_confidence`, sú plánované **ordinal mixed models** typu cumulative link mixed model [@christensenCumulativeLinkModels]. Tento prístup je vhodný pri viacúrovňových ordinálnych dátach, ktoré sú zhlukované alebo opakovane merané, a slúži ako citlivostná analýza popri lineárnej špecifikácii.
+
+Z hľadiska väzby na výskumné otázky a hypotézy platí nasledovné: modely pre `plausibility_index`, `G2` a `G5` odpovedajú na jadro `VO1` a zároveň testujú `H1`, `H2` a `H5`; modely pre `symptom_error_mean`, `severity_error` a `impact_error` odpovedajú na `VO2` a testujú `H4`; hlavné efekty `profile` nad `plausibility_index`, `G2`, `G5`, `symptom_error_mean`, `severity_error`, `impact_error` a `defect_index` odpovedajú na `VO3` a `VO4` a pokrývajú `H6`–`H8`; interakčné členy `guardrail × profile` odpovedajú na `VO5` a testujú `H9`. `VO6` je riešená samostatným blokom ICC a `VO7`–`VO8` samostatným exploračným blokom.
 
 #### 2.8.6 Explorácia doplnkových premenných
 

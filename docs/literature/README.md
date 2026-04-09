@@ -10,6 +10,7 @@ Tento adresár drží rozdelený literature bundle pre diplomovku. Bibliografick
 - `p1_expansion_pass.md` – konkrétny citekey-ready balík pre kritické gaps
 - `agent_tasks.md` – hotové zadania pre agentov
 - `action_plan.md` – stručný prioritizačný plán
+- `missing_fulltext_for_notes.md` – živý blocker log pre citekeye bez lokálneho `PDF` alebo `snapshotu`
 
 ## Ako s bundle pracovať
 
@@ -19,6 +20,7 @@ Tento adresár drží rozdelený literature bundle pre diplomovku. Bibliografick
 4. Ulož ho do zodpovedajúcej Zotero kolekcie a označ relevantnými tagmi.
 5. Ak je zdroj metodicky alebo argumentačne kľúčový, vytvor k nemu výpiskový súbor v `notes/literature/`.
 6. Ak sa citekey objaví v rukopise, skontroluj príslušný source map v `references/` a zhodu s `references/zotero-thesis.bib`.
+7. Ak sa pri výpisku zastavíš na tom, že v Zotere chýba lokálny fulltext, zapíš citekey do `missing_fulltext_for_notes.md`.
 
 ## Štandard pre validovateľné výpisky
 
