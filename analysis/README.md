@@ -4,8 +4,10 @@
 - `codebook_rating_study.csv`
 - `methods_variables_table.csv`
 - `hypotheses_H1_H6.md`
+- `rating_export_readiness_checklist.md`
+- `expert_content_review_framework.md`
 - `data_clean/` — clean analytické vstupy pre pipeline
-- `templates/` — CSV šablóny
+- `templates/` — CSV šablóny vrátane pilotného expert review passu
 - `scripts/thesis_rating_pipeline.R` — R kostra
 
 ## Jednotka analýzy
@@ -16,6 +18,8 @@
 
 ## Pred analýzou
 - dostaň reálne exporty do `analysis/data_clean/`,
+- skontroluj ich podľa `analysis/rating_export_readiness_checklist.md`,
+- ak chceš reportovať predbežnú expert content review vrstvu, prepíš 4 expertov do šablón z `analysis/templates/`,
 - over finálne anchor hodnoty vrátane `S2_anchor`,
 - skontroluj recode škál,
 - nechaj názvy premenných konzistentné medzi metódou, CSV a R skriptom,

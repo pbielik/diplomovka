@@ -5,8 +5,8 @@ McHugh, M. L. (2012). *Interrater reliability: the kappa statistic.* Biochemia M
 
 ## Identifikacia zdroja
 - DOI / PMID / PMCID / URL: DOI `10.11613/BM.2012.031`, PMID `23092060`, PMCID `PMC3900052`, URL `https://pubmed.ncbi.nlm.nih.gov/23092060/`
-- Zotero polozka alebo kolekcia: citekey je v exporte `references/zotero-thesis.bib`, ale current lokalny Zotero attachment stale chyba
-- Overeny source: [McHugh 2012 official PDF](https://www.biochemia-medica.com/assets/images/upload/xml_tif/McHugh_ML_Interrater_reliability.pdf)
+- Zotero polozka alebo kolekcia: citekey je v exporte `mchugh2012InterraterReliabilityKappa`, zatial co `references/bibliography-notes.md` stale pouziva starsi alias `mchugh2012kappa`
+- Overeny attachment: `/Users/pavol.bielik/Zotero/storage/53GHSIKD/McHugh - 2012 - Interrater reliability the kappa statistic.pdf`
 
 ## Klaster z literature map
 - `04 Metoda, statistika a analyticky dizajn`

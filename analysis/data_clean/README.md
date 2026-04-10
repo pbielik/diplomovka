@@ -13,4 +13,12 @@ Odporúčané súbory:
 - `raters_clean.csv`
 - `transcripts_master.csv`
 
+Voliteľné clean súbory pre predbežný expert review pass:
+- `validation_experts_clean.csv`
+- `rater_items_expert_review_clean.csv`
+- `seeds_expert_review_clean.csv`
+
 Surové exporty sem nepatria.
+
+Pred prvym realnym behom pipeline ich skontroluj podla:
+- `analysis/rating_export_readiness_checklist.md`

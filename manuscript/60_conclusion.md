@@ -2,9 +2,9 @@
 
 ## 5 Záver
 
-Cieľom diplomovej práce bolo pilotne metodologicky overiť kvalitu AI-generovaných simulovaných klinických interview s depresívnou symptomatikou a preskúmať, či sa ich kvalita mení v závislosti od experimentálne manipulovaných vlastností generovania. Práca bola koncipovaná ako human-rated faktorový experiment, v ktorom odborní hodnotitelia posudzovali 72 textových transkriptov vytvorených kombináciou 12 seed scenárov a 6 finálnych variantov generovania.
+Cieľom diplomovej práce bolo pilotne metodologicky overiť kvalitu AI-generovaných simulovaných klinických interview s depresívnou symptomatikou a preskúmať, či sa ich kvalita mení v závislosti od experimentálne manipulovaných vlastností generovania. Práca bola koncipovaná ako faktorový experiment založený na odbornom hodnotení, v ktorom odborní hodnotitelia posudzovali 72 textových transkriptov vytvorených kombináciou 12 seed scenárov a 6 finálnych variantov generovania.
 
-Hlavným prínosom práce je vytvorenie a overenie viacvrstvového rámca hodnotenia, ktorý kombinuje primárne kvalitatívne outcome-y, symptom fidelity voči seed anchorom a defect dimenziu. Tento rámec umožňuje posudzovať simulované interview nielen ako jazykovo plynulý text, ale ako metodicky kontrolovaný psychologický materiál.
+Hlavným prínosom práce je vytvorenie a overenie viacvrstvového rámca hodnotenia, ktorý kombinuje primárne kvalitatívne výstupy, symptomatickú primeranosť voči seed kotvám a dimenziu defektov. Tento rámec umožňuje posudzovať simulované interview nielen ako jazykovo plynulý text, ale ako metodicky kontrolovaný psychologický materiál.
 
 Výsledky práce **[doplniť po finálnej analýze 3–5 viet]**.
 

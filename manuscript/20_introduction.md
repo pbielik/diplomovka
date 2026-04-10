@@ -1,6 +1,6 @@
 # 20 Introduction / Úvod
 
-> Pracovný draft kapitoly. Finálna verzia pôjde do Wordu so živými Zotero citáciami. V markdown verzii používaj citekeys alebo placeholdery typu `[@citekey]`.
+> Pracovný draft kapitoly. Finálna verzia pôjde do Wordu so živými Zotero citáciami. V markdown verzii používaj citekeys alebo citekey placeholdery.
 
 ## 1 Úvod
 
@@ -10,7 +10,7 @@ Depresívna porucha patrí medzi najčastejšie duševné poruchy a zároveň me
 
 Po fenomenologickej a klinickej stránke je depresívna symptomatika vhodným objektom skúmania aj preto, že kombinuje viacero navzájom odlišných, no klinicky previazaných oblastí. Počas depresívnej epizódy sa typicky objavuje depresívna nálada alebo strata záujmu a potešenia, pričom sú prítomné aj ďalšie symptómy, napríklad poruchy koncentrácie, pocity nadmernej viny alebo nízkej seba-hodnoty, beznádej, myšlienky na smrť alebo samovraždu, poruchy spánku, zmeny apetítu alebo hmotnosti a znížená energia. Tieto príznaky trvajú väčšinu dňa, takmer každý deň, najmenej dva týždne, a môžu byť sprevádzané rôznym stupňom funkčného dopadu [@who2025depression; @kennedy2008coresymptoms; @maj2020depressioncharacterization]. Takto štruktúrovaný obraz depresie je výhodný aj pre metodologické účely, pretože umožňuje sledovať nielen všeobecnú „depresívnosť" rozhovoru, ale aj to, či sa v ňom adekvátne a konzistentne prejavujú jednotlivé klinicky významné oblasti symptómov.
 
-V tejto práci je klinický obraz depresívnej symptomatiky operacionalizovaný prostredníctvom deviatich obsahových oblastí, ktoré zodpovedajú jadru kritérií veľkej depresívnej epizódy a zároveň logike skríningového nástroja `PHQ-9` [@kroenke2001phq9; @kennedy2008coresymptoms]: depresívna nálada, strata záujmu alebo anhedónia, poruchy spánku, zmeny apetítu alebo hmotnosti, psychomotorické zmeny, únava alebo nízka energia, pocity viny alebo bezcennosti, zhoršená koncentrácia alebo rozhodovanie a pasívne myšlienky na smrť. Tieto oblasti slúžia ako symptomatické kotvy seed scenárov a zároveň ako rámec odborného hodnotenia v ratingovom nástroji.
+V tejto práci je klinický obraz depresívnej symptomatiky operacionalizovaný prostredníctvom deviatich obsahových oblastí, ktoré zodpovedajú jadru kritérií veľkej depresívnej epizódy a zároveň logike skríningového nástroja PHQ-9 [@kroenke2001phq9; @kennedy2008coresymptoms]: depresívna nálada, strata záujmu alebo anhedónia, poruchy spánku, zmeny apetítu alebo hmotnosti, psychomotorické zmeny, únava alebo nízka energia, pocity viny alebo bezcennosti, zhoršená koncentrácia alebo rozhodovanie a pasívne myšlienky na smrť. Tieto oblasti slúžia ako symptomatické kotvy seed scenárov a zároveň ako rámec odborného hodnotenia v ratingovom nástroji.
 
 Pri simulovanom rozhovore však nie je dôležitá len samotná prítomnosť symptómov. Rovnako dôležitý je ich kontext, spôsob disclosure, miera funkčného dopadu, vzájomná previaznutosť a súlad medzi tým, čo postava hovorí, ako to hovorí a aký celkový obraz vzniká [@guidi2011clinicalinterviewdepression; @maj2020depressioncharacterization]. Inými slovami, klinická vierohodnosť nie je jednoduchým súčtom symptómov, ale výsledkom ich obsahovej, naratívnej a komunikačnej integrácie. Pre predkladanú prácu je preto dôležité, že depresívna symptomatika je súčasne dostatočne klinicky ukotvená aj dostatočne variabilná: ide o dobre opísanú oblasť s relatívne stabilným symptomatickým jadrom, v ktorej sa však reálne rozhovory môžu prejavovať rôznou mierou otvorenosti, spontánnosti, detailnosti a funkčného dopadu. Práve preto predstavuje vhodnú doménu pre overovanie toho, či je AI-generovaný simulovaný rozhovor schopný zachytiť nielen tematickú príslušnosť k depresii, ale aj realistický klinický dojem, vnútornú konzistentnosť a primeranú mieru variability.
 
@@ -44,7 +44,7 @@ Z metodologického hľadiska je zároveň potrebné odlíšiť dva typy kvality 
 
 Z uvedených prác vyplýva, že pri simulovaných pacientoch už nestačí pýtať sa iba na to, či systém „vie odpovedať". Dôležitejšie je, či odpovedá spôsobom, ktorý je z odborného hľadiska vierohodný, klinicky primeraný a pedagogicky použiteľný. V oblasti duševného zdravia je táto požiadavka ešte výraznejšia, pretože rozhovor neslúži iba na výmenu faktov, ale aj na zachytenie nuansí prežívania, kontextu, symptomatického profilu a funkčného dopadu. Na základe dostupných prác možno usudzovať, že doterajší výskum sa sústreďuje najmä na vývoj tréningových systémov, adaptívnych frameworkov alebo evaluáciu terapeutickej strany interakcie, kým systematické porovnanie kvality samotných pacientskych interview textov pri kontrolovanej manipulácii vlastností generovania zostáva menej rozpracované [@li2024curefun; @wang2024patientpsi; @lee2025adaptivevp; @kim2025mindvoyager].
 
-Preto sa v tejto práci zameriavame na **expert-rated hodnotenie transkriptov**, teda na situáciu, v ktorej odborní hodnotitelia neposudzujú celý tréningový systém, ale kvalitu konkrétnych AI-generovaných rozhovorov. Takéto hodnotenie umožňuje odlíšiť niekoľko vrstiev kvality. Prvou je **klinická vierohodnosť**, teda do akej miery rozhovor pôsobí ako reálna komunikácia s človekom s depresívnou symptomatikou. Druhou je **jazyková a interakčná prirodzenosť**, teda či odpovede nepôsobia mechanicky, klišéovito alebo neprirodzene. Treťou je **vnútorná konzistentnosť**, teda či rozhovor drží stabilnú líniu a neobsahuje zjavné rozpory. Štvrtou je **symptomatická primeranosť**, teda miera súladu s cieľovým klinickým scenárom. Piatou je **tréningová alebo výučbová použiteľnosť**, teda otázka, či by takýto rozhovor bol odborníkom vnímaný ako vhodný materiál na nácvik, supervíziu alebo výuku. Šiestou je prítomnosť **red flags**, teda prvkov, ktoré znižujú dôveryhodnosť alebo bezpečnosť využitia daného rozhovoru.
+Preto sa v tejto práci zameriavame na **odborné hodnotenie transkriptov**, teda na situáciu, v ktorej odborní hodnotitelia neposudzujú celý tréningový systém, ale kvalitu konkrétnych AI-generovaných rozhovorov. Takéto hodnotenie umožňuje odlíšiť niekoľko vrstiev kvality. Prvou je **klinická vierohodnosť**, teda do akej miery rozhovor pôsobí ako reálna komunikácia s človekom s depresívnou symptomatikou. Druhou je **jazyková a interakčná prirodzenosť**, teda či odpovede nepôsobia mechanicky, klišéovito alebo neprirodzene. Treťou je **vnútorná konzistentnosť**, teda či rozhovor drží stabilnú líniu a neobsahuje zjavné rozpory. Štvrtou je **symptomatická primeranosť**, teda miera súladu s cieľovým klinickým scenárom. Piatou je **tréningová alebo výučbová použiteľnosť**, teda otázka, či by takýto rozhovor bol odborníkom vnímaný ako vhodný materiál na nácvik, supervíziu alebo výuku. Šiestou je prítomnosť **varovných signálov**, teda prvkov, ktoré znižujú dôveryhodnosť alebo bezpečnosť využitia daného rozhovoru.
 
 Z metodologického hľadiska je takýto prístup blízky logike obsahovej validity. Hoci COSMIN metodológia vznikla primárne pre hodnotenie meracích nástrojov, jej dôraz na **relevanciu**, **úplnosť** a **zrozumiteľnosť** obsahu je užitočný aj ako rámec pre uvažovanie o tom, čo má kvalitný hodnotiaci nástroj v našej práci zachytávať [@terwee2018COSMINMethodologyEvaluating]. COSMIN zdôrazňuje, že obsahová validita sa opiera o posúdenie toho, či položky pokrývajú relevantné aspekty konštruktu, či sú dostatočne komplexné a či sú zrozumiteľné pre cieľový kontext použitia. V našom prípade to znamená, že odborné hodnotenie interview by malo pokrývať nielen všeobecný dojem, ale aj kľúčové klinické domény, mieru defektov a použiteľnosť výsledného textu.
 
@@ -52,23 +52,23 @@ Spoľahnutie sa na expertné ratingy zároveň súvisí so známym obmedzením t
 
 Hodnotenie AI-generovaných interview v tejto práci preto kombinuje tri vrstvy:
 
-1. **primárna kvalitatívna vrstva**, zahŕňajúca klinickú vierohodnosť, prirodzenosť jazyka, vnútornú konzistentnosť, súlad s obrazom depresívnej symptomatiky a tréningovú použiteľnosť; v ratingovom nástroji zodpovedajú položky `G1`–`G5`,
-2. **symptom fidelity vrstva**, ktorá porovnáva rating s vopred definovanými seed anchormi v symptomatických doménach `A1`–`A9`, závažnosti `S1` a funkčného dopadu `S2`,
-3. **QC a defect vrstva** `R1`–`R5`, ktorá zachytáva kontradikcie, klišé, nesúlad symptomatiky a kontextu, podozrenie na inú psychopatológiu a neprimeranú expresivitu.
+1. **primárna kvalitatívna vrstva**, zahŕňajúca klinickú vierohodnosť, prirodzenosť jazyka, vnútornú konzistentnosť, súlad s obrazom depresívnej symptomatiky a tréningovú použiteľnosť; v ratingovom nástroji zodpovedajú položky G1 až G5,
+2. **vrstva symptomatickej primeranosti**, ktorá porovnáva hodnotenie s vopred definovanými seed kotvami v symptomatických doménach A1 až A9, v odhade závažnosti S1 a vo funkčnom dopade S2,
+3. **vrstva kontroly kvality a defektov**, reprezentovaná položkami R1 až R5, ktorá zachytáva kontradikcie, klišé, nesúlad symptomatiky a kontextu, podozrenie na inú psychopatológiu a neprimeranú expresivitu.
 
 ### 1.5 Pojmový rámec skúmaných premenných
 
-V tejto práci predpokladáme, že kvalita AI-generovaného interview závisí nielen od základnej schopnosti modelu viesť rozhovor, ale aj od toho, **ako je generovanie usmernené** a **aký spôsob odpovedania je simulovanému pacientovi priradený**. Z tohto dôvodu pracujeme s dvoma kľúčovými teoretickými premennými, ktoré sú v metóde priamo operacionalizované ako dva faktory v human-rated experimente.
+V tejto práci predpokladáme, že kvalita AI-generovaného interview závisí nielen od základnej schopnosti modelu viesť rozhovor, ale aj od toho, **ako je generovanie usmernené** a **aký spôsob odpovedania je simulovanému pacientovi priradený**. Z tohto dôvodu pracujeme s dvoma kľúčovými teoretickými premennými, ktoré sú v metóde priamo operacionalizované ako dva faktory vo faktorovom experimente založenom na odbornom hodnotení.
 
-Prvou premennou je **prítomnosť štruktúrujúceho klinického usmernenia**. Týmto pojmom označujeme mieru, do akej je generovanie odpovedí explicitne vedené pravidlami zabezpečujúcimi klinickú primeranosť, tematickú disciplínu, stabilitu prípadu a kontrolu nežiaducich odchýlok. Ide o pojem, ktorý v psychologickom jazyku lepšie vystihuje technickú premennú často označovanú v AI literatúre ako *guardrail* a v metóde tejto práce operacionalizovanú ako faktor `guardrail` s úrovňami `off` a `on`. Jeho význam spočíva v tom, že má obmedzovať nekonzistentnosť, prehnanú improvizáciu, neprimeranú dramatizáciu, nepodložené odbočovanie a iné javy, ktoré by znižovali klinickú a pedagogickú hodnotu rozhovoru. Príbuznú logiku nachádzame v CureFun, kde sa explicitné promptingové postupy používajú na riadenie LLM správania podľa vopred určenej procedúry, v PATIENT-ψ, kde je pacient vedený CBT kognitívnym modelom, aj v Adaptive-VP, kde sú scenáre klinicky ukotvené a odpovede sa upravujú v reálnom čase podľa kontextu interakcie [@li2024curefun; @wang2024patientpsi; @lee2025adaptivevp].
+Prvou premennou je **prítomnosť štruktúrujúceho klinického usmernenia**. Týmto pojmom označujeme mieru, do akej je generovanie odpovedí explicitne vedené pravidlami zabezpečujúcimi klinickú primeranosť, tematickú disciplínu, stabilitu prípadu a kontrolu nežiaducich odchýlok. Ide o pojem, ktorý v psychologickom jazyku lepšie vystihuje technickú premennú často označovanú v AI literatúre ako guardrail a v metóde tejto práce operacionalizovanú ako faktor s dvoma úrovňami: bez štruktúrujúceho klinického usmernenia a so štruktúrujúcim klinickým usmernením. Jeho význam spočíva v tom, že má obmedzovať nekonzistentnosť, prehnanú improvizáciu, neprimeranú dramatizáciu, nepodložené odbočovanie a iné javy, ktoré by znižovali klinickú a pedagogickú hodnotu rozhovoru. Príbuznú logiku nachádzame v CureFun, kde sa explicitné promptingové postupy používajú na riadenie LLM správania podľa vopred určenej procedúry, v PATIENT-ψ, kde je pacient vedený CBT kognitívnym modelom, aj v Adaptive-VP, kde sú scenáre klinicky ukotvené a odpovede sa upravujú v reálnom čase podľa kontextu interakcie [@li2024curefun; @wang2024patientpsi; @lee2025adaptivevp].
 
-Druhou premennou je **štýl odpovedania simulovaného pacienta**. Týmto pojmom označujeme formu, mieru rozvinutosti a interakčnú kvalitu pacientových odpovedí v rozhovore, nie jeho symptomatický profil alebo osobnostný typ. V našom rámci ide o kontinuum od zdržanlivejšieho, stručnejšieho a menej spontánne elaborovaného spôsobu odpovedania až po vyvážený a rozvinutejší štýl, v ktorom pacient poskytuje viac detailov, spontánnych doplnení a kontextových informácií. V metóde je táto premenná operacionalizovaná ako faktor `profile` s úrovňami `R1`, `R2` a `R3`, kde `R1` zodpovedá zdržanlivejšiemu, `R2` vyváženému a `R3` najrozvinutejšiemu štýlu odpovedania.
+Druhou premennou je **štýl odpovedania simulovaného pacienta**. Týmto pojmom označujeme formu, mieru rozvinutosti a interakčnú kvalitu pacientových odpovedí v rozhovore, nie jeho symptomatický profil alebo osobnostný typ. V našom rámci ide o kontinuum od zdržanlivejšieho, stručnejšieho a menej spontánne elaborovaného spôsobu odpovedania až po vyvážený a rozvinutejší štýl, v ktorom pacient poskytuje viac detailov, spontánnych doplnení a kontextových informácií. V metóde je táto premenná operacionalizovaná v troch úrovniach: R1, R2 a R3, kde R1 zodpovedá zdržanlivejšiemu, R2 vyváženému a R3 najrozvinutejšiemu štýlu odpovedania.
 
 Teoretickú oporu pre význam takejto premennej poskytuje najmä [@kim2025mindvoyager], ktorí konceptuálne rozdeľujú komunikačnú variabilitu klienta na dve nezávislé osi: *openness* — ochotu zdieľať osobné informácie a uvažovať o alternatívnych perspektívach — a *metacognition* — schopnosť uvedomiť si vlastné myšlienky a emócie a verbalizovať ich. Klient s vysokou otvorenosťou aktívne odkrýva svoje skúsenosti a zapája sa do exploračnej fázy, zatiaľ čo klient s nízkou otvorenosťou ostáva opatrný a zdieľa zdráhavo; podobne klient s rozvinutou metakogníciou vie svoje stavy artikulovať, kým klient s nízkou metakogníciou má problém ich rozpoznať alebo verbalizovať. V architektúre MindVoyager je tento dvojrozmerný rámec implementovaný cez dva prepojené komponenty — *cognitive diagram* (štruktúrovaný popis prepojenia myšlienok a presvedčení klienta) a *cognition mediator*, ktorý maskuje a postupne odmaskováva časti diagramu na základe priebehu sedenia, takže klient nezdieľa všetko naraz a disclosure je riadené samostatným modulom. Autori zároveň empiricky ukazujú, že samotný prompt engineering nestačí na vernú simuláciu uzavretého klienta: aj keď bol LLM klient explicitne inštruovaný správať sa s nízkou otvorenosťou a nízkou metakogníciou, dosahoval priemerné hodnoty 4,28 a 4,15 z 5, čiže ostával výrazne otvorenejší, než akým by mal byť. Toto zistenie je dôležité aj pre náš dizajn, pretože zdôvodňuje, prečo treba štýl odpovedania kontrolovať architektonicky a nie len na úrovni textových inštrukcií. V našej práci preto štýl odpovedania nechápeme ako estetický parameter textu, ale ako dôležitú súčasť klinickej vierohodnosti rozhovoru.
 
-Za kľúčové outcome premenné považujeme **klinickú vierohodnosť**, **prirodzenosť a plynulosť**, **vnútornú konzistentnosť**, **symptomatickú primeranosť**, **výskyt red flags** a **celkovú tréningovú použiteľnosť interview**. Klinická vierohodnosť vyjadruje, do akej miery rozhovor pôsobí ako výpoveď človeka s depresívnou symptomatikou v realistickej klinickej situácii. Prirodzenosť a plynulosť zachytávajú, či odpovede nepôsobia strojovo alebo neprirodzene. Vnútorná konzistentnosť sa týka stability výpovedí v rámci jedného rozhovoru. Symptomatická primeranosť vyjadruje súlad s cieľovým scenárom. Red flags zahŕňajú najmä rozpory, klišé, kontextový nesúlad, neprimeranú dramatizáciu alebo podozrenie na inú psychopatológiu, než bola v simulácii zamýšľaná. Tréningová použiteľnosť napokon predstavuje celkové odborné zhodnotenie, či by daný rozhovor bolo možné rozumne využiť vo výuke alebo tréningu.
+Za kľúčové výstupné premenné považujeme **klinickú vierohodnosť**, **prirodzenosť a plynulosť**, **vnútornú konzistentnosť**, **symptomatickú primeranosť**, **výskyt varovných signálov** a **celkovú tréningovú použiteľnosť interview**. Klinická vierohodnosť vyjadruje, do akej miery rozhovor pôsobí ako výpoveď človeka s depresívnou symptomatikou v realistickej klinickej situácii. Prirodzenosť a plynulosť zachytávajú, či odpovede nepôsobia strojovo alebo neprirodzene. Vnútorná konzistentnosť sa týka stability výpovedí v rámci jedného rozhovoru. Symptomatická primeranosť vyjadruje súlad s cieľovým scenárom. Varovné signály zahŕňajú najmä rozpory, klišé, kontextový nesúlad, neprimeranú dramatizáciu alebo podozrenie na inú psychopatológiu, než bola v simulácii zamýšľaná. Tréningová použiteľnosť napokon predstavuje celkové odborné zhodnotenie, či by daný rozhovor bolo možné rozumne využiť vo výuke alebo tréningu.
 
-V ratingovom nástroji sú tieto outcome premenné systematicky preložené do položiek `G1`–`G5` (primárne kvalitatívne), `A1`–`A9`, `S1` a `S2` (symptom fidelity a závažnosť), a `R1`–`R5` (defect a QC). Na úrovni analýzy pracujeme s kompozitmi `plausibility_index` (z položiek `G1`, `G3`, `G4`) a `defect_index` (z položiek `R1`–`R5`), ktoré sú opísané v metóde.
+V ratingovom nástroji sú tieto výstupné premenné systematicky preložené do položiek G1 až G5 (primárne kvalitatívne), A1 až A9, S1 a S2 (symptomatická primeranosť, závažnosť a funkčný dopad) a R1 až R5 (kontrola kvality a defekty). Na úrovni analýzy pracujeme aj s kompozitmi indexu klinickej vierohodnosti, vytvoreného z položiek G1, G3 a G4, a indexu defektov, vytvoreného z položiek R1 až R5.
 
 ### 1.6 Výskumná medzera a prínos práce
 
@@ -76,43 +76,65 @@ Na základe doterajšej literatúry možno konštatovať, že vývoj LLM simulov
 
 Doterajšia literatúra tak vytvára pomerne jasný rámec, ale zároveň necháva otvorenú konkrétnu metodologickú aj praktickú medzeru. Vieme, že štandardizované prípady, simulated placements a virtuálni klienti môžu byť vo výučbe užitočné [@williams2017simulationmentalhealth; @appeswg2021newreality; @rice2022simulatedplacements; @chaby2022embodiedvirtualpatients], vieme aj to, že veľké jazykové modely dokážu generovať plynulý a klinicky ukotviteľný text [@meng2024llmmedicine; @yu2025simulatedpatientsystems; @li2024curefun; @wang2024patientpsi], no podstatne menej vieme o tom, ako odborníci hodnotia **klinickú kvalitu kontrolovane generovaných, symptomaticky anchorovaných AI rozhovorov** a či sa táto kvalita mení v závislosti od konkrétneho nastavenia generovania. Z pedagogického hľadiska ide o zásadnú otázku, pretože skôr než možno skúmať learning outcomes takýchto simulácií, treba vedieť, či samotný materiál vôbec pôsobí dostatočne vierohodne, konzistentne a bezpečne na to, aby bol zmysluplným podkladom pre tréning.
 
-Predkladaná práca chce túto medzeru čiastočne zaplniť tým, že sa sústreďuje na expertne hodnotené transkripty AI-generovaných simulovaných klinických interview o depresívnej symptomatike. Jej prínos možno vymedziť v štyroch rovinách. Po prvé, prináša **metodologický príspevok** v podobe kontrolovaného porovnávania variantov generovania toho istého typu prípadu. Po druhé, prináša **obsahový príspevok** v tom, že skúma nielen všeobecnú plausibilitu, ale aj symptomatickú primeranosť a výskyt defektov. Po tretie, prináša **edukačný príspevok**, pretože pomáha lepšie odhadnúť, aké vlastnosti musí mať AI-generovaný rozhovor, aby bol pre odborníkov prijateľný ako tréningový alebo výučbový materiál pre študentov psychologických smerov. A po štvrté, prináša aj **aplikačný presah v podobe simulačného rámca**, keďže výsledkom práce nie je iba jednorazový súbor transkriptov, ale aj kontrolovaný postup, v ktorom možno simulácie systematicky pripravovať, porovnávať, hodnotiť a ďalej zlepšovať pre budúce rozšírenia na ďalšie poruchy a modality. Tento simulačný rámec je v práci chápaný ako prepojenie seed scenárov, experimentálnych faktorov `guardrail` a `profile`, expert-rated hodnotenia a viacvrstvového posudzovania plausibility, symptom fidelity a defect vrstvy.
+Predkladaná práca chce túto medzeru čiastočne zaplniť tým, že sa sústreďuje na expertne hodnotené transkripty AI-generovaných simulovaných klinických interview o depresívnej symptomatike. Jej prínos možno vymedziť v štyroch rovinách. Po prvé, prináša **metodologický príspevok** v podobe kontrolovaného porovnávania variantov generovania toho istého typu prípadu. Po druhé, prináša **obsahový príspevok** v tom, že skúma nielen všeobecnú klinickú vierohodnosť, ale aj symptomatickú primeranosť a výskyt defektov. Po tretie, prináša **edukačný príspevok**, pretože pomáha lepšie odhadnúť, aké vlastnosti musí mať AI-generovaný rozhovor, aby bol pre odborníkov prijateľný ako tréningový alebo výučbový materiál pre študentov psychologických smerov. A po štvrté, prináša aj **aplikačný presah v podobe simulačného rámca**, keďže výsledkom práce nie je iba jednorazový súbor transkriptov, ale aj kontrolovaný postup, v ktorom možno simulácie systematicky pripravovať, porovnávať, hodnotiť a ďalej zlepšovať pre budúce rozšírenia na ďalšie poruchy a modality. Tento simulačný rámec je v práci chápaný ako prepojenie seed scenárov, experimentálnych faktorov prítomnosti štruktúrujúceho klinického usmernenia a štýlu odpovedania simulovaného pacienta, expertného hodnotenia a viacvrstvového posudzovania klinickej vierohodnosti, symptomatickej primeranosti a defektov.
 
-### 1.7 Cieľ práce, výskumné otázky a hypotézy
+### 1.7 Cieľ výskumu, výskumné otázky a hypotézy
 
-#### Cieľ práce
+#### Cieľ výskumu
 
-Hlavným cieľom práce je preskúmať, do akej miery sú AI-generované simulované klinické interview o depresívnej symptomatike odbornými hodnotiteľmi posudzované ako klinicky vierohodné, prirodzené, vnútorne konzistentné, symptomaticky primerané a použiteľné na tréningové alebo výučbové účely, a overiť, či ich kvalitu zvyšuje prítomnosť štruktúrujúceho klinického usmernenia operacionalizovaného ako faktor `guardrail`. Sekundárnym aplikačným cieľom je pripraviť metodický podklad pre budúci simulačný rámec, v ktorom budú prepojené klinicky ukotvené seedy, riadenie generovania, expertné hodnotenie a viacvrstvové posudzovanie kvality pre tréningové alebo výskumné využitie.
+Hlavným cieľom výskumu je preskúmať, do akej miery sú AI-generované simulované klinické interview o depresívnej symptomatike odbornými hodnotiteľmi posudzované ako klinicky vierohodné, prirodzené, vnútorne konzistentné, symptomaticky primerané a použiteľné na tréningové alebo výučbové účely, a overiť, či ich kvalitu zvyšuje prítomnosť štruktúrujúceho klinického usmernenia. Sekundárnym aplikačným cieľom je pripraviť metodický podklad pre budúci simulačný rámec, v ktorom budú prepojené klinicky ukotvené seedy, riadenie generovania, expertné hodnotenie a viacvrstvové posudzovanie kvality pre tréningové alebo výskumné využitie.
 
 V nadväznosti na hlavný cieľ sledujeme aj niekoľko parciálnych cieľov:
 
-- opísať úroveň kvality AI-generovaných interview na úrovni globálnych odborných hodnotení `G1`–`G5`,
+- opísať úroveň kvality AI-generovaných interview na úrovni globálnych odborných hodnotení G1 až G5,
 - preskúmať, či prítomnosť štruktúrujúceho klinického usmernenia súvisí s vyššou klinickou vierohodnosťou, prirodzenejším a konzistentnejším priebehom rozhovoru a vyššou tréningovou použiteľnosťou,
-- preskúmať, či prítomnosť štruktúrujúceho klinického usmernenia znižuje výskyt red flags (`defect_index`) a zvyšuje symptomatickú primeranosť vzhľadom na cieľový seed scenár (`symptom_error_mean`, `severity_error`, `impact_error`),
-- preskúmať vzťah medzi štýlom odpovedania simulovaného pacienta (`profile` R1/R2/R3) a odborným hodnotením kvality interview,
+- preskúmať, či prítomnosť štruktúrujúceho klinického usmernenia znižuje výskyt varovných signálov a zvyšuje symptomatickú primeranosť vzhľadom na cieľový seed scenár, a to na úrovni indexu defektov, priemernej absolútnej chyby v symptomatických doménach, chyby odhadu závažnosti a chyby odhadu funkčného dopadu,
+- preskúmať vzťah medzi štýlom odpovedania simulovaného pacienta na úrovniach R1, R2 a R3 a odborným hodnotením kvality interview,
 - overiť, či sa účinok štruktúrujúceho klinického usmernenia mení v závislosti od štýlu odpovedania simulovaného pacienta,
 - zistiť mieru zhody medzi odbornými hodnotiteľmi,
-- exploračne preskúmať, ako hodnotitelia odhadujú pôvod rozhovoru (`guessed_origin`) a aké typy komentárov sa v ich otvorených odpovediach objavujú najčastejšie.
+- exploračne preskúmať, ako hodnotitelia odhadujú pôvod rozhovoru a aké typy komentárov sa v ich otvorených odpovediach objavujú najčastejšie.
 
-#### Výskumné otázky
+#### Výskumné otázky a hypotézy
 
-Na základe uvedených východísk formulujeme výskumné otázky po blokoch sledovaných premenných. Tento spôsob zodpovedá bežnej logike psychologických diplomových prác, v ktorých sa otázky a hypotézy radia podľa skúmaných outcome-ov a nie podľa technickej náročnosti analýz. Výskumné otázky preto v tejto práci tvoria širší opisno-inferenčný rámec, zatiaľ čo hypotézy nižšie predstavujú užšie smerové predpoklady tam, kde má práca silnejšiu literárnu oporu.
+Na základe formulovaného cieľa a uvedených teoretických a empirických východísk formulujeme nasledujúce výskumné otázky a hypotézy.
 
-**Blok A — globálna kvalita interview a symptom fidelity**
+**Blok A — globálna kvalita interview a symptomatická primeranosť**
 
 **VO1.** Ako odborní hodnotitelia celkovo hodnotia klinickú vierohodnosť, prirodzenosť, vnútornú konzistentnosť a tréningovú použiteľnosť AI-generovaných simulovaných klinických interview o depresívnej symptomatike?
 
 **VO2.** Do akej miery sú AI-generované simulované klinické interview symptomaticky primerané vzhľadom na cieľový seed scenár, z ktorého vychádzajú?
 
-**Blok B — štýl odpovedania simulovaného pacienta (`profile`)**
+Na základe príbuznej literatúry o klinicky ukotvených simulovaných pacientoch a štruktúrovanom riadení simulácie [@li2024curefun; @wang2024patientpsi; @lee2025adaptivevp] predpokladáme, že prítomnosť štruktúrujúceho klinického usmernenia prispeje k vyššej kvalite interview aj k vyššej symptomatickej primeranosti.
+
+**H1.** Interview vytvorené so štruktúrujúcim klinickým usmernením budú odbornými hodnotiteľmi posudzované ako klinicky vierohodnejšie než interview vytvorené bez štruktúrujúceho klinického usmernenia, a to na úrovni indexu klinickej vierohodnosti aj jednotlivých položiek G1, G3 a G4.
+
+**H2.** Interview vytvorené so štruktúrujúcim klinickým usmernením budú odbornými hodnotiteľmi posudzované ako prirodzenejšie a vnútorne konzistentnejšie než interview vytvorené bez tohto usmernenia, najmä na položke G2.
+
+**H3.** Interview vytvorené so štruktúrujúcim klinickým usmernením budú obsahovať menej varovných signálov a iných problematických prvkov než interview vytvorené bez tohto usmernenia, a to na úrovni indexu defektov aj jednotlivých položiek R1 až R5.
+
+**H4.** Interview vytvorené so štruktúrujúcim klinickým usmernením budú symptomaticky primeranejšie vzhľadom na cieľový seed scenár než interview bez tohto usmernenia, teda budú mať nižšiu priemernú absolútnu chybu v oblastiach A1 až A9, nižšiu chybu odhadu závažnosti a nižšiu chybu odhadu funkčného dopadu.
+
+**H5.** Interview vytvorené so štruktúrujúcim klinickým usmernením budú odbornými hodnotiteľmi posudzované ako použiteľnejšie na tréningové alebo výučbové účely než interview bez tohto usmernenia, a to na úrovni položky G5.
+
+**Blok B — štýl odpovedania simulovaného pacienta**
 
 **VO3.** Aký vzťah má štýl odpovedania simulovaného pacienta ku klinickej vierohodnosti, prirodzenosti, vnútornej konzistentnosti a tréningovej použiteľnosti interview?
 
-**VO4.** Aký vzťah má štýl odpovedania simulovaného pacienta k symptomatickej primeranosti interview a k výskytu red flags?
+**VO4.** Aký vzťah má štýl odpovedania simulovaného pacienta k symptomatickej primeranosti interview a k výskytu varovných signálov?
+
+**H6.** Interview s vyváženým alebo rozvinutým štýlom odpovedania simulovaného pacienta (R2 alebo R3) budú odbornými hodnotiteľmi posudzované ako klinicky vierohodnejšie než interview so zdržanlivým štýlom odpovedania (R1).
+
+**H7.** Interview s rozvinutejším štýlom odpovedania (R3) budú odbornými hodnotiteľmi posudzované ako prirodzenejšie a tréningovo použiteľnejšie než interview so zdržanlivejším štýlom odpovedania (R1, R2), najmä na položkách G2 a G5.
+
+**H8.** Interview s rozvinutejším štýlom odpovedania (R3) budú poskytovať symptomaticky bohatší a presnejší obraz prípadu než interview so zdržanlivejším štýlom (R1), teda budú mať nižšiu priemernú absolútnu chybu v symptomatických doménach.
+
+Pre chybu odhadu závažnosti, chybu odhadu funkčného dopadu a index defektov pri VO4 samostatné hypotézy neformulujeme, keďže pre takto špecifický smer účinku nemáme dostatočne silnú literárnu oporu. Tieto výstupy preto budú interpretované ako inferenčná odpoveď na VO4.
 
 **Blok C — interakcia, zhoda a doplnkové výstupy**
 
 **VO5.** Existuje interakčný efekt medzi prítomnosťou štruktúrujúceho klinického usmernenia a štýlom odpovedania simulovaného pacienta vo vzťahu ku kvalite interview?
+
+**H9.** Pozitívny účinok štruktúrujúceho klinického usmernenia na kvalitu interview bude výraznejší pri rozvinutejšom štýle odpovedania simulovaného pacienta (R3) než pri zdržanlivejšom štýle (R1, R2); inými slovami, očakávame interakciu medzi prítomnosťou štruktúrujúceho klinického usmernenia a štýlom odpovedania simulovaného pacienta v prospech kombinácie so štruktúrujúcim klinickým usmernením a s rozvinutým štýlom odpovedania.
 
 **VO6.** Aká je miera zhody medzi odbornými hodnotiteľmi pri posudzovaní kvality interview?
 
@@ -120,44 +142,8 @@ Na základe uvedených východísk formulujeme výskumné otázky po blokoch sle
 
 **VO8.** Aké typy pozitívnych a negatívnych komentárov sa v otvorených odpovediach odborných hodnotiteľov objavujú najčastejšie?
 
-Za jadro konfirmačnej analytickej línie v tejto práci považujeme hypotézy `H1`–`H9`. Výskumné otázky `VO1`–`VO6` poskytujú širší rámec pre deskriptívny, inferenčný a merací blok; `VO7` a `VO8` ostávajú exploračné.
-
-#### Hypotézy
-
-Keďže doterajšia literatúra poskytuje najpresvedčivejšiu oporu najmä pre význam klinicky ukotveného a štruktúrovaného riadenia simulácie, jadrové hypotézy práce smerujeme prednostne na premennú prítomnosti štruktúrujúceho klinického usmernenia (`guardrail`). Tieto hypotézy formulujeme jednostranne, pretože predpokladáme konkrétny smer účinku a tento smer je v príbuznej literatúre aspoň čiastočne podporený zisteniami o vyššej prirodzenosti, realizme alebo fidelite klinicky ukotvených simulovaných pacientov v porovnaní s jednoduchšími baseline riešeniami [@li2024curefun; @wang2024patientpsi; @lee2025adaptivevp].
-
-**Blok A — hypotézy ku globálnej kvalite interview a symptom fidelity (`VO1`, `VO2`)**
-
-**H1.** Interview vytvorené so štruktúrujúcim klinickým usmernením (`guardrail = on`) budú odbornými hodnotiteľmi posudzované ako klinicky vierohodnejšie než interview vytvorené bez štruktúrujúceho klinického usmernenia (`guardrail = off`), a to na úrovni `plausibility_index` aj jednotlivých položiek `G1`, `G3` a `G4`.
-
-**H2.** Interview vytvorené so štruktúrujúcim klinickým usmernením budú odbornými hodnotiteľmi posudzované ako prirodzenejšie a vnútorne konzistentnejšie než interview vytvorené bez tohto usmernenia, najmä na položke `G2`.
-
-**H3.** Interview vytvorené so štruktúrujúcim klinickým usmernením budú obsahovať menej red flags a iných problematických prvkov než interview vytvorené bez tohto usmernenia, a to na úrovni `defect_index` aj jednotlivých položiek `R1`–`R5`.
-
-**H4.** Interview vytvorené so štruktúrujúcim klinickým usmernením budú symptomaticky primeranejšie vzhľadom na cieľový seed scenár než interview bez tohto usmernenia, teda budú mať nižšiu priemernú absolútnu chybu v oblastiach `A1`–`A9`, `S1` a `S2` (`symptom_error_mean`, `severity_error`, `impact_error`).
-
-**H5.** Interview vytvorené so štruktúrujúcim klinickým usmernením budú odbornými hodnotiteľmi posudzované ako použiteľnejšie na tréningové alebo výučbové účely než interview bez tohto usmernenia, a to na úrovni položky `G5`.
-
-Popri jadrových hypotézach uvádzame aj rozšírené pracovné hypotézy, ktoré môžu byť pri finálnej redakcii buď ponechané, alebo redukované podľa sily ich literárnej opory:
-
-**Blok B — hypotézy k efektu štýlu odpovedania simulovaného pacienta (`VO3`, `VO4`)**
-
-**H6.** Interview s vyváženým alebo rozvinutým štýlom odpovedania simulovaného pacienta (`profile = R2` alebo `R3`) budú odbornými hodnotiteľmi posudzované ako klinicky vierohodnejšie než interview so zdržanlivým štýlom odpovedania (`profile = R1`).
-
-**H7.** Interview s rozvinutejším štýlom odpovedania (`profile = R3`) budú odbornými hodnotiteľmi posudzované ako prirodzenejšie a tréningovo použiteľnejšie než interview so zdržanlivejším štýlom odpovedania (`profile = R1`, `R2`), najmä na položkách `G2` a `G5`.
-
-**H8.** Interview s rozvinutejším štýlom odpovedania (`profile = R3`) budú poskytovať symptomaticky bohatší a presnejší obraz prípadu než interview so zdržanlivejším štýlom (`profile = R1`), teda budú mať nižšiu `symptom_error_mean`.
-
-Pri širšie formulovanej `VO4` zatiaľ samostatne nehypotetizujeme efekt `profile` pre `severity_error`, `impact_error` a `defect_index`, pretože pre takto špecifický smer účinku nemáme rovnako silnú literárnu oporu ako pre `symptom_error_mean`. Tieto výstupy budú preto v tejto práci interpretované ako inferenčná odpoveď na `VO4`, nie ako samostatné smerové hypotézy.
-
-**Blok C — hypotéza k interakcii a nehypotetické bloky (`VO5`–`VO8`)**
-
-**H9.** Pozitívny účinok štruktúrujúceho klinického usmernenia na kvalitu interview bude výraznejší pri rozvinutejšom štýle odpovedania simulovaného pacienta (`profile = R3`) než pri zdržanlivejšom štýle (`profile = R1`, `R2`); inými slovami, očakávame interakciu `guardrail × profile` v prospech kombinácie `guardrail = on` a `profile = R3`.
-
-Pre `VO6` neformulujeme samostatnú hypotézu, pretože ide o merací blok zameraný na mieru zhody hodnotiteľov, nie o predikčný alebo komparačný výskumný problém. `VO7` a `VO8` ostávajú zámerne exploračné, a preto k nim samostatné hypotézy nevytvárame.
-
-Za metodologicky najčistejšie jadro konfirmačného testu pre finálnu verziu práce momentálne považujeme `H1`–`H5`. Hypotézy `H6`–`H9` sú použiteľné skôr ako rozšírená pracovná vrstva, z ktorej možno podľa potreby uberať.
+Pre VO6 neformulujeme samostatnú hypotézu, pretože ide o merací blok zameraný na mieru zhody hodnotiteľov. VO7 a VO8 majú exploračný charakter, a preto k nim samostatné hypotézy nevytvárame.
 
 ### 1.8 Prechod k metodickej časti
 
-Úvodná časť práce ukázala, že problematika AI-generovaných simulovaných interview s depresívnou symptomatikou si vyžaduje metodologicky ukotvené hodnotenie, ktoré kombinuje jazykovú, klinickú a experimentálnu perspektívu. V nasledujúcej kapitole preto uvádzame výskumný dizajn, výber hodnotiteľov, opis stimulusového materiálu, ratingového nástroja a analytických postupov, ktorými overujeme hypotézy `H1`–`H9` a odpovedáme na výskumné otázky `VO1`–`VO8`.
+Úvodná časť práce ukázala, že problematika AI-generovaných simulovaných interview s depresívnou symptomatikou si vyžaduje metodologicky ukotvené hodnotenie, ktoré kombinuje jazykovú, klinickú a experimentálnu perspektívu. V nasledujúcej kapitole preto uvádzame výskumný dizajn, výber hodnotiteľov, opis stimulusového materiálu, ratingového nástroja a analytických postupov, ktorými overujeme hypotézy H1 až H9 a odpovedáme na výskumné otázky VO1 až VO8.

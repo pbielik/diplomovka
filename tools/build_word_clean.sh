@@ -53,6 +53,7 @@ INPUT_FILES=(
 BIB="references/zotero-thesis.bib"
 CSL="$HOME/Zotero/styles/apa.csl"
 LUA="tools/strip_heading_numbers.lua"
+LUA_NOTES="tools/drop_drafting_notes.lua"
 OUTPUT="diplomovka_clean.docx"
 
 # Sanity checks.
@@ -79,6 +80,11 @@ if [[ ! -f "$LUA" ]]; then
   exit 1
 fi
 
+if [[ ! -f "$LUA_NOTES" ]]; then
+  echo "CHYBA: Lua filter neexistuje: $LUA_NOTES" >&2
+  exit 1
+fi
+
 if ! command -v pandoc >/dev/null 2>&1; then
   echo "CHYBA: pandoc nie je nainštalovaný" >&2
   exit 1
@@ -95,6 +101,7 @@ pandoc \
   --csl="$CSL" \
   --metadata=lang:sk-SK \
   --metadata=link-citations:true \
+  --lua-filter="$LUA_NOTES" \
   --lua-filter="$LUA" \
   --output="$OUTPUT"
 
