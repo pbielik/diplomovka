@@ -6,6 +6,7 @@
 - `hypotheses_H1_H6.md`
 - `rating_export_readiness_checklist.md`
 - `expert_content_review_framework.md`
+- `pipeline_outputs_plan.md` — presný plán tabuliek, grafov a modelových výstupov pre pipeline
 - `data_clean/` — clean analytické vstupy pre pipeline
 - `templates/` — CSV šablóny vrátane pilotného expert review passu
 - `scripts/thesis_rating_pipeline.R` — R kostra
@@ -23,4 +24,5 @@
 - over finálne anchor hodnoty vrátane `S2_anchor`,
 - skontroluj recode škál,
 - nechaj názvy premenných konzistentné medzi metódou, CSV a R skriptom,
+- pri implementácii pipeline sa riaď presným output planom v `analysis/pipeline_outputs_plan.md`,
 - skontroluj, že kľúčové metodické rozhodnutia majú oporu v literature bundle v `docs/literature/`, najmä v `source_clusters.md` a `gaps_and_missing_sources.md` pre seed anchoring, content validity rating nástroja a agreement metrics pri ordinálnych ratingoch.

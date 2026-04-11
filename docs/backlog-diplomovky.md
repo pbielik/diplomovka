@@ -1,6 +1,6 @@
 # Backlog diplomovky
 
-> Posledná aktualizácia: 2026-04-10
+> Posledná aktualizácia: 2026-04-11
 > Používaj tento súbor ako operatívny backlog. Stav `done` patrí len položkám, ktoré majú jasný artefakt v repo alebo vo Word milestone.
 
 ## Prioritný backlog
@@ -40,6 +40,7 @@
 | B30 | `P2` | `done` | Normalizovať štýl názvov premenných v hlavnom rukopise z markdown/code zápisu do fakultne prirodzeného jazyka | B27, B29, lokálny sprievodca a AGENTS pravidlá pre nepreložené labels | `manuscript/20_introduction.md`, `manuscript/30_method.md`, `manuscript/40_results.md`, `manuscript/50_discussion.md` a `manuscript/60_conclusion.md` sú prečistené od backtickov a od technických dataset/SPSS labelov v hlavnom texte; finálny prose teraz používa slovenské názvy premenných a iba stručné kódy typu G1, R1, R3 tam, kde sú potrebné |
 | B31 | `P2` | `done` | Dočistiť Word preview workflow po štýlovej normalizácii | B30, build skripty v `tools/` | `tools/build_word_preview.sh` a `tools/build_word_clean.sh` teraz používajú nový filter `tools/drop_drafting_notes.lua`, takže `.docx` exporty už nepreberajú interné blockquote poznámky ani `Doplniť:` bloky; popritom je dočistený aj `manuscript/10_title_abstract.md`, aby preview nepôsobil technicky |
 | B32 | `P2` | `in_progress` | Zapísať a zhrnúť pilotný expert review položiek rater dotazníka a seed scenárov | existujúce expert feedback podklady, B02 len ako metodická opora | v repozitári už existuje `analysis/expert_content_review_framework.md`, tri nové CSV šablóny v `analysis/templates/` a placeholders v `manuscript/30_method.md` a `manuscript/40_results.md`; zostáva prepísať reálne 4 expert review formuláre do clean CSV a stručne zhrnúť vykonané revízie |
+| B33 | `P2` | `done` | Zafixovať thesis-ready analytický plán pre jadro komparácií, doplnkové transcript-level korelácie a exploratívnu `PAM` typológiu transkriptov | B28, metodická synchronizácia medzi Metódou a analytickým workflowom | aktualizované `manuscript/30_method.md`, nový `analysis/pipeline_outputs_plan.md` a zosúladené workflow docs |
 
 ## Závislosti a poradie práce
 
@@ -60,7 +61,7 @@
 4. `B03` pripraviť clean dáta presne podľa `analysis/rating_export_readiness_checklist.md`.
 5. `B04` overiť naming, joins a anchor konzistenciu medzi exportom, metódou a pipeline.
 6. priebežne redukovať a štylisticky doladiť už integrovaný vzdelávací framing a líniu simulačného rámca v `20_introduction.md`, `50_discussion.md` a podkladoch na obhajobu podľa potreby školiteľky; sekcia `1.7` je už v tomto smere prečistená.
-7. `B05` a `B06` dostať z pipeline prvé reálne výstupy.
+7. `B05` a `B06` dostať z pipeline prvé reálne výstupy podľa `analysis/pipeline_outputs_plan.md`, najprv core tabuľky/grafy pre manuscript a až potom supplement s transcript-level Spearman a `PAM`.
 
 ## Definition of done pre kritické položky
 
