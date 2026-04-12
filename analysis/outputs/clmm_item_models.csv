@@ -1,0 +1,6 @@
+outcome,model_type,term,estimate,std_error,statistic,p_value,conf_low,conf_high,status,detail
+g2,clmm,NA,NA,NA,NA,NA,NA,NA,skipped,"Insufficient rows, levels or response variation for CLMM."
+g5,clmm,NA,NA,NA,NA,NA,NA,NA,skipped,"Insufficient rows, levels or response variation for CLMM."
+s1,clmm,NA,NA,NA,NA,NA,NA,NA,skipped,"Insufficient rows, levels or response variation for CLMM."
+s2,clmm,NA,NA,NA,NA,NA,NA,NA,skipped,"Insufficient rows, levels or response variation for CLMM."
+guess_confidence,clmm,NA,NA,NA,NA,NA,NA,NA,skipped,"Insufficient rows, levels or response variation for CLMM."

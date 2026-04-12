@@ -68,7 +68,7 @@ Overiť, do akej miery sú AI-generované simulované interview s depresívnou s
 ### 2.1 Charakter výskumu a výskumný dizajn
 - pilotná kvantitatívna metodologická štúdia
 - faktorový experiment v rámci human-rated hodnotenia transkriptov
-- faktory: `guardrail` (off/on), `profile` (R1/R2/R3)
+- faktory: `guardrail` (off/on), `profile` (P1/P2/P3)
 - 12 seedov × 6 variantov = 72 transkriptov
 
 ### 2.2 Výskumný súbor
@@ -81,7 +81,7 @@ Overiť, do akej miery sú AI-generované simulované interview s depresívnou s
 - 72 textových transkriptov
 - 12 seed scenárov S01–S12
 - klinicky ukotvené anchor profily A1–A9, S1, S2
-- finálny preset G0/G1 × R1/R2/R3
+- finálny preset G0/G1 × P1/P2/P3
 
 ### 2.4 Hodnotiaci nástroj
 - G1–G5: primárne outcome-y

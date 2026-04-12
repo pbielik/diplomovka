@@ -1,0 +1,5 @@
+record_id,rater_id,transcript_id,seed_id,guardrail,profile,comment
+433,12,84d00e77-cc78-457d-adea-9ad9271b025b,S01,off,R1,"least_convincing: problém so zaspávaním. celkový obraz skôr imitioval vyhorenie s miernymi príznakmi depresie | missing_or_exaggerated: otázka na to, čo pacientke robí dobre, čo by potrebovala"
+434,12,9646f5b8-0ed5-4797-8b46-ffa523f2217a,S02,off,R1,"least_convincing: problém so zaspávaním | missing_or_exaggerated: otázka na to, čo by pacientka potrebovala, čo by jej pomohlo"
+435,12,a5c9d5a6-f225-45b9-ae09-1ffd75da9015,S03,off,R1,least_convincing: Nekonzistencia muzskeho rodu pri otazke a zenskeho rodu pri odpovediach | missing_or_exaggerated: Nie
+436,12,8e5fcea6-e59b-444e-bffa-339bcb204de4,S04,off,R1,"least_convincing: Zdoraznrnie, že nema umysrl si ublížiť | missing_or_exaggerated: Nie"

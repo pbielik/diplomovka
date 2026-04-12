@@ -1,0 +1,7 @@
+cluster,guardrail,n,grouping,profile
+C1,off,3,guardrail,NA
+C2,off,1,guardrail,NA
+C1,NA,3,profile,R1
+C2,NA,1,profile,R1
+C1,off,3,guardrail_profile,R1
+C2,off,1,guardrail_profile,R1

@@ -41,6 +41,9 @@
 | B31 | `P2` | `done` | Dočistiť Word preview workflow po štýlovej normalizácii | B30, build skripty v `tools/` | `tools/build_word_preview.sh` a `tools/build_word_clean.sh` teraz používajú nový filter `tools/drop_drafting_notes.lua`, takže `.docx` exporty už nepreberajú interné blockquote poznámky ani `Doplniť:` bloky; popritom je dočistený aj `manuscript/10_title_abstract.md`, aby preview nepôsobil technicky |
 | B32 | `P2` | `in_progress` | Zapísať a zhrnúť pilotný expert review položiek rater dotazníka a seed scenárov | existujúce expert feedback podklady, B02 len ako metodická opora | v repozitári už existuje `analysis/expert_content_review_framework.md`, tri nové CSV šablóny v `analysis/templates/` a placeholders v `manuscript/30_method.md` a `manuscript/40_results.md`; zostáva prepísať reálne 4 expert review formuláre do clean CSV a stručne zhrnúť vykonané revízie |
 | B33 | `P2` | `done` | Zafixovať thesis-ready analytický plán pre jadro komparácií, doplnkové transcript-level korelácie a exploratívnu `PAM` typológiu transkriptov | B28, metodická synchronizácia medzi Metódou a analytickým workflowom | aktualizované `manuscript/30_method.md`, nový `analysis/pipeline_outputs_plan.md` a zosúladené workflow docs |
+| B34 | `P2` | `done` | Spevniť Úvod pre authoring do Wordu cez citačný a terminologický pass | B02, B25, B29, B30 | `manuscript/20_introduction.md` je doplnený o klinickejší MDD/differential anchor, opatrnejší simulated-placement framing, explicitný training-only disclaimer a metodický bridge cez `boateng2018scaledevelopment`; zároveň sú naprieč `20_introduction.md`, `30_method.md`, `40_results.md`, `50_discussion.md`, `10_title_abstract.md` a `00_outline.md` zjednotené úrovne faktora štýlu odpovedania na `P1`–`P3`, aby sa nebili s defektovými položkami `R1`–`R5` |
+| B35 | `P2` | `done` | Opraviť semantiku symptom vrstvy tak, aby `A1`–`A9` boli transcript-level PHQ-9 metadata a nie ľudské rater ratings | audit testovacích clean CSV a kontrola väzieb medzi Úvodom, Metódou a Results | `manuscript/20_introduction.md`, `manuscript/30_method.md`, `manuscript/40_results.md` a dashboard sú zosúladené; `A1`–`A9` už nevstupujú do psychometriky ani `ICC` ako ľudské ratingy |
+| B36 | `P2` | `done` | Prepnúť jadro pipeline tak, aby `S1/S2` ostali core human-rated outcome-y a error vetva voči anchorom sa rátala priamo na `1-5` škále | B35 | `analysis/scripts/thesis_rating_pipeline.R`, `analysis/pipeline_outputs_plan.md`, `analysis/methods_variables_table.csv`, `analysis/rating_export_readiness_checklist.md`, `docs/vo_h_model_results_map.md` a `manuscript/30_method.md` sú zosúladené; `severity_error` a `impact_error` už nepoužívajú harmonizačný gate |
 
 ## Závislosti a poradie práce
 
@@ -60,8 +63,10 @@
 3. vyriesit uz len technicky `OCR / extraction blocker` pre `lynn1986contentvalidity`, aby sa dal spravit aj tento note.
 4. `B03` pripraviť clean dáta presne podľa `analysis/rating_export_readiness_checklist.md`.
 5. `B04` overiť naming, joins a anchor konzistenciu medzi exportom, metódou a pipeline.
-6. priebežne redukovať a štylisticky doladiť už integrovaný vzdelávací framing a líniu simulačného rámca v `20_introduction.md`, `50_discussion.md` a podkladoch na obhajobu podľa potreby školiteľky; sekcia `1.7` je už v tomto smere prečistená.
+6. priebežne už len redukovať alebo jemne štylisticky doladiť integrovaný vzdelávací framing a líniu simulačného rámca v `20_introduction.md`, `50_discussion.md` a podkladoch na obhajobu podľa potreby školiteľky; citačné a terminologické spevnenie Úvodu je po `B34` hotové.
 7. `B05` a `B06` dostať z pipeline prvé reálne výstupy podľa `analysis/pipeline_outputs_plan.md`, najprv core tabuľky/grafy pre manuscript a až potom supplement s transcript-level Spearman a `PAM`.
+8. po prvom ostrom rune rozhodnúť, či `severity_error` a `impact_error` pôjdu do hlavného reportu ako secondary outcome-y, alebo len do supplementu.
+9. po doplnení ďalších raterov zopakovať clean run a overiť, že `ICC`, `LMM`, `CLMM` a `PAM` už neostávajú v `skipped` stave len pre malú a nebalansovanú vzorku.
 
 ## Definition of done pre kritické položky
 

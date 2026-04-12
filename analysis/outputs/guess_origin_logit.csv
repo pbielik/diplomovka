@@ -1,0 +1,2 @@
+term,estimate,std_error,statistic,p_value,conf_low,conf_high,status,detail
+NA,NA,NA,NA,NA,NA,NA,skipped,Insufficient rows or binary variation for logistic model.

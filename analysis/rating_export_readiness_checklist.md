@@ -130,11 +130,12 @@ Aktualna pipeline tento subor nacitava, ale dalej ho nepouziva. Pre realny beh m
 
 - `seed_id` musi byt unikatny.
 - Kazdy `seed_id` z `ratings_clean.csv` musi mat anchor riadok.
-- `A*_anchor`, `S1_anchor`, `S2_anchor` musia byt na skale `0` az `3`.
+- `A*_anchor` musia byt na skale `0` az `3`.
+- `S1_anchor` a `S2_anchor` musia byt na skale `1` az `5`.
 - Toto je zdroj pravdy pre:
   - `symptom_error_mean`
-  - `severity_error`
-  - `impact_error`
+  - cielove transcript-level symptom kotvy
+  - priame `severity_error` a `impact_error` pri `S1/S2` na skale `1-5`
 
 ## 4. raters_clean.csv
 
@@ -175,29 +176,30 @@ Pred spustenim pipeline si over aspon tieto pocty:
 
 Ak sa niekde rozbije balans, nie je to automaticky fatalne, ale musi to byt vedome pomenovane v Metode a neskor vo Vysledkoch.
 
-## Co pipeline dnes este nepokryva
+## Co pipeline dnes este nepokryva uplne
 
-Aktualny `analysis/scripts/thesis_rating_pipeline.R` je stale len kostra. Dnes:
+Aktualny `analysis/scripts/thesis_rating_pipeline.R` uz vie:
 
-- cita `analysis/templates/*.csv`, nie `analysis/data_clean/*.csv`
-- nepouziva `transcripts_master.csv` na QC ani join logiku
-- pocita len:
+- citat `analysis/data_clean/*.csv` a pri ich absencii spadnut do `analysis/templates/*.csv`,
+- urobit join cez `ratings`, `transcripts`, `seeds` a `raters`,
+- vypocitat:
   - `plausibility_index`
   - `defect_index`
   - `symptom_error_mean`
-  - `severity_error`
-  - `impact_error`
-- realne modeluje len:
-  - `plausibility_index`
-  - `defect_index`
-  - `symptom_error_mean`
-- robi len 2 alpha vypocty a neprodukuje:
-  - `omega`
-  - blok `R1-R5`
-  - `ICC`
-  - item-level ordinal models pre `G2`, `G5`, `G1`, `G3`, `G4`, `R1-R5`
-  - exploracne modely pre `guessed_origin`, `guess_confidence`
-- negeneruje tabulky a grafy do `tables/` a `figures/`
+  - podla potreby aj `severity_error` a `impact_error` ako priame `1-5` error skore,
+- vyprodukovat:
+  - `alpha` aj `omega`,
+  - `ICC` pre `plausibility_index`, `defect_index`, `S1`, `S2`,
+  - mixed-model vystupy pre core outcome-y,
+  - zakladne exploračné summary pre `guessed_origin`, `guess_confidence`,
+  - tabulky a grafy do `tables/` a `figures/`.
+
+Stale vsak plati, ze:
+
+- otvorene komentare ostavaju manualna alebo polo-manualna kvalitatívna vrstva,
+- `S1/S2` sa uz mozu porovnavat priamo s `S1_anchor/S2_anchor`, kedze seed anchors aj ludske ratingy pouzivaju rovnaku `1-5` skalu,
+- transcript-level fidelity vetva (`A1-A9`, `symptom_error_mean`) potrebuje pri finalnom reporte opatrnu interpretaciu, lebo nejde o opakovany ludsky rating,
+- smoke-run na templates nepredstavuje realny analyticky vysledok pre manuscript.
 
 To znamena, ze realny export moze byt pripraveny spravne, ale bez dalsieho pipeline passu este nedostanes vsetko, co ocakava:
 
@@ -209,14 +211,9 @@ To znamena, ze realny export moze byt pripraveny spravne, ale bez dalsieho pipel
 
 1. Vyexportovat realne clean subory do `analysis/data_clean/`.
 2. Skontrolovat ich proti tomuto checklistu.
-3. Dorobit pipeline tak, aby:
-   - citala clean vstupy,
-   - spravila QC summary,
-   - pocitala alpha aj omega,
-   - vyratala `ICC`,
-   - pridala hlavne ordinal / mixed model vystupy pre H1 az H9,
-   - zapisala vystupy do `analysis/outputs/`, `tables/` a `figures/`.
-4. Az potom doplnat `manuscript/40_results.md`.
+3. Spustit pipeline nad clean datami a skontrolovat `analysis/outputs/run_manifest.csv`.
+4. Ak chces, az nasledne rozhodnut, ci `severity_error` a `impact_error` pojdu do jadra reportu alebo len do supplementu.
+5. Az potom doplnat `manuscript/40_results.md`.
 
 ## Kratka verzia
 

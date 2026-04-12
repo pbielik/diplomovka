@@ -1,0 +1,13 @@
+metric,value
+source_mode,data_clean
+n_raters,1
+n_transcripts,4
+n_seeds,4
+n_ratings,4
+mean_ratings_per_transcript,1
+min_ratings_per_transcript,1
+max_ratings_per_transcript,1
+severity_error_mode,direct_1to5
+guardrail_off,4
+profile_R1,4
+guardrail_off_profile_R1,4

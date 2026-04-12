@@ -1,0 +1,6 @@
+outcome,guardrail,profile,emmean,std_error,conf_low,conf_high,status,detail
+plausibility_index,NA,NA,NA,NA,NA,NA,skipped,LMM not fitted.
+defect_index,NA,NA,NA,NA,NA,NA,skipped,LMM not fitted.
+symptom_error_mean,NA,NA,NA,NA,NA,NA,skipped,Transcript-level LMM not fitted.
+severity_error,NA,NA,NA,NA,NA,NA,skipped,Transcript-level LMM not fitted.
+impact_error,NA,NA,NA,NA,NA,NA,skipped,Transcript-level LMM not fitted.

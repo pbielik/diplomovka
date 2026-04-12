@@ -1,0 +1,5 @@
+transcript_id,seed_id,guardrail,profile,variant_id,backend_model,target_turns,actual_turns,chat_variability,created_at,transcript_path
+84d00e77-cc78-457d-adea-9ad9271b025b,S01,0,R1,G0_R1,pydantic_ai|gpt-5.4,24,40,locked,2026-04-01,transcripts/84d00e77-cc78-457d-adea-9ad9271b025b.txt
+8e5fcea6-e59b-444e-bffa-339bcb204de4,S04,0,R1,G0_R1,pydantic_ai|gpt-5.4,24,38,locked,2026-04-01,transcripts/8e5fcea6-e59b-444e-bffa-339bcb204de4.txt
+9646f5b8-0ed5-4797-8b46-ffa523f2217a,S02,0,R1,G0_R1,pydantic_ai|gpt-5.4,24,40,locked,2026-04-01,transcripts/9646f5b8-0ed5-4797-8b46-ffa523f2217a.txt
+a5c9d5a6-f225-45b9-ae09-1ffd75da9015,S03,0,R1,G0_R1,pydantic_ai|gpt-5.4,24,42,locked,2026-04-01,transcripts/a5c9d5a6-f225-45b9-ae09-1ffd75da9015.txt

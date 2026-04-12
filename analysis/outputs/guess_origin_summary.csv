@@ -1,0 +1,9 @@
+guessed_origin,n,grouping,guardrail,profile,prop
+ai_generated,1,overall,NA,NA,0.25
+human_simulated,3,overall,NA,NA,0.75
+ai_generated,1,guardrail,off,NA,0.25
+human_simulated,3,guardrail,off,NA,0.75
+ai_generated,1,profile,NA,R1,0.25
+human_simulated,3,profile,NA,R1,0.75
+ai_generated,1,guardrail_profile,off,R1,0.25
+human_simulated,3,guardrail_profile,off,R1,0.75

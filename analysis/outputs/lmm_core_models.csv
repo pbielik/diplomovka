@@ -1,0 +1,6 @@
+outcome,model_type,term,estimate,std_error,statistic,p_value,conf_low,conf_high,status,detail
+plausibility_index,lmm,NA,NA,NA,NA,NA,NA,NA,skipped,Insufficient rows or factor levels for LMM.
+defect_index,lmm,NA,NA,NA,NA,NA,NA,NA,skipped,Insufficient rows or factor levels for LMM.
+symptom_error_mean,transcript_lmm,NA,NA,NA,NA,NA,NA,NA,skipped,Insufficient transcript rows or factor levels for transcript-level LMM.
+severity_error,transcript_lmm,NA,NA,NA,NA,NA,NA,NA,skipped,Insufficient transcript rows or factor levels for transcript-level LMM.
+impact_error,transcript_lmm,NA,NA,NA,NA,NA,NA,NA,skipped,Insufficient transcript rows or factor levels for transcript-level LMM.

@@ -1,0 +1,10 @@
+outcome,model_type,term,estimate,std_error,statistic,p_value,conf_low,conf_high,status,detail,model_family
+plausibility_index,lmm,NA,NA,NA,NA,NA,NA,NA,skipped,Insufficient rows or factor levels for LMM.,lmm
+defect_index,lmm,NA,NA,NA,NA,NA,NA,NA,skipped,Insufficient rows or factor levels for LMM.,lmm
+symptom_error_mean,transcript_lmm,NA,NA,NA,NA,NA,NA,NA,skipped,Insufficient transcript rows or factor levels for transcript-level LMM.,lmm
+severity_error,transcript_lmm,NA,NA,NA,NA,NA,NA,NA,skipped,Insufficient transcript rows or factor levels for transcript-level LMM.,lmm
+impact_error,transcript_lmm,NA,NA,NA,NA,NA,NA,NA,skipped,Insufficient transcript rows or factor levels for transcript-level LMM.,lmm
+g2,clmm,NA,NA,NA,NA,NA,NA,NA,skipped,"Insufficient rows, levels or response variation for CLMM.",clmm
+g5,clmm,NA,NA,NA,NA,NA,NA,NA,skipped,"Insufficient rows, levels or response variation for CLMM.",clmm
+s1,clmm,NA,NA,NA,NA,NA,NA,NA,skipped,"Insufficient rows, levels or response variation for CLMM.",clmm
+s2,clmm,NA,NA,NA,NA,NA,NA,NA,skipped,"Insufficient rows, levels or response variation for CLMM.",clmm

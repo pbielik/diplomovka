@@ -14,7 +14,7 @@ Prvým dôležitým okruhom výsledkov bola klinická vierohodnosť rozhovorov. 
 
 Ak sa zároveň ukáže, že prítomnosť štruktúrujúceho klinického usmernenia znižuje aj index defektov, je to prakticky ešte dôležitejší výsledok než samotné zvýšenie klinickej vierohodnosti. Pre tréningové a výučbové použitie totiž nestačí, aby text pôsobil dobre na prvý dojem. Potrebné je aj to, aby neobsahoval kontradikcie, zjednodušenia alebo obsahové chyby, ktoré by mohli študenta alebo používateľa viesť k nesprávnym záverom.
 
-Druhým kľúčovým okruhom je prirodzenosť jazyka. Ak sa preukáže, že rozvinutejší štýl odpovedania na úrovni R3 zvyšuje prirodzenosť rozhovoru, možno to chápať ako znak toho, že bohatšie a rozvinutejšie odpovede vytvárajú presvedčivejší dialóg. Zároveň však treba sledovať, či sa tým nezvyšuje aj miera defektov. Práve toto možné napätie medzi prirodzenosťou a kontrolou kvality je jedným z metodologicky najzaujímavejších momentov celej štúdie.
+Druhým kľúčovým okruhom je prirodzenosť jazyka. Ak sa preukáže, že rozvinutejší štýl odpovedania na úrovni P3 zvyšuje prirodzenosť rozhovoru, možno to chápať ako znak toho, že bohatšie a rozvinutejšie odpovede vytvárajú presvedčivejší dialóg. Zároveň však treba sledovať, či sa tým nezvyšuje aj miera defektov. Práve toto možné napätie medzi prirodzenosťou a kontrolou kvality je jedným z metodologicky najzaujímavejších momentov celej štúdie.
 
 ### 4.3 Interpretácia výsledkov symptomatickej primeranosti
 

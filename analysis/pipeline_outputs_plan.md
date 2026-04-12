@@ -24,17 +24,20 @@ Exploracia otvorenych komentarov ostava manualna alebo polo-manualna; pipeline m
 - `descriptives_items.csv`
   - frekvencie, mediány a IQR pre `G1-G5`, `A1-A9`, `S1`, `S2`, `R1-R5`, `guess_confidence`
 - `descriptives_composites.csv`
-  - mean, SD, median, IQR, min, max pre `plausibility_index`, `defect_index`, `symptom_error_mean`, `severity_error`, `impact_error`
+  - mean, SD, median, IQR, min, max pre `plausibility_index`, `defect_index`, `symptom_error_mean`
+  - `severity_error` a `impact_error` ako priame `1-5` error skore medzi ľudskym `S1/S2` a seed anchors
 - `expert_review_summary.csv`
   - pocet expertov, pocet posudenych poloziek, pocet posudenych seedov, pocet odporucanych uprav, najcastejsie typy pripomienok
 - `internal_consistency.csv`
   - `alpha` a `omega` pre blok `G1-G5`, pre blok `G1-G3-G4` a pre blok `R1-R5`
 - `icc_summary.csv`
-  - zvoleny typ `ICC`, odhady, 95 % CI, interpretacna kategoria pre `plausibility_index`, `defect_index`, `symptom_error_mean`
+  - zvoleny typ `ICC`, odhady, 95 % CI, interpretacna kategoria pre `plausibility_index`, `defect_index`, `S1`, `S2`
 - `lmm_core_models.csv`
-  - tidy summary pre `plausibility_index`, `defect_index`, `symptom_error_mean`, `severity_error`, `impact_error`
+  - tidy summary pre `plausibility_index`, `defect_index`
+  - transcript-level modelovy prehlad pre `symptom_error_mean`
+  - transcript-level modelovy prehlad aj pre `severity_error` a `impact_error`
 - `clmm_item_models.csv`
-  - tidy summary pre `G2`, `G5` a podla potreby `G1`, `G3`, `G4`, `R1-R5`
+  - tidy summary pre `G2`, `G5`, `S1`, `S2` a `guess_confidence`
 - `emmeans_core_models.csv`
   - estimated marginal means a planovane kontrasty pre hlavne outcome-y
 - `guess_origin_summary.csv`
@@ -98,10 +101,13 @@ Najprv sa pripravi transcript-level agregat, teda priemerne hodnoty napriec rate
 - `plausibility_index`
 - reverzny `defect_index`
 - reverzny `symptom_error_mean`
-- reverzny `severity_error`
-- reverzny `impact_error`
 - `G2`
 - `G5`
+
+Ako sensitivity appendix je mozne doplnit aj:
+
+- reverzny `severity_error`
+- reverzny `impact_error`
 
 Porovnavaju sa len riesenia s `k = 2` az `k = 4`. Do supplementu sa zaradi iba riesenie, ktore bude zaroven interpretovatelne a podporene aspon zakladnym indexom kvality riesenia, najma silhouette.
 
@@ -135,6 +141,7 @@ Porovnavaju sa len riesenia s `k = 2` az `k = 4`. Do supplementu sa zaradi iba r
 ## 4. Poznamky k modelom a poradiu reportovania
 
 - Jadro inferencie tvoria komparacie medzi podmienkami cez `LMM` a `CLMM`, nie korelacie a nie klastrovanie.
+- `S1` a `S2` su v jadre vedene ako samostatne human-rated ordinal outcome-y; popri nich sa teraz daju reportovat aj priame error ukazovatele voci `S1_anchor` a `S2_anchor`, kedze skaly su zarovnane na `1-5`.
 - Planovane kontrasty pre `profile` maju byt primarne `R3 vs R1`; `R2 vs R1` a `R3 vs R2` maju byt sekundarne.
 - Pri signifikantnej interakcii `guardrail x profile` sa maju reportovat simple effects, nie plosne vsetky parove porovnania.
 - Korelacna matica a `PAM` maju byt interpretovane len ako doplnkovy opis struktury dat, nie ako dokaz pre `H1-H9`.

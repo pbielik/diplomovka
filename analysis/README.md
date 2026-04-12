@@ -23,6 +23,7 @@
 - ak chceš reportovať predbežnú expert content review vrstvu, prepíš 4 expertov do šablón z `analysis/templates/`,
 - over finálne anchor hodnoty vrátane `S2_anchor`,
 - skontroluj recode škál,
+- `S1` a `S2` ber v jadre ako samostatné human-rated outcome-y; seed `S1_anchor` a `S2_anchor` su uz na rovnakej `1-5` skale, takze error vetva moze bezat priamo,
 - nechaj názvy premenných konzistentné medzi metódou, CSV a R skriptom,
 - pri implementácii pipeline sa riaď presným output planom v `analysis/pipeline_outputs_plan.md`,
 - skontroluj, že kľúčové metodické rozhodnutia majú oporu v literature bundle v `docs/literature/`, najmä v `source_clusters.md` a `gaps_and_missing_sources.md` pre seed anchoring, content validity rating nástroja a agreement metrics pri ordinálnych ratingoch.
