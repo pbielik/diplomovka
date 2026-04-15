@@ -1,6 +1,6 @@
 # Backlog diplomovky
 
-> Posledná aktualizácia: 2026-04-11
+> Posledná aktualizácia: 2026-04-14
 > Používaj tento súbor ako operatívny backlog. Stav `done` patrí len položkám, ktoré majú jasný artefakt v repo alebo vo Word milestone.
 
 ## Prioritný backlog
@@ -17,7 +17,7 @@
 | B07 | `P1` | `todo` | Doplniť `manuscript/40_results.md` podľa reálnych výstupov | B05, B06 | plný draft Results bez analytických placeholderov |
 | B08 | `P1` | `todo` | Prepísať `manuscript/50_discussion.md` podľa skutočných zistení | B07 | diskusia viazaná na reálne výsledky a literatúru |
 | B09 | `P2` | `todo` | Doplniť finálne počty a procedural detail do `manuscript/30_method.md` | B03 | metóda bez procesných placeholderov |
-| B10 | `P2` | `todo` | Finalizovať abstrakt a záver | B07, B08, B09 | finálny `10_title_abstract.md` a `60_conclusion.md` |
+| B10 | `P2` | `in_progress` | Dofinalizovať abstrakt a záver po výsledkoch | B07, B08, B09 | preferovaný názov `Kvalita simulovaných klinických interview s depresívnou symptomatikou generovaných veľkým jazykovým modelom` a mäkší draft SK/EN abstraktu sú už zapracované; finálny `10_title_abstract.md` a `60_conclusion.md` prídu po Results |
 | B11 | `P2` | `todo` | Vytvoriť Word milestone draft so živými citáciami | B01, B07, B08, B10 | exportovateľný rukopis pre školiteľa |
 | B12 | `P2` | `done` | Spraviť checklist revision pass cez Introduction, Method a Results s pomocou `docs/resources/thesis-writing-md/README.md` | nový markdown balík thesis writing materiálov | revidované drafty v `manuscript/20_introduction.md`, `manuscript/30_method.md`, `manuscript/40_results.md` |
 | B13 | `P2` | `done` | Zapracovať master outline v2 do workflowu, guides a agent promptov | nové metodické usmernenia | `docs/guides/master-outline-diplomovky-v2.md`, aktualizované `AGENTS.md` a prompt súbory |
@@ -44,6 +44,10 @@
 | B34 | `P2` | `done` | Spevniť Úvod pre authoring do Wordu cez citačný a terminologický pass | B02, B25, B29, B30 | `manuscript/20_introduction.md` je doplnený o klinickejší MDD/differential anchor, opatrnejší simulated-placement framing, explicitný training-only disclaimer a metodický bridge cez `boateng2018scaledevelopment`; zároveň sú naprieč `20_introduction.md`, `30_method.md`, `40_results.md`, `50_discussion.md`, `10_title_abstract.md` a `00_outline.md` zjednotené úrovne faktora štýlu odpovedania na `P1`–`P3`, aby sa nebili s defektovými položkami `R1`–`R5` |
 | B35 | `P2` | `done` | Opraviť semantiku symptom vrstvy tak, aby `A1`–`A9` boli transcript-level PHQ-9 metadata a nie ľudské rater ratings | audit testovacích clean CSV a kontrola väzieb medzi Úvodom, Metódou a Results | `manuscript/20_introduction.md`, `manuscript/30_method.md`, `manuscript/40_results.md` a dashboard sú zosúladené; `A1`–`A9` už nevstupujú do psychometriky ani `ICC` ako ľudské ratingy |
 | B36 | `P2` | `done` | Prepnúť jadro pipeline tak, aby `S1/S2` ostali core human-rated outcome-y a error vetva voči anchorom sa rátala priamo na `1-5` škále | B35 | `analysis/scripts/thesis_rating_pipeline.R`, `analysis/pipeline_outputs_plan.md`, `analysis/methods_variables_table.csv`, `analysis/rating_export_readiness_checklist.md`, `docs/vo_h_model_results_map.md` a `manuscript/30_method.md` sú zosúladené; `severity_error` a `impact_error` už nepoužívajú harmonizačný gate |
+| B37 | `P2` | `done` | Doplniť krátky orientačný vstup priamo pod nadpis `Úvod` | lokálny sprievodca, master outline v2 a rýchly scan príkladov iných DP | `manuscript/20_introduction.md` má po novom 3-5 odsekový lead-in pod `## 1 Úvod`, ktorý stručne uvedie predmet práce, význam témy, simulačný rámec a logiku ďalších podkapitol bez zavádzania nových premenných |
+| B38 | `P2` | `done` | Preložiť empirické premenné a hypotézy do jazyka zodpovedajúceho operacionalizácii a typu testu | lokálny sprievodca, `manuscript/30_method.md`, `docs/vo_h_model_results_map.md` | v `manuscript/30_method.md` pribudla sekcia 2.5.8 s explicitným rozlíšením `priemer / medián / distribúcia / pravdepodobnosť vyššieho skóre`; časť 2.6 je prepísaná do komparačného empirického jazyka a pomocná mapa `docs/vo_h_model_results_map.md` už uvádza indexy a error-based ukazovatele v rovnakom jazyku |
+| B39 | `P2` | `done` | Pridať thesis-style preview export pre tabuľky a hlavné obrázky bez zvislých čiar | existujúca R pipeline a vzor z bakalárky | `analysis/scripts/thesis_rating_pipeline.R` po novom generuje `tables/styled_preview/table_1.html` až `table_6.html` a spoločný `tables/styled_preview/results_preview.html` s captionmi nad objektom a horizontálnymi oddeľovačmi; `analysis/pipeline_outputs_plan.md` a dashboard sú zosúladené |
+| B40 | `P3` | `done` | Pridať rýchly Word test build pre preview výsledkových tabuliek | B39 | nový skript `tools/build_results_tables_preview_docx.py` generuje `tables/styled_preview/results_tables_preview.docx` z aktuálnych CSV tabuliek, aby sa dal vo Worde rýchlo overiť caption layout a horizontálne čiary; aktuálna verzia už používa aj slovenské labely z `analysis/codebook_rating_study.csv`, širšie textové stĺpce pre menej agresívne lámanie a poznámky pod relevantnými tabuľkami |
 
 ## Závislosti a poradie práce
 

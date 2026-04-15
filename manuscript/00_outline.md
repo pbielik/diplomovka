@@ -2,11 +2,11 @@
 
 > Táto osnova je uzamknutá podľa IMRaD a podľa sprievodcu fakulty. Každá hlavná sekcia má byť logicky previazaná s ostatnými: úvod vedie k cieľom a hypotézam, metóda ukazuje, ako boli operacionalizované, výsledky riešia iba to, čo bolo vopred definované, a diskusia interpretuje len tie zistenia, ktoré boli skutočne získané.
 
-## Pracovný názov
-**Pilotné metodologické overenie kvality AI-generovaných simulovaných klinických interview s depresívnou symptomatikou: human-rated experiment s faktorovým dizajnom**
+## Preferovaný názov
+**Kvalita simulovaných klinických interview s depresívnou symptomatikou generovaných veľkým jazykovým modelom**
 
 Alternatívny kratší názov:
-**Kvalita AI-generovaných simulovaných interview s depresívnou symptomatikou: pilotná human-rated štúdia**
+**Odborné hodnotenie simulovaných klinických interview s depresívnou symptomatikou generovaných veľkým jazykovým modelom**
 
 ---
 

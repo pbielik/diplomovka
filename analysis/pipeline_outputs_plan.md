@@ -1,6 +1,6 @@
 # Pipeline Outputs Plan
 
-> Posledna aktualizacia: 2026-04-11
+> Posledna aktualizacia: 2026-04-14
 > Ucel: presne zafixovat, ake vystupy ma generovat analyticka pipeline pre manuscript, Word workflow a doplnkovy appendix.
 
 ## 1. Rozdelenie vystupov
@@ -10,6 +10,10 @@ Pipeline ma produkovat tri vrstvy vystupov:
 1. `analysis/outputs/` — technicke a analyticke medzivystupy, ktore sa daju znovu pouzit pri dalsom spracovani.
 2. `tables/` — manuscript-ready tabulky pre hlavny text a supplement.
 3. `figures/` — manuscript-ready grafy pre hlavny text a supplement.
+
+Popri CSV/PNG artefaktoch ma pipeline po novom generovat aj vizualny preview layer:
+
+- `tables/styled_preview/` — HTML preview tabuliek a hlavných obrázkov vo word-like štýle s captionom nad objektom, bez zvislých čiar a s horizontálnymi oddeľovačmi.
 
 Exploracia otvorenych komentarov ostava manualna alebo polo-manualna; pipeline ma pre nu pripravit len pomocne summary, nie definitivne tematicke kodovanie.
 
@@ -61,6 +65,10 @@ Exploracia otvorenych komentarov ostava manualna alebo polo-manualna; pipeline m
   - zdroj pre Tabulku 5
 - `table_6_mixed_models_core.csv`
   - zdroj pre Tabulku 6; zahrna LMM aj klucove CLMM vystupy v kompaktnej forme
+- `styled_preview/table_1.html` az `styled_preview/table_6.html`
+  - individualne HTML preview hlavnych tabuliek v thesis-style layoute
+- `styled_preview/results_preview.html`
+  - spolocny preview dokument pre Tabulku 1-6 a Obrázok 1-2
 
 ### 2.3 `figures/`
 
@@ -164,5 +172,6 @@ Ak je cielom prvy plnohodnotny beh pipeline, minimalny set hotovych vystupov je:
 11. `table_6_mixed_models_core.csv`
 12. `figure_1_primary_outcomes_by_condition.png`
 13. `figure_2_emmeans_core_models.png`
+14. `tables/styled_preview/results_preview.html`
 
 Spearmanova matica a `PAM` mozu nasledovat az v druhom passe po stabilizacii jadra.

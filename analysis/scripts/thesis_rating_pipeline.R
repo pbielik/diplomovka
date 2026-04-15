@@ -19,10 +19,12 @@ repo_root <- normalizePath(".", winslash = "/", mustWork = TRUE)
 output_dir <- file.path(repo_root, "analysis", "outputs")
 tables_dir <- file.path(repo_root, "tables")
 figures_dir <- file.path(repo_root, "figures")
+styled_preview_dir <- file.path(tables_dir, "styled_preview")
 
 dir.create(output_dir, recursive = TRUE, showWarnings = FALSE)
 dir.create(tables_dir, recursive = TRUE, showWarnings = FALSE)
 dir.create(figures_dir, recursive = TRUE, showWarnings = FALSE)
+dir.create(styled_preview_dir, recursive = TRUE, showWarnings = FALSE)
 
 clean_paths <- list(
   ratings = file.path(repo_root, "analysis", "data_clean", "ratings_clean.csv"),
@@ -109,6 +111,187 @@ placeholder_plot <- function(path, title, subtitle) {
     theme_void()
 
   ggsave(path, plot_obj, width = 9, height = 5, dpi = 150)
+}
+
+html_escape <- function(x) {
+  x <- as.character(x)
+  x <- gsub("&", "&amp;", x, fixed = TRUE)
+  x <- gsub("<", "&lt;", x, fixed = TRUE)
+  x <- gsub(">", "&gt;", x, fixed = TRUE)
+  x <- gsub("\"", "&quot;", x, fixed = TRUE)
+  x
+}
+
+display_header <- function(name) {
+  gsub("_", " ", name, fixed = TRUE)
+}
+
+format_cell_value <- function(x) {
+  if (length(x) == 0 || is.na(x)) {
+    return("")
+  }
+
+  if (inherits(x, c("Date", "POSIXct", "POSIXt"))) {
+    return(as.character(x))
+  }
+
+  if (is.numeric(x)) {
+    return(format(round(x, 3), nsmall = 0, trim = TRUE, scientific = FALSE))
+  }
+
+  as.character(x)
+}
+
+build_table_html_fragment <- function(data, caption_label, caption_title, note = NULL) {
+  data <- as.data.frame(data, stringsAsFactors = FALSE)
+
+  numeric_cols <- vapply(data, is.numeric, logical(1))
+  header_html <- paste0(
+    "<tr>",
+    paste0(
+      "<th>",
+      html_escape(vapply(names(data), display_header, character(1))),
+      "</th>",
+      collapse = ""
+    ),
+    "</tr>"
+  )
+
+  if (nrow(data) == 0) {
+    body_html <- paste0(
+      "<tr><td colspan=\"",
+      ncol(data),
+      "\" class=\"empty-row\">Bez dostupných údajov.</td></tr>"
+    )
+  } else {
+    body_html <- paste0(
+      vapply(seq_len(nrow(data)), function(row_idx) {
+        row_values <- data[row_idx, , drop = FALSE]
+        cells <- vapply(seq_along(row_values), function(col_idx) {
+          column_name <- names(row_values)[col_idx]
+          css_class <- if (isTRUE(numeric_cols[[column_name]])) "num" else "text"
+          paste0(
+            "<td class=\"", css_class, "\">",
+            html_escape(format_cell_value(row_values[[column_name]][[1]])),
+            "</td>"
+          )
+        }, character(1))
+        paste0("<tr>", paste0(cells, collapse = ""), "</tr>")
+      }, character(1)),
+      collapse = ""
+    )
+  }
+
+  note_html <- if (!is.null(note) && nzchar(note)) {
+    paste0("<p class=\"table-note\">Poznámka. ", html_escape(note), "</p>")
+  } else {
+    ""
+  }
+
+  paste0(
+    "<section class=\"table-block\">",
+    "<p class=\"caption-label\">", html_escape(caption_label), "</p>",
+    "<p class=\"caption-title\">", html_escape(caption_title), "</p>",
+    "<table class=\"thesis-table\"><thead>", header_html, "</thead><tbody>", body_html, "</tbody></table>",
+    note_html,
+    "</section>"
+  )
+}
+
+write_table_html_page <- function(data, caption_label, caption_title, output_path, note = NULL) {
+  page_html <- paste0(
+    "<!DOCTYPE html><html lang=\"sk\"><head><meta charset=\"utf-8\">",
+    "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">",
+    "<title>", html_escape(caption_label), "</title>",
+    "<style>",
+    "body{font-family:'Times New Roman',serif;font-size:12pt;line-height:1.35;color:#000;margin:32px auto;max-width:1000px;padding:0 24px;}",
+    ".caption-label{font-weight:700;margin:0 0 4px 0;}",
+    ".caption-title{font-style:italic;margin:0 0 10px 0;}",
+    ".thesis-table{width:100%;border-collapse:collapse;margin:0 0 10px 0;}",
+    ".thesis-table th,.thesis-table td{padding:6px 8px;vertical-align:top;border-left:none;border-right:none;}",
+    ".thesis-table thead th{border-top:1px solid #000;border-bottom:2px solid #000;text-align:left;}",
+    ".thesis-table tbody td{border-bottom:1px solid #000;}",
+    ".thesis-table td.num{text-align:right;white-space:nowrap;}",
+    ".thesis-table td.text{text-align:left;}",
+    ".empty-row{text-align:left;}",
+    ".table-note{font-size:10.5pt;margin-top:6px;}",
+    ".export-meta{font-size:10.5pt;color:#444;margin-top:18px;}",
+    "</style></head><body>",
+    build_table_html_fragment(data, caption_label, caption_title, note),
+    "<p class=\"export-meta\">Automaticky exportované z analysis/scripts/thesis_rating_pipeline.R.</p>",
+    "</body></html>"
+  )
+
+  writeLines(page_html, output_path, useBytes = TRUE)
+}
+
+build_figure_html_fragment <- function(image_rel_path, caption_label, caption_title) {
+  paste0(
+    "<section class=\"figure-block\">",
+    "<p class=\"caption-label\">", html_escape(caption_label), "</p>",
+    "<p class=\"caption-title\">", html_escape(caption_title), "</p>",
+    "<img src=\"", html_escape(image_rel_path), "\" alt=\"", html_escape(caption_title), "\" class=\"thesis-figure\">",
+    "</section>"
+  )
+}
+
+write_results_preview_page <- function(table_specs, figure_specs, output_path) {
+  table_html <- paste0(
+    vapply(table_specs, function(spec) {
+      build_table_html_fragment(
+        data = spec$data,
+        caption_label = spec$caption_label,
+        caption_title = spec$caption_title,
+        note = spec$note
+      )
+    }, character(1)),
+    collapse = ""
+  )
+
+  figure_html <- paste0(
+    vapply(figure_specs, function(spec) {
+      build_figure_html_fragment(
+        image_rel_path = spec$image_rel_path,
+        caption_label = spec$caption_label,
+        caption_title = spec$caption_title
+      )
+    }, character(1)),
+    collapse = ""
+  )
+
+  page_html <- paste0(
+    "<!DOCTYPE html><html lang=\"sk\"><head><meta charset=\"utf-8\">",
+    "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">",
+    "<title>Preview tabuliek a obrázkov</title>",
+    "<style>",
+    "body{font-family:'Times New Roman',serif;font-size:12pt;line-height:1.35;color:#000;margin:32px auto;max-width:1100px;padding:0 24px;}",
+    "h1,h2{font-weight:700;}",
+    "h1{font-size:18pt;margin:0 0 8px 0;} h2{font-size:14pt;margin:28px 0 10px 0;}",
+    ".lead,.export-meta{font-size:10.5pt;color:#444;}",
+    ".caption-label{font-weight:700;margin:0 0 4px 0;}",
+    ".caption-title{font-style:italic;margin:0 0 10px 0;}",
+    ".table-block,.figure-block{margin:0 0 26px 0;page-break-inside:avoid;}",
+    ".thesis-table{width:100%;border-collapse:collapse;margin:0 0 10px 0;}",
+    ".thesis-table th,.thesis-table td{padding:6px 8px;vertical-align:top;border-left:none;border-right:none;}",
+    ".thesis-table thead th{border-top:1px solid #000;border-bottom:2px solid #000;text-align:left;}",
+    ".thesis-table tbody td{border-bottom:1px solid #000;}",
+    ".thesis-table td.num{text-align:right;white-space:nowrap;}",
+    ".thesis-table td.text{text-align:left;}",
+    ".empty-row{text-align:left;}",
+    ".table-note{font-size:10.5pt;margin-top:6px;}",
+    ".thesis-figure{display:block;max-width:100%;height:auto;margin:0 auto;border:none;}",
+    "</style></head><body>",
+    "<h1>Preview tabuliek a obrázkov pre Results</h1>",
+    "<p class=\"lead\">Štýl je nastavený podľa vzoru z bakalárky: caption nad objektom, bez zvislých čiar, s horizontálnymi oddeľovačmi.</p>",
+    "<h2>Tabuľky</h2>",
+    table_html,
+    "<h2>Obrázky</h2>",
+    figure_html,
+    "<p class=\"export-meta\">Automaticky exportované z analysis/scripts/thesis_rating_pipeline.R.</p>",
+    "</body></html>"
+  )
+
+  writeLines(page_html, output_path, useBytes = TRUE)
 }
 
 extract_confint <- function(model, terms) {
@@ -1196,22 +1379,25 @@ readr::write_csv(pam_result$profiles, file.path(output_dir, "pam_cluster_profile
 readr::write_csv(pam_result$crosstab, file.path(output_dir, "pam_cluster_condition_crosstab.csv"))
 readr::write_csv(pam_result$medoids, file.path(output_dir, "pam_cluster_medoids.csv"))
 
+table_2_data <- bind_rows(
+  descriptives_items |> mutate(section = "items"),
+  descriptives_composites |> mutate(section = "composites")
+)
+table_6_data <- bind_rows(
+  lmm_core_models |> mutate(model_family = "lmm"),
+  clmm_core_models |> mutate(model_family = "clmm")
+)
+
 readr::write_csv(qc_dataset_summary, file.path(tables_dir, "table_1_dataset_summary.csv"))
 readr::write_csv(
-  bind_rows(
-    descriptives_items |> mutate(section = "items"),
-    descriptives_composites |> mutate(section = "composites")
-  ),
+  table_2_data,
   file.path(tables_dir, "table_2_descriptives.csv")
 )
 readr::write_csv(item_frequencies, file.path(tables_dir, "table_3_item_frequencies.csv"))
 readr::write_csv(internal_consistency, file.path(tables_dir, "table_4_internal_consistency.csv"))
 readr::write_csv(icc_summary, file.path(tables_dir, "table_5_icc.csv"))
 readr::write_csv(
-  bind_rows(
-    lmm_core_models |> mutate(model_family = "lmm"),
-    clmm_core_models |> mutate(model_family = "clmm")
-  ),
+  table_6_data,
   file.path(tables_dir, "table_6_mixed_models_core.csv")
 )
 readr::write_csv(spearman_result$table, file.path(tables_dir, "table_s1_spearman_transcript_composites.csv"))
@@ -1336,6 +1522,75 @@ if (!is.null(pam_result$coordinates)) {
   )
 }
 
+main_table_specs <- list(
+  list(
+    data = qc_dataset_summary,
+    caption_label = "Tabuľka 1",
+    caption_title = "Základná charakteristika datasetu",
+    note = paste("Source mode:", source_mode)
+  ),
+  list(
+    data = table_2_data,
+    caption_label = "Tabuľka 2",
+    caption_title = "Deskriptívne ukazovatele položiek a kompozitov",
+    note = "Export spája item-level a composite-level deskriptíva do jedného manuscript-ready prehľadu."
+  ),
+  list(
+    data = item_frequencies,
+    caption_label = "Tabuľka 3",
+    caption_title = "Frekvenčné rozdelenie kľúčových položiek",
+    note = "Určené najmä pre G1 až G5, S1, S2 a R1 až R5; pri finálnom reporte sa dá podľa potreby zúžiť."
+  ),
+  list(
+    data = internal_consistency,
+    caption_label = "Tabuľka 4",
+    caption_title = "Vnútorná konzistencia ratingových blokov",
+    note = NULL
+  ),
+  list(
+    data = icc_summary,
+    caption_label = "Tabuľka 5",
+    caption_title = "Interrater reliabilita hlavných outcome-ov",
+    note = NULL
+  ),
+  list(
+    data = table_6_data,
+    caption_label = "Tabuľka 6",
+    caption_title = "Súhrn jadrových zmiešaných modelov",
+    note = "V kompaktnej podobe spája LMM a kľúčové CLMM výstupy."
+  )
+)
+
+for (table_idx in seq_along(main_table_specs)) {
+  spec <- main_table_specs[[table_idx]]
+  write_table_html_page(
+    data = spec$data,
+    caption_label = spec$caption_label,
+    caption_title = spec$caption_title,
+    output_path = file.path(styled_preview_dir, paste0("table_", table_idx, ".html")),
+    note = spec$note
+  )
+}
+
+main_figure_specs <- list(
+  list(
+    image_rel_path = file.path("..", "..", "figures", basename(figure_1_path)),
+    caption_label = "Obrázok 1",
+    caption_title = "Primárne outcome-y podľa experimentálnych podmienok"
+  ),
+  list(
+    image_rel_path = file.path("..", "..", "figures", basename(figure_2_path)),
+    caption_label = "Obrázok 2",
+    caption_title = "Odhadované marginálne priemery jadrových modelov"
+  )
+)
+
+write_results_preview_page(
+  table_specs = main_table_specs,
+  figure_specs = main_figure_specs,
+  output_path = file.path(styled_preview_dir, "results_preview.html")
+)
+
 message("thesis_rating_pipeline.R completed.")
 message("Source mode: ", source_mode)
-message("Outputs written to analysis/outputs/, tables/ and figures/.")
+message("Outputs written to analysis/outputs/, tables/, tables/styled_preview/ and figures/.")
