@@ -202,7 +202,9 @@ Overiť, do akej miery sú AI-generované simulované interview s depresívnou s
 
 ## Prílohy
 - finálny ratingový nástroj
-- seed anchor tabuľka
+- operacionalizačná tabuľka premenných a kompozitov
+- public-safe schéma seedov a anchorovania s 1 ilustračným prípadom
 - doplnkové tabuľky a grafy
-- etické dokumenty [ak relevantné]
-- codebook a analytický plán [ak relevantné]
+- etické a rater inštrukčné dokumenty v odľahčenej verzii [ak relevantné]
+- kompaktná mapa empirických otázok, hypotéz, outcome-ov a modelov [ak relevantné]
+- neverejné odovzdávacie prílohy len ak budú nutné: AI-only runtime pack, plný seed corpus, transkripty a surové exporty

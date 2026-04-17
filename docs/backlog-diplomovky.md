@@ -1,6 +1,6 @@
 # Backlog diplomovky
 
-> Posledná aktualizácia: 2026-04-14
+> Posledná aktualizácia: 2026-04-16
 > Používaj tento súbor ako operatívny backlog. Stav `done` patrí len položkám, ktoré majú jasný artefakt v repo alebo vo Word milestone.
 
 ## Prioritný backlog
@@ -48,6 +48,8 @@
 | B38 | `P2` | `done` | Preložiť empirické premenné a hypotézy do jazyka zodpovedajúceho operacionalizácii a typu testu | lokálny sprievodca, `manuscript/30_method.md`, `docs/vo_h_model_results_map.md` | v `manuscript/30_method.md` pribudla sekcia 2.5.8 s explicitným rozlíšením `priemer / medián / distribúcia / pravdepodobnosť vyššieho skóre`; časť 2.6 je prepísaná do komparačného empirického jazyka a pomocná mapa `docs/vo_h_model_results_map.md` už uvádza indexy a error-based ukazovatele v rovnakom jazyku |
 | B39 | `P2` | `done` | Pridať thesis-style preview export pre tabuľky a hlavné obrázky bez zvislých čiar | existujúca R pipeline a vzor z bakalárky | `analysis/scripts/thesis_rating_pipeline.R` po novom generuje `tables/styled_preview/table_1.html` až `table_6.html` a spoločný `tables/styled_preview/results_preview.html` s captionmi nad objektom a horizontálnymi oddeľovačmi; `analysis/pipeline_outputs_plan.md` a dashboard sú zosúladené |
 | B40 | `P3` | `done` | Pridať rýchly Word test build pre preview výsledkových tabuliek | B39 | nový skript `tools/build_results_tables_preview_docx.py` generuje `tables/styled_preview/results_tables_preview.docx` z aktuálnych CSV tabuliek, aby sa dal vo Worde rýchlo overiť caption layout a horizontálne čiary; aktuálna verzia už používa aj slovenské labely z `analysis/codebook_rating_study.csv`, širšie textové stĺpce pre menej agresívne lámanie a poznámky pod relevantnými tabuľkami |
+| B41 | `P2` | `done` | Zafixovať framing príloh a oddeliť verejný appendix od neverejných alebo interných artefaktov | scan rukopisu, guides a repo artefaktov | nový `manuscript/70_appendices.md` + zosúladený `manuscript/00_outline.md`; verejný appendix je predbežne fixovaný na ratingový nástroj, operacionalizačnú tabuľku, redigovanú schému seedov, doplnkové tabuľky a grafy, etické/rater docs a mapu `VO/H -> outcome -> model`, pričom AI-only runtime pack, plný seed corpus, transkripty a surové exporty sú explicitne vyčlenené mimo verejný CRZP balík |
+| B42 | `P2` | `in_progress` | Preklopiť appendix framing do finálnych verejných príloh a rozhodnúť, ktoré neverejné balíky sa vôbec budú odovzdávať škole | B07, B08, B09, B41 | vznikol prvý public-safe draft `manuscript/71_public_appendix_draft.md` s Prílohami A-F; do finálu zostáva Word redakcia, naviazanie na reálne výsledkové supplementy a rozhodnutie o balíkoch R1-R5 mimo verejného PDF |
 
 ## Závislosti a poradie práce
 
@@ -70,7 +72,8 @@
 6. priebežne už len redukovať alebo jemne štylisticky doladiť integrovaný vzdelávací framing a líniu simulačného rámca v `20_introduction.md`, `50_discussion.md` a podkladoch na obhajobu podľa potreby školiteľky; citačné a terminologické spevnenie Úvodu je po `B34` hotové.
 7. `B05` a `B06` dostať z pipeline prvé reálne výstupy podľa `analysis/pipeline_outputs_plan.md`, najprv core tabuľky/grafy pre manuscript a až potom supplement s transcript-level Spearman a `PAM`.
 8. po prvom ostrom rune rozhodnúť, či `severity_error` a `impact_error` pôjdu do hlavného reportu ako secondary outcome-y, alebo len do supplementu.
-9. po doplnení ďalších raterov zopakovať clean run a overiť, že `ICC`, `LMM`, `CLMM` a `PAM` už neostávajú v `skipped` stave len pre malú a nebalansovanú vzorku.
+9. po `B07` až `B09` spraviť `B42`, teda z appendix framingu vytiahnuť finálne verejné prílohy a rozhodnúť, či niečo z balíkov R1-R5 vôbec treba škole odovzdať.
+10. po doplnení ďalších raterov zopakovať clean run a overiť, že `ICC`, `LMM`, `CLMM` a `PAM` už neostávajú v `skipped` stave len pre malú a nebalansovanú vzorku.
 
 ## Definition of done pre kritické položky
 

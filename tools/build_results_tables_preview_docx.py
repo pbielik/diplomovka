@@ -219,10 +219,10 @@ def make_paragraph(text: str, *, bold: bool = False, italic: bool = False, align
     )
 
 
-def make_note_paragraph(text: str) -> str:
+def make_note_paragraph(text: str, *, after: int = 160) -> str:
     return (
         '<w:p>'
-        '<w:pPr><w:jc w:val="left"/><w:spacing w:after="180" w:line="240" w:lineRule="auto"/></w:pPr>'
+        f'<w:pPr><w:jc w:val="left"/><w:spacing w:after="{after}" w:line="240" w:lineRule="auto"/></w:pPr>'
         '<w:r>'
         '<w:rPr><w:i/><w:iCs/><w:sz w:val="21"/><w:szCs w:val="21"/></w:rPr>'
         '<w:t xml:space="preserve">Poznámka. </w:t>'
@@ -327,7 +327,6 @@ def make_table(rows: list[list[str]], table_width: int, *, table_id: str, widths
         table.append('</w:tr>')
 
     table.append('</w:tbl>')
-    table.append(make_paragraph("", after=180))
     return "".join(table)
 
 
@@ -348,7 +347,7 @@ def build_document_xml() -> str:
             "width": 8600,
             "column_widths": [2600, 900, 900, 1000, 1100, 900, 2200],
             "table_id": "table_4",
-            "note": "α = Cronbachovo α; ω = McDonaldovo ω. V tejto pilotnej ukážke sú koeficienty počítané z veľmi malého počtu hodnotení, preto ich treba interpretovať len orientačne.",
+            "note": "α = Cronbachovo α; ω = McDonaldovo ω. Koeficienty v tomto preview vychádzajú z veľmi malej pilotnej vzorky, preto ich treba čítať len orientačne.",
         },
         {
             "label": "Tabuľka 5",
@@ -357,7 +356,7 @@ def build_document_xml() -> str:
             "width": 8600,
             "column_widths": [2400, 1000, 900, 900, 900, 1000, 1500],
             "table_id": "table_5",
-            "note": "ICC = intratriedna korelácia; CI = interval spoľahlivosti. V aktuálnom preview sú odhady preskočené, pretože pilotné dáta zatiaľ neobsahujú aspoň dvoch hodnotiteľov pre aspoň dva transkripty.",
+            "note": "ICC = intratriedna korelácia; CI = interval spoľahlivosti. Odhady sú v tomto preview preskočené, pretože pilotné dáta zatiaľ neobsahujú aspoň dvoch hodnotiteľov pre aspoň dva transkripty.",
         },
         {
             "label": "Tabuľka 6",
@@ -366,7 +365,7 @@ def build_document_xml() -> str:
             "width": 8400,
             "column_widths": [2800, 1100, 1000, 1000, 1000, 1500],
             "table_id": "table_6",
-            "note": "LMM = lineárny zmiešaný model; CLMM = kumulatívny link mixed model; CI = interval spoľahlivosti. V aktuálnom preview sú modely preskočené pre nedostatočný počet riadkov alebo úrovní faktorov.",
+            "note": "LMM = lineárny zmiešaný model; CLMM = kumulatívny link mixed model; CI = interval spoľahlivosti. Modely sú v tomto preview preskočené pre nedostatočný počet riadkov alebo úrovní faktorov.",
         },
     ]
 
@@ -390,7 +389,9 @@ def build_document_xml() -> str:
             )
         )
         if spec.get("note"):
-            body.append(make_note_paragraph(spec["note"]))
+            body.append(make_note_paragraph(spec["note"], after=180))
+        else:
+            body.append(make_paragraph("", after=180))
 
     body_xml = "".join(body)
     sect = (
