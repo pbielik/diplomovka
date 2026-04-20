@@ -62,7 +62,9 @@ Aktualny skript `analysis/scripts/thesis_rating_pipeline.R` este stale cita `ana
 - `profile`: iba `R1`, `R2`, `R3`
 - `variant_id`: konzistentne s `guardrail × profile`, napr. `G0_R1`, `G1_R3`
 - `G1` az `G5`, `guess_confidence`: iba `1` az `5`
-- `A1` az `A9`, `S1`, `S2`, `R1` az `R5`: iba `0` az `3`
+- `S1`, `S2`: iba `1` az `5`
+- `R1` az `R5`: iba `1` az `5`
+- `A1` az `A9`: iba `0` az `3`
 - `guessed_origin`: iba hodnoty zo schvaleneho setu
   - odporucane: `ai_generated`, `human_simulated`, `real_participant`, `unsure`
 
@@ -156,8 +158,8 @@ Aktualna pipeline tento subor nacitava, ale dalej ho nepouziva. Pre realny beh m
 
 - `rater_id` musi byt unikatny.
 - Kazdy `rater_id` z `ratings_clean.csv` musi existovat aj tu.
-- `years_practice` musi byt numericky parsovatelne.
-- `experience_with_mdd` ma byt konzistentne kodovane, idealne `0/1`.
+- `years_practice` ma byt konzistentne kodovane; povolene je ciste cislo alebo stabilne pasmo typu `16_plus`.
+- `experience_with_mdd` ma byt konzistentne kodovane; idealne `0/1`, ale ak sa pouziva frekvencny wording typu `weekly`, ma byt stabilny napriec exportom.
 
 ## Minimalna QC tabulka pred prvym behom
 

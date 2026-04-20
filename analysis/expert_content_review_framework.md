@@ -8,7 +8,7 @@ Tento súbor slúži ako pracovný rámec pre **pilotný expert review pass** za
 
 ## Prečo to v práci mať
 
-Ratingový nástroj aj seed scenáre sú autorské. Popri neskoršej analýze vnútornej konzistencie a zhody medzi hodnotiteľmi preto dáva zmysel zaradiť aj **predbežnú obsahovú kontrolu** ešte pred alebo paralelne s hlavným ratingom. Pri aktuálnom stave nejde o plnohodnotnú psychometrickú validáciu ani o formálny Delphi proces. Ide o **malý pilotný expert review pass** s aktuálne dostupným panelom `n = 4`, ktorého cieľom je:
+Ratingový nástroj aj seed scenáre sú autorské. Popri neskoršej analýze vnútornej konzistencie a zhody medzi hodnotiteľmi preto dáva zmysel zaradiť aj **predbežnú obsahovú kontrolu** ešte pred alebo paralelne s hlavným ratingom. Pri aktuálnom stave nejde o plnohodnotnú psychometrickú validáciu ani o formálny Delphi proces. Ide o **malý pilotný expert review pass** s aktuálne dostupným panelom `n = 6`, ktorého cieľom je:
 
 - zachytiť nejasné alebo redundantné položky,
 - overiť, či položky zodpovedajú zamýšľaným konštruktom,
@@ -56,7 +56,7 @@ Do rukopisu netreba tlačiť rozsiahlu validačnú prílohu. Stačí stručný, 
 4. najčastejšie typy pripomienok,
 5. pri položkách prípadne jednoduché pomocné ukazovatele item-level content validity.
 
-Pri `n = 4` je rozumné držať sa tohto pravidla:
+Pri malom expertnom paneli (aktuálne `n = 6`) je rozumné držať sa tohto pravidla:
 
 - číselné ukazovatele používaj len ako pomocnú oporu,
 - hlavný dôraz daj na to, **čo bolo na základe review upravené**,

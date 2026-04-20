@@ -90,6 +90,7 @@ Má obsahovať:
 ## Pravidlá pre dáta a analýzu
 
 - 1 riadok v hlavnom rating datasete = 1 hodnotenie jedného ratera na jednom transkripte
+- transcript-level metadata `A1-A9` a všetky z nich odvodené anchor fidelity ukazovatele sa majú pri deskriptíve a transcript-level modeloch sumarizovať na úrovni unikátneho transkriptu, nie vážiť počtom ratingov
 - surové dáta neprepisuj ručne; čisté dáta ukladaj do `analysis/data_clean/`
 - analytické skripty ukladaj do `analysis/scripts/`
 - tabuľky a grafy exportuj do `tables/` a `figures/`

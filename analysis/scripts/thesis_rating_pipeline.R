@@ -1141,43 +1141,88 @@ transcript_level_summary <- analysis_long |>
     .groups = "drop"
   )
 
-item_vars <- c(paste0("g", 1:5), paste0("a", 1:9), "s1", "s2", paste0("r", 1:5), "guess_confidence")
-descriptives_items <- analysis_long |>
-  select(any_of(item_vars)) |>
-  pivot_longer(everything(), names_to = "variable", values_to = "value") |>
-  group_by(variable) |>
+transcript_level_items <- analysis_long |>
+  group_by(transcript_id, seed_id, guardrail, profile) |>
   summarise(
-    n_non_missing = sum(!is.na(value)),
-    levels_used = n_distinct(value[!is.na(value)]),
-    median = ifelse(n_non_missing == 0, NA_real_, median(value, na.rm = TRUE)),
-    iqr = ifelse(n_non_missing == 0, NA_real_, IQR(value, na.rm = TRUE)),
-    mean = ifelse(n_non_missing == 0, NA_real_, mean(value, na.rm = TRUE)),
-    sd = ifelse(n_non_missing <= 1, NA_real_, sd(value, na.rm = TRUE)),
-    min = ifelse(n_non_missing == 0, NA_real_, min(value, na.rm = TRUE)),
-    max = ifelse(n_non_missing == 0, NA_real_, max(value, na.rm = TRUE))
+    across(any_of(paste0("a", 1:9)), safe_single_mean),
+    .groups = "drop"
   )
 
-composite_vars <- c("plausibility_index", "defect_index", "symptom_error_mean")
-if (has_non_missing(analysis_long$severity_error)) {
-  composite_vars <- c(composite_vars, "severity_error")
+item_vars_rating <- c(paste0("g", 1:5), "s1", "s2", paste0("r", 1:5), "guess_confidence")
+item_vars_transcript <- paste0("a", 1:9)
+
+descriptives_items <- bind_rows(
+  analysis_long |>
+    select(any_of(item_vars_rating)) |>
+    pivot_longer(everything(), names_to = "variable", values_to = "value") |>
+    group_by(variable) |>
+    summarise(
+      n_non_missing = sum(!is.na(value)),
+      levels_used = n_distinct(value[!is.na(value)]),
+      median = ifelse(n_non_missing == 0, NA_real_, median(value, na.rm = TRUE)),
+      iqr = ifelse(n_non_missing == 0, NA_real_, IQR(value, na.rm = TRUE)),
+      mean = ifelse(n_non_missing == 0, NA_real_, mean(value, na.rm = TRUE)),
+      sd = ifelse(n_non_missing <= 1, NA_real_, sd(value, na.rm = TRUE)),
+      min = ifelse(n_non_missing == 0, NA_real_, min(value, na.rm = TRUE)),
+      max = ifelse(n_non_missing == 0, NA_real_, max(value, na.rm = TRUE)),
+      analysis_unit = "rating"
+    ),
+  transcript_level_items |>
+    select(any_of(item_vars_transcript)) |>
+    pivot_longer(everything(), names_to = "variable", values_to = "value") |>
+    group_by(variable) |>
+    summarise(
+      n_non_missing = sum(!is.na(value)),
+      levels_used = n_distinct(value[!is.na(value)]),
+      median = ifelse(n_non_missing == 0, NA_real_, median(value, na.rm = TRUE)),
+      iqr = ifelse(n_non_missing == 0, NA_real_, IQR(value, na.rm = TRUE)),
+      mean = ifelse(n_non_missing == 0, NA_real_, mean(value, na.rm = TRUE)),
+      sd = ifelse(n_non_missing <= 1, NA_real_, sd(value, na.rm = TRUE)),
+      min = ifelse(n_non_missing == 0, NA_real_, min(value, na.rm = TRUE)),
+      max = ifelse(n_non_missing == 0, NA_real_, max(value, na.rm = TRUE)),
+      analysis_unit = "transcript"
+    )
+)
+
+composite_vars_rating <- c("plausibility_index", "defect_index")
+composite_vars_transcript <- c("symptom_error_mean")
+if (has_non_missing(transcript_level_summary$severity_error)) {
+  composite_vars_transcript <- c(composite_vars_transcript, "severity_error")
 }
-if (has_non_missing(analysis_long$impact_error)) {
-  composite_vars <- c(composite_vars, "impact_error")
+if (has_non_missing(transcript_level_summary$impact_error)) {
+  composite_vars_transcript <- c(composite_vars_transcript, "impact_error")
 }
 
-descriptives_composites <- analysis_long |>
-  select(any_of(composite_vars)) |>
-  pivot_longer(everything(), names_to = "variable", values_to = "value") |>
-  group_by(variable) |>
-  summarise(
-    n_non_missing = sum(!is.na(value)),
-    mean = ifelse(n_non_missing == 0, NA_real_, mean(value, na.rm = TRUE)),
-    sd = ifelse(n_non_missing <= 1, NA_real_, sd(value, na.rm = TRUE)),
-    median = ifelse(n_non_missing == 0, NA_real_, median(value, na.rm = TRUE)),
-    iqr = ifelse(n_non_missing == 0, NA_real_, IQR(value, na.rm = TRUE)),
-    min = ifelse(n_non_missing == 0, NA_real_, min(value, na.rm = TRUE)),
-    max = ifelse(n_non_missing == 0, NA_real_, max(value, na.rm = TRUE))
-  )
+descriptives_composites <- bind_rows(
+  analysis_long |>
+    select(any_of(composite_vars_rating)) |>
+    pivot_longer(everything(), names_to = "variable", values_to = "value") |>
+    group_by(variable) |>
+    summarise(
+      n_non_missing = sum(!is.na(value)),
+      mean = ifelse(n_non_missing == 0, NA_real_, mean(value, na.rm = TRUE)),
+      sd = ifelse(n_non_missing <= 1, NA_real_, sd(value, na.rm = TRUE)),
+      median = ifelse(n_non_missing == 0, NA_real_, median(value, na.rm = TRUE)),
+      iqr = ifelse(n_non_missing == 0, NA_real_, IQR(value, na.rm = TRUE)),
+      min = ifelse(n_non_missing == 0, NA_real_, min(value, na.rm = TRUE)),
+      max = ifelse(n_non_missing == 0, NA_real_, max(value, na.rm = TRUE)),
+      analysis_unit = "rating"
+    ),
+  transcript_level_summary |>
+    select(any_of(composite_vars_transcript)) |>
+    pivot_longer(everything(), names_to = "variable", values_to = "value") |>
+    group_by(variable) |>
+    summarise(
+      n_non_missing = sum(!is.na(value)),
+      mean = ifelse(n_non_missing == 0, NA_real_, mean(value, na.rm = TRUE)),
+      sd = ifelse(n_non_missing <= 1, NA_real_, sd(value, na.rm = TRUE)),
+      median = ifelse(n_non_missing == 0, NA_real_, median(value, na.rm = TRUE)),
+      iqr = ifelse(n_non_missing == 0, NA_real_, IQR(value, na.rm = TRUE)),
+      min = ifelse(n_non_missing == 0, NA_real_, min(value, na.rm = TRUE)),
+      max = ifelse(n_non_missing == 0, NA_real_, max(value, na.rm = TRUE)),
+      analysis_unit = "transcript"
+    )
+)
 
 item_frequencies <- analysis_long |>
   select(any_of(c(paste0("g", 1:5), "s1", "s2", paste0("r", 1:5)))) |>

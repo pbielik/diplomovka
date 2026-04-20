@@ -42,7 +42,9 @@ INPUT_FILES=(
 BIB="references/zotero-thesis.bib"
 CSL="$HOME/Zotero/styles/apa.csl"
 LUA_NOTES="tools/drop_drafting_notes.lua"
+TABLE_STYLE_POSTPROCESSOR="tools/apply_table_style_to_docx.py"
 OUTPUT="diplomovka_preview.docx"
+PANDOC_BIN="${PANDOC_BIN:-}"
 
 # Sanity checks.
 for f in "${INPUT_FILES[@]}"; do
@@ -68,14 +70,25 @@ if [[ ! -f "$LUA_NOTES" ]]; then
   exit 1
 fi
 
-if ! command -v pandoc >/dev/null 2>&1; then
-  echo "CHYBA: pandoc nie je nainštalovaný" >&2
+if [[ ! -f "$TABLE_STYLE_POSTPROCESSOR" ]]; then
+  echo "CHYBA: DOCX table postprocessor neexistuje: $TABLE_STYLE_POSTPROCESSOR" >&2
   exit 1
+fi
+
+if [[ -z "$PANDOC_BIN" ]]; then
+  if command -v pandoc >/dev/null 2>&1; then
+    PANDOC_BIN="$(command -v pandoc)"
+  elif [[ -x "/opt/homebrew/bin/pandoc" ]]; then
+    PANDOC_BIN="/opt/homebrew/bin/pandoc"
+  else
+    echo "CHYBA: pandoc nie je nainštalovaný" >&2
+    exit 1
+  fi
 fi
 
 echo "Generujem $OUTPUT z ${#INPUT_FILES[@]} súborov..."
 
-pandoc \
+"$PANDOC_BIN" \
   "${INPUT_FILES[@]}" \
   --from=markdown \
   --to=docx \
@@ -86,5 +99,7 @@ pandoc \
   --metadata=link-citations:true \
   --lua-filter="$LUA_NOTES" \
   --output="$OUTPUT"
+
+python3 "$TABLE_STYLE_POSTPROCESSOR" "$OUTPUT"
 
 echo "Hotovo: $OUTPUT"

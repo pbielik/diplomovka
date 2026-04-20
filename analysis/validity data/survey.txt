@@ -1,0 +1,481 @@
+scale: val4
+- 1 = nie
+- 2 = skôr nie
+- 3 = skôr áno
+- 4 = áno
+
+l: intro
+t: info
+q: <b>Expertná validácia ratingového nástroja a štandardizovaných prípadových scenárov</b><br><br>Ďakujeme, že ste sa zapojili do odbornej validácie pripravovaného výskumného nástroja.<br><br>Tento formulár je súčasťou diplomovej práce zameranej na <b>AI-generované rozhovory s depresívnou symptomatikou</b>. Cieľom nie je nahrádzať reálnych pacientov ani stanovovať diagnózu, ale overiť, do akej miery je možné vytvárať <b>klinicky vierohodné a metodicky použiteľné rozhovory</b>, ktoré budú následne posudzované odborníkmi.<br><br>Vo formulári budete hodnotiť dve oblasti:<br><b>ČASŤ A</b> – navrhovaný <b>ratingový nástroj</b>, teda budúci formulár, pomocou ktorého budú experti hodnotiť AI-generované rozhovory,<br><b>ČASŤ B</b> – <b>štandardizované prípadové scenáre</b>, ktoré budú slúžiť ako východisko pre generovanie týchto rozhovorov.<br><br>V prvej časti budete posudzovať, či jednotlivé položky ratingového nástroja:<br><b>- majú zmysel a sú relevantné,</b><br><b>- sú jasne a zrozumiteľne formulované,</b><br><b>- a či je vhodné ich vo finálnom nástroji ponechať.</b><br><br>V druhej časti budete posudzovať, či jednotlivé scenáre:<br><b>- pôsobia klinicky vierohodne,</b><br><b>- zodpovedajú bežnému ambulantnému obrazu depresívnej symptomatiky,</b><br><b>- sú dostatočne jasné a konkrétne,</b><br><b>- nepôsobia stereotypne alebo neprimerane umelo,</b><br><b>- a či sú vhodné na použitie vo výskume.</b><br><br>Nejde o test Vašich vedomostí a neexistujú tu správne alebo nesprávne odpovede. Dôležitý je Váš odborný úsudok, skúsenosť a celkový dojem.<br><br>Vyplnenie formulára trvá približne <b>20 až 30 minút</b> v závislosti od rozsahu komentárov.<br><br>Vaše odpovede budú použité na úpravu finálnej verzie ratingového nástroja aj štandardizovaných scenárov ešte pred hlavným zberom dát.<br><br>Ďakujeme za Váš čas a odbornú pomoc.
+
+l: consent
+t: radio
+q: <b>Informovaný súhlas</b><br><br>Potvrdzujem, že som sa oboznámil/a s účelom formulára, moja účasť je dobrovoľná a súhlasím s použitím mojich anonymizovaných odpovedí na účely metodickej validácie výskumného nástroja v rámci diplomovej práce.
+- súhlasím
+- nesúhlasím
+
+page: begin
+
+l: profession
+t: radio
+q: <b>Vaša profesijná rola</b>
+- psychológ / psychologička
+- psychiater / psychiatrička
+- lekár v príprave v psychiatrii
+- psychoterapeut / psychoterapeutka
+- iný odborník / iná odborníčka v duševnom zdraví
+- {other,size=50} iné (uveďte)
+
+l: specialization
+t: radio
+q: Primárna oblasť praxe
+- klinická psychológia
+- poradenská psychológia
+- psychiatrická ambulancia
+- inpatient / lôžková psychiatria
+- psychoterapia
+- výskum
+- iné
+
+l: years_practice
+t: textline
+q: <b>Dĺžka odbornej praxe v rokoch</b>
+- uveďte číslo
+
+l: depression_experience
+t: radio
+q: <b>Skúsenosť s dospelými klientmi / pacientmi s depresívnou symptomatikou</b>
+- žiadna
+- občasná
+- pravidelná
+- veľmi častá
+
+l: interview_experience
+t: radio
+q: <b>Skúsenosť s klinickými rozhovormi zameranými na depresívnu symptomatiku</b>
+- žiadna
+- skôr menšia
+- stredná
+- vysoká
+
+l: teaching_experience
+t: radio
+q: <b>Skúsenosť s výučbou, supervíziou alebo tréningom rozhovorových zručností</b>
+- žiadna
+- áno, skôr menšia
+- áno, stredná
+- áno, výrazná
+
+l: ai_experience
+t: radio
+q: <b>Skúsenosť s AI nástrojmi v klinickej, vzdelávacej alebo výskumnej praxi</b>
+- žiadna
+- nízka
+- stredná
+- vysoká
+
+page: end
+
+l: sectionA
+t: info
+q: <hr><b>ČASŤ A. Posúdenie navrhovaného ratingového nástroja</b><br><br>V tejto časti hodnotíte položky budúceho expertného ratingového formulára pre AI-generované rozhovory s depresívnou symptomatikou.<br><br>Pri každej položke ju prosím posúďte z troch hľadísk:<br><br><b>1. Relevantnosť</b><br>Má táto položka zmysel pre hodnotenie AI-generovaného rozhovoru s depresívnou symptomatikou?<br><br><b>2. Zrozumiteľnosť</b><br>Je položka formulovaná jasne a jednoznačne? Je z nej zrejmé, čo má expert hodnotiť?<br><br><b>3. Potrebnosť položky</b><br>Je podľa Vás vhodné túto položku vo finálnom nástroji ponechať? Chýbalo by bez nej niečo dôležité?<br><br>Použite prosím túto škálu:<br><b>1 = nie</b><br><b>2 = skôr nie</b><br><b>3 = skôr áno</b><br><b>4 = áno</b>
+
+l: tool_rel
+t: scale val4
+q: <b>Relevantnosť položiek ratingového nástroja</b>
+- G1. Klinická vierohodnosť rozhovoru
+- G2. Prirodzenosť jazyka a štýlu odpovedí
+- G3. Vnútorná konzistentnosť rozhovoru
+- G4. Súlad rozhovoru s obrazom depresívnej symptomatiky
+- G5. Použiteľnosť rozhovoru na tréningové / výučbové účely
+- S1. Odhad celkovej závažnosti depresívnej symptomatiky
+- S2. Odhad funkčného dopadu na bežné fungovanie
+- R1. Prítomnosť vnútorných kontradikcií v rozhovore
+- R2. Klišé alebo šablónovité odpovede
+- R3. Nesúlad medzi kontextom a symptomatikou
+- R4. Podozrenie na inú primárnu psychopatológiu
+- R5. Neprimeraná dramatizácia alebo neprirodzená expresivita
+
+l: tool_clarity
+t: scale val4
+q: <b>Zrozumiteľnosť položiek ratingového nástroja</b>
+- G1. Klinická vierohodnosť rozhovoru
+- G2. Prirodzenosť jazyka a štýlu odpovedí
+- G3. Vnútorná konzistentnosť rozhovoru
+- G4. Súlad rozhovoru s obrazom depresívnej symptomatiky
+- G5. Použiteľnosť rozhovoru na tréningové / výučbové účely
+- S1. Odhad celkovej závažnosti depresívnej symptomatiky
+- S2. Odhad funkčného dopadu na bežné fungovanie
+- R1. Prítomnosť vnútorných kontradikcií v rozhovore
+- R2. Klišé alebo šablónovité odpovede
+- R3. Nesúlad medzi kontextom a symptomatikou
+- R4. Podozrenie na inú primárnu psychopatológiu
+- R5. Neprimeraná dramatizácia alebo neprirodzená expresivita
+
+l: tool_need
+t: scale val4
+q: <b>Potrebnosť položiek vo finálnom nástroji</b>
+- G1. Klinická vierohodnosť rozhovoru
+- G2. Prirodzenosť jazyka a štýlu odpovedí
+- G3. Vnútorná konzistentnosť rozhovoru
+- G4. Súlad rozhovoru s obrazom depresívnej symptomatiky
+- G5. Použiteľnosť rozhovoru na tréningové / výučbové účely
+- S1. Odhad celkovej závažnosti depresívnej symptomatiky
+- S2. Odhad funkčného dopadu na bežné fungovanie
+- R1. Prítomnosť vnútorných kontradikcií v rozhovore
+- R2. Klišé alebo šablónovité odpovede
+- R3. Nesúlad medzi kontextom a symptomatikou
+- R4. Podozrenie na inú primárnu psychopatológiu
+- R5. Neprimeraná dramatizácia alebo neprirodzená expresivita
+
+l: tool_comment
+t: textbox
+q: <b>Celková poznámka k ratingovému nástroju</b><br>Čo v nástroji podľa vás chýba, čo by ste zlúčili, premenovali alebo vypustili?
+- Vaša poznámka
+
+l: sectionB
+t: info
+q: <hr><b>ČASŤ B. Posúdenie štandardizovaných prípadových scenárov</b><br><br>V tejto časti budete hodnotiť jednotlivé štandardizované prípadové scenáre, ktoré budú použité ako východisko pre generovanie AI rozhovorov.<br><br>Nejde o reálne kazuistiky, ale o výskumné scenáre, ktoré majú reprezentovať bežné ambulantné profily depresívnej symptomatiky.<br><br>Pri každom scenári sa zamerajte najmä na to, či:<br><b>- pôsobí klinicky vierohodne,</b><br><b>- zodpovedá bežnému ambulantnému obrazu depresívnej symptomatiky,</b><br><b>- je jasný a dostatočne konkrétny,</b><br><b>- nepôsobí stereotypne alebo prehnane umelo,</b><br><b>- je vhodný na použitie vo výskume.</b><br><br>Použite túto škálu:<br><b>1 = nie</b><br><b>2 = skôr nie</b><br><b>3 = skôr áno</b><br><b>4 = áno</b>
+
+page: begin
+
+l: seed01_eval
+t: scale val4
+q: <b>Scenár 01 — Stredná depresívna symptomatika u mladej ženy s pracovno-študijným preťažením</b><br><br><b>Osoba:</b> 24-ročná žena, slobodná, bez detí, býva v podnájme so spolubývajúcimi.<br><br><b>Vzdelanie a fungovanie:</b> má ukončené stredoškolské vzdelanie s maturitou, vysokoškolské štúdium ešte nemá dokončené; aktuálne kombinuje externé štúdium a brigádu v kaviarni alebo v službách.<br><br><b>Trvanie ťažkostí:</b> približne 8 týždňov.<br><br><b>Jadro ťažkostí:</b> skleslá nálada, strata záujmu, únava, porucha spánku, vina, zhoršená koncentrácia a mierna zmena chuti do jedla; môže byť prítomné aj psychomotorické spomalenie alebo nepokoj.<br><br><b>Spánok a apetít:</b> zaspáva neskoro, spánok je plytký a neobnovujúci; chuť do jedla je mierne znížená, pri záťaži niekedy vynechá jedlo.<br><br><b>Somatické ťažkosti:</b> tenzné bolesti hlavy, telesná únava a napätie bez varovných somatických príznakov.<br><br><b>Anamnéza:</b> v rodine je známa liečená depresia u matky; bez predchádzajúcej depresívnej epizódy, psychiatrickej liečby alebo psychoterapie.<br><br><b>Stresory a dopad:</b> zaťažuje ju kombinácia štúdia a brigády, finančná neistota a porovnávanie sa s rovesníkmi; zhoršuje sa školské fungovanie, motivácia a sociálny život.<br><br><b>Diferenciálna poznámka:</b> obraz nie je len reakciou na bežný študentský stres; chýba mánia, psychóza, intoxikácia aj izolovaný problém s jedením.<br><br><b>Posúďte scenár:</b>
+- S01. Scenár zodpovedá bežnému ambulantnému profilu depresívnej symptomatiky.
+- S02. Demografický a sociálny kontext pôsobí realisticky.
+- S03. Symptómový profil je klinicky vierohodný.
+- S04. Scenár je jasný a zrozumiteľný.
+- S05. Scenár obsahuje dostatok informácií na generovanie rozhovoru.
+- S06. Scenár nepôsobí stereotypne alebo karikatúrne.
+- S07. Scenár je vhodný na použitie vo výskume AI-generovaných rozhovorov.
+
+l: seed01_severity
+t: radio
+q: <b>Scenár 01 — odhad závažnosti</b><br><br><b>Súhrn:</b> 24-ročná žena, kombinácia externého štúdia a brigády, asi 8 týždňov trvajúca skleslá nálada, strata záujmu, únava, porucha spánku, vina a zhoršená koncentrácia; funkčný dopad na školu, motiváciu a sociálny život.<br><br><b>Odhad cieľovej závažnosti scenára 01</b>
+- skôr mierna
+- skôr stredná
+- skôr stredne ťažká
+- neviem posúdiť
+
+l: seed01_comment
+t: textbox
+q: <b>Scenár 01 — komentár</b><br><br><b>Súhrn:</b> mladá žena s pracovno-študijným preťažením, poruchou spánku, únavou, vinou, zhoršenou koncentráciou a poklesom školského aj sociálneho fungovania.<br><br>Uveďte prípadné red flags, chýbajúce údaje alebo návrh úpravy.
+- Vaša poznámka
+
+page: end
+
+page: begin
+
+l: seed02_eval
+t: scale val4
+q: <b>Scenár 02 — Stredná depresívna symptomatika u mladého muža so smennou prácou</b><br><br><b>Osoba:</b> 27-ročný muž, slobodný, bez detí, býva s rodičmi.<br><br><b>Vzdelanie a fungovanie:</b> má stredné odborné vzdelanie; pracuje v skladovej alebo podobnej smennej práci.<br><br><b>Trvanie ťažkostí:</b> približne 9 týždňov.<br><br><b>Jadro ťažkostí:</b> skleslá nálada, strata záujmu, únava, porucha spánku, zhoršená koncentrácia, pocity viny alebo bezcennosti, mierna zmena chuti do jedla a možný psychomotorický nepokoj alebo spomalenie.<br><br><b>Spánok a apetít:</b> spánok je fragmentovaný a rytmus rozbitý pre rotujúce smeny; stravovanie je nepravidelné a chuť do jedla je skôr slabšia.<br><br><b>Somatické ťažkosti:</b> telesná vyčerpanosť, bolestivé napätie a pocit ťažkého tela po smenách.<br><br><b>Anamnéza:</b> staršia sestra sa liečila pre úzkostno-depresívne ťažkosti; bez predchádzajúcej psychiatrickej epizódy alebo liečby.<br><br><b>Stresory a dopad:</b> zaťažujú ho rotujúce smeny, rozbitý denný režim, stagnácia a neistota o budúcnosti; má menej energie po práci, menej sociálnych kontaktov a nižšiu motiváciu.<br><br><b>Diferenciálna poznámka:</b> Ťažkosti nemožno vysvetliť len smennou prevádzkou a narušeným spánkovým režimom; nejde len o poruchu spánku alebo pracovné preťaženie, chýba mánia, psychóza a primárny vplyv návykových látok.<br><br><b>Posúďte scenár:</b>
+- S01. Scenár zodpovedá bežnému ambulantnému profilu depresívnej symptomatiky.
+- S02. Demografický a sociálny kontext pôsobí realisticky.
+- S03. Symptómový profil je klinicky vierohodný.
+- S04. Scenár je jasný a zrozumiteľný.
+- S05. Scenár obsahuje dostatok informácií na generovanie rozhovoru.
+- S06. Scenár nepôsobí stereotypne alebo karikatúrne.
+- S07. Scenár je vhodný na použitie vo výskume AI-generovaných rozhovorov.
+
+l: seed02_severity
+t: radio
+q: <b>Scenár 02 — odhad závažnosti</b><br><br><b>Súhrn:</b> 27-ročný muž so smennou prácou, asi 9 týždňov trvajúca skleslosť, únava, strata záujmu, rozbitý spánok a sociálne stiahnutie pri stagnácii a neistote o budúcnosti.<br><br><b>Odhad cieľovej závažnosti scenára 02</b>
+- skôr mierna
+- skôr stredná
+- skôr stredne ťažká
+- neviem posúdiť
+
+l: seed02_comment
+t: textbox
+q: <b>Scenár 02 — komentár</b><br><br><b>Súhrn:</b> mladý muž, rotujúce smeny, porucha spánku, únava, stagnácia, nižšia motivácia a sociálne stiahnutie.<br><br>Uveďte prípadné red flags, chýbajúce údaje alebo návrh úpravy.
+- Vaša poznámka
+
+page: end
+
+page: begin
+
+l: seed03_eval
+t: scale val4
+q: <b>Scenár 03 — Stredne ťažká depresívna symptomatika u ženy v strednom veku s caregiving záťažou</b><br><br><b>Osoba:</b> 39-ročná žena, žije s partnerom a dvomi deťmi.<br><br><b>Vzdelanie a fungovanie:</b> má ukončené stredoškolské vzdelanie s maturitou, pracuje v administratíve.<br><br><b>Trvanie ťažkostí:</b> približne 10 týždňov.<br><br><b>Jadro ťažkostí:</b> skleslá nálada, strata záujmu, výrazná únava, porucha spánku, znížená chuť do jedla, pocity viny alebo bezcennosti, zhoršená koncentrácia, psychomotorický nepokoj alebo spomalenie a prípustné pasívne myšlienky na smrť bez plánu a bez úmyslu.<br><br><b>Spánok a apetít:</b> spánok je prerušovaný, budí sa a ráno vstáva neoddýchnutá; chuť do jedla je znížená a jedlo prijíma skôr z povinnosti než z hladu.<br><br><b>Somatické ťažkosti:</b> tlak v hlave, svalové napätie a výrazná telesná vyčerpanosť.<br><br><b>Anamnéza:</b> matka sa opakovane liečila pre depresívne epizódy; bez predchádzajúcej psychiatrickej liečby a bez skôr plne rozvinutej depresívnej epizódy.<br><br><b>Stresory a dopad:</b> zaťažuje ju dlhodobé preťaženie prácou a starostlivosťou o deti, minimum oddychu a vina z toho, že všetko nezvláda; fungovanie doma aj v práci je zreteľne narušené.<br><br><b>Diferenciálna poznámka:</b> nejde len o burnout alebo preťaženie; prítomné sú jadrové depresívne symptómy aj pasívne myšlienky na smrť bez plánu a bez úmyslu.<br><br><b>Posúďte scenár:</b>
+- S01. Scenár zodpovedá bežnému ambulantnému profilu depresívnej symptomatiky.
+- S02. Demografický a sociálny kontext pôsobí realisticky.
+- S03. Symptómový profil je klinicky vierohodný.
+- S04. Scenár je jasný a zrozumiteľný.
+- S05. Scenár obsahuje dostatok informácií na generovanie rozhovoru.
+- S06. Scenár nepôsobí stereotypne alebo karikatúrne.
+- S07. Scenár je vhodný na použitie vo výskume AI-generovaných rozhovorov.
+
+l: seed03_severity
+t: radio
+q: <b>Scenár 03 — odhad závažnosti</b><br><br><b>Súhrn:</b> 39-ročná žena, administratíva, partner a dve deti, asi 10 týždňov trvajúca skleslosť, strata záujmu, únava, narušený spánok, vina a zhoršené fungovanie doma aj v práci; prípustný pasívny A9 bez plánu a úmyslu.<br><br><b>Odhad cieľovej závažnosti scenára 03</b>
+- skôr mierna
+- skôr stredná
+- skôr stredne ťažká
+- neviem posúdiť
+
+l: seed03_comment
+t: textbox
+q: <b>Scenár 03 — komentár</b><br><br><b>Súhrn:</b> žena v strednom veku s caregiving záťažou, výrazná únava, porucha spánku, vina, zhoršenie fungovania doma aj v práci a prípustný pasívny A9 bez plánu.<br><br>Uveďte prípadné red flags, chýbajúce údaje alebo návrh úpravy.
+- Vaša poznámka
+
+page: end
+
+page: begin
+
+l: seed04_eval
+t: scale val4
+q: <b>Scenár 04 — Stredná depresívna symptomatika u muža s vysokou pracovnou záťažou</b><br><br><b>Osoba:</b> 43-ročný muž, žije s partnerkou alebo manželkou a jedným dieťaťom.<br><br><b>Vzdelanie a fungovanie:</b> má vysokoškolské vzdelanie, pracuje v IT alebo projektovom manažmente.<br><br><b>Trvanie ťažkostí:</b> približne 7 týždňov.<br><br><b>Jadro ťažkostí:</b> skleslá nálada, strata záujmu, únava, porucha spánku, zhoršená koncentrácia, pocity viny alebo bezcennosti a možný psychomotorický nepokoj alebo spomalenie.<br><br><b>Spánok a apetít:</b> večer nevie vypnúť, spánok je plytký a neobnovujúci; chuť do jedla zostáva v zásade zachovaná.<br><br><b>Somatické ťažkosti:</b> napätie v šiji, bolesti hlavy a stresové stiahnutie v žalúdku.<br><br><b>Anamnéza:</b> otec mal v strednom veku liečenú depresívnu epizódu; bez predchádzajúcej psychiatrickej liečby.<br><br><b>Stresory a dopad:</b> zaťažuje ho vysoká pracovná záťaž, termíny, neustála zodpovednosť a neschopnosť vypnúť po práci; spánok, koncentrácia aj angažovanosť vo vzťahu sú zhoršené.<br><br><b>Diferenciálna poznámka:</b> nejde len o pracovné vyhorenie alebo nespokojnosť v práci; chýba mánia, psychóza aj izolovaná úzkosť bez depresívneho jadra.<br><br><b>Posúďte scenár:</b>
+- S01. Scenár zodpovedá bežnému ambulantnému profilu depresívnej symptomatiky.
+- S02. Demografický a sociálny kontext pôsobí realisticky.
+- S03. Symptómový profil je klinicky vierohodný.
+- S04. Scenár je jasný a zrozumiteľný.
+- S05. Scenár obsahuje dostatok informácií na generovanie rozhovoru.
+- S06. Scenár nepôsobí stereotypne alebo karikatúrne.
+- S07. Scenár je vhodný na použitie vo výskume AI-generovaných rozhovorov.
+
+l: seed04_severity
+t: radio
+q: <b>Scenár 04 — odhad závažnosti</b><br><br><b>Súhrn:</b> 43-ročný muž, vysoko zodpovedná práca, asi 7 týždňov trvajúca skleslosť, strata záujmu, neobnovujúci spánok, únava, zhoršená koncentrácia a pokles angažovanosti vo vzťahu.<br><br><b>Odhad cieľovej závažnosti scenára 04</b>
+- skôr mierna
+- skôr stredná
+- skôr stredne ťažká
+- neviem posúdiť
+
+l: seed04_comment
+t: textbox
+q: <b>Scenár 04 — komentár</b><br><br><b>Súhrn:</b> muž s vysokou pracovnou záťažou, porucha spánku, únava, strata záujmu, slabšia koncentrácia a funkčný dopad v práci aj vo vzťahu.<br><br>Uveďte prípadné red flags, chýbajúce údaje alebo návrh úpravy.
+- Vaša poznámka
+
+page: end
+
+page: begin
+
+l: seed05_eval
+t: scale val4
+q: <b>Scenár 05 — Stredná depresívna symptomatika u rozvedenej ženy s finančným tlakom</b><br><br><b>Osoba:</b> 47-ročná žena, rozvedená, má jedno dieťa a žije sama alebo s dospievajúcim dieťaťom.<br><br><b>Vzdelanie a fungovanie:</b> má stredné odborné vzdelanie, pracuje v predaji alebo službách.<br><br><b>Trvanie ťažkostí:</b> približne 9 týždňov.<br><br><b>Jadro ťažkostí:</b> skleslá nálada, strata záujmu, porucha spánku, mierna zmena chuti do jedla, únava, zhoršená koncentrácia, pocity viny alebo bezcennosti a možný psychomotorický nepokoj alebo spomalenie.<br><br><b>Spánok a apetít:</b> budí sa skoro ráno a spánok ju neobnoví; chuť do jedla je mierne nižšia a menej sa jej chce pripravovať jedlo.<br><br><b>Somatické ťažkosti:</b> ťažoba tela, napätie chrbta a žalúdočný dyskomfort pri strese.<br><br><b>Anamnéza:</b> u matky bola dlhodobo prítomná neliečená skleslosť po rozvode; bez predchádzajúcej psychiatrickej liečby.<br><br><b>Stresory a dopad:</b> zaťažuje ju finančný tlak, dlhodobé vyčerpanie a osamelosť po rozpade vzťahu; fungovanie v práci aj domácnosti si vyžaduje viditeľne viac úsilia.<br><br><b>Diferenciálna poznámka:</b> nejde len o finančný stres alebo reakciu na rozvod; symptómy sú perzistentné, viacrozmerné a klinicky depresívne.<br><br><b>Posúďte scenár:</b>
+- S01. Scenár zodpovedá bežnému ambulantnému profilu depresívnej symptomatiky.
+- S02. Demografický a sociálny kontext pôsobí realisticky.
+- S03. Symptómový profil je klinicky vierohodný.
+- S04. Scenár je jasný a zrozumiteľný.
+- S05. Scenár obsahuje dostatok informácií na generovanie rozhovoru.
+- S06. Scenár nepôsobí stereotypne alebo karikatúrne.
+- S07. Scenár je vhodný na použitie vo výskume AI-generovaných rozhovorov.
+
+l: seed05_severity
+t: radio
+q: <b>Scenár 05 — odhad závažnosti</b><br><br><b>Súhrn:</b> 47-ročná rozvedená žena, finančný tlak a osamelosť, asi 9 týždňov trvajúca skleslosť, strata záujmu, nespavosť, únava a pokles fungovania doma aj v práci.<br><br><b>Odhad cieľovej závažnosti scenára 05</b>
+- skôr mierna
+- skôr stredná
+- skôr stredne ťažká
+- neviem posúdiť
+
+l: seed05_comment
+t: textbox
+q: <b>Scenár 05 — komentár</b><br><br><b>Súhrn:</b> rozvedená žena s finančným tlakom, únavou, nespavosťou, stratou záujmu a viditeľne náročnejším fungovaním doma aj v práci.<br><br>Uveďte prípadné red flags, chýbajúce údaje alebo návrh úpravy.
+- Vaša poznámka
+
+page: end
+
+page: begin
+
+l: seed06_eval
+t: scale val4
+q: <b>Scenár 06 — Stredná depresívna symptomatika u muža s dlhou pracovnou záťažou</b><br><br><b>Osoba:</b> 58-ročný muž, žije s partnerkou alebo manželkou, deti už nežijú v domácnosti.<br><br><b>Vzdelanie a fungovanie:</b> má stredné odborné vzdelanie, pracuje ako vodič alebo v manuálno-technickej profesii.<br><br><b>Trvanie ťažkostí:</b> približne 11 týždňov.<br><br><b>Jadro ťažkostí:</b> skleslá nálada, strata záujmu, porucha spánku, únava, zhoršená koncentrácia, pocity viny alebo bezcennosti a možný psychomotorický nepokoj alebo spomalenie.<br><br><b>Spánok a apetít:</b> spánok je plytký, prerušovaný a ráno sa budí neoddýchnutý; chuť do jedla je skôr zachovaná, jedlo je však viac rutina než potešenie.<br><br><b>Somatické ťažkosti:</b> bolesti tela, svalové napätie a výrazná fyzická únava po práci.<br><br><b>Anamnéza:</b> rodinná anamnéza náladovej poruchy nie je jasne známa; bez predchádzajúcej psychiatrickej liečby.<br><br><b>Stresory a dopad:</b> zaťažujú ho vysoké pracovné nároky, minimum času na regeneráciu a zúženie denného režimu; energia po práci a zapojenie do voľného času sú zreteľne znížené.<br><br><b>Diferenciálna poznámka:</b> obraz nie je len obyčajná pracovná únava; je širšie depresívny, nie len somatický alebo pracovný, a chýba mánia, psychóza aj závislostný kontext.<br><br><b>Posúďte scenár:</b>
+- S01. Scenár zodpovedá bežnému ambulantnému profilu depresívnej symptomatiky.
+- S02. Demografický a sociálny kontext pôsobí realisticky.
+- S03. Symptómový profil je klinicky vierohodný.
+- S04. Scenár je jasný a zrozumiteľný.
+- S05. Scenár obsahuje dostatok informácií na generovanie rozhovoru.
+- S06. Scenár nepôsobí stereotypne alebo karikatúrne.
+- S07. Scenár je vhodný na použitie vo výskume AI-generovaných rozhovorov.
+
+l: seed06_severity
+t: radio
+q: <b>Scenár 06 — odhad závažnosti</b><br><br><b>Súhrn:</b> 58-ročný muž, dlhodobá pracovná záťaž, asi 11 týždňov trvajúca skleslosť, strata záujmu, porucha spánku, únava a zníženie energie po práci aj vo voľnom čase.<br><br><b>Odhad cieľovej závažnosti scenára 06</b>
+- skôr mierna
+- skôr stredná
+- skôr stredne ťažká
+- neviem posúdiť
+
+l: seed06_comment
+t: textbox
+q: <b>Scenár 06 — komentár</b><br><br><b>Súhrn:</b> muž s dlhou pracovnou záťažou, porucha spánku, únava, strata záujmu a pokles energie po práci aj vo voľnom čase.<br><br>Uveďte prípadné red flags, chýbajúce údaje alebo návrh úpravy.
+- Vaša poznámka
+
+page: end
+
+page: begin
+
+l: seed07_eval
+t: scale val4
+q: <b>Scenár 07 — Stredná depresívna symptomatika u staršej vdovy so stratou rytmu</b><br><br><b>Osoba:</b> 66-ročná žena, ovdovená, žije sama, deti už nežijú v domácnosti.<br><br><b>Vzdelanie a fungovanie:</b> má stredoškolské vzdelanie s maturitou, v minulosti pracovala v administratíve alebo službách, teraz je na dôchodku.<br><br><b>Trvanie ťažkostí:</b> približne 12 týždňov.<br><br><b>Jadro ťažkostí:</b> skleslá nálada, strata záujmu, únava, porucha spánku, mierna zmena chuti do jedla, zhoršená koncentrácia, pocity viny alebo bezcennosti a možný psychomotorický nepokoj alebo spomalenie.<br><br><b>Spánok a apetít:</b> spánok je ľahší, skôr sa budí a ráno sa ťažšie rozbieha; chuť do jedla je mierne slabšia, ale stravovanie ostáva pravidelné.<br><br><b>Somatické ťažkosti:</b> menej vitality, telesná ťažoba a pomalší ranný štart bez akútnych medicínskych varovných príznakov.<br><br><b>Anamnéza:</b> sestra sa vo vyššom veku liečila pre depresívne ťažkosti; bez predchádzajúcej psychiatrickej liečby.<br><br><b>Stresory a dopad:</b> zaťažuje ju osamelosť, slabšia denná štruktúra po ovdovení a odchode do dôchodku a menej sociálnych kontaktov; denná štruktúra aj sociálne fungovanie sa zúžili.<br><br><b>Diferenciálna poznámka:</b> nejde len o bežné ovdovenie alebo starnutie; symptómy sú sústavné, depresívne ladené a funkčne obmedzujúce.<br><br><b>Posúďte scenár:</b>
+- S01. Scenár zodpovedá bežnému ambulantnému profilu depresívnej symptomatiky.
+- S02. Demografický a sociálny kontext pôsobí realisticky.
+- S03. Symptómový profil je klinicky vierohodný.
+- S04. Scenár je jasný a zrozumiteľný.
+- S05. Scenár obsahuje dostatok informácií na generovanie rozhovoru.
+- S06. Scenár nepôsobí stereotypne alebo karikatúrne.
+- S07. Scenár je vhodný na použitie vo výskume AI-generovaných rozhovorov.
+
+l: seed07_severity
+t: radio
+q: <b>Scenár 07 — odhad závažnosti</b><br><br><b>Súhrn:</b> 66-ročná ovdovená žena, strata rytmu a osamelosť, asi 12 týždňov trvajúca skleslosť, strata záujmu, únava, horší spánok a zúženie dennej štruktúry aj sociálneho fungovania.<br><br><b>Odhad cieľovej závažnosti scenára 07</b>
+- skôr mierna
+- skôr stredná
+- skôr stredne ťažká
+- neviem posúdiť
+
+l: seed07_comment
+t: textbox
+q: <b>Scenár 07 — komentár</b><br><br><b>Súhrn:</b> staršia vdova, osamelosť, strata dennej štruktúry, strata záujmu, únava a sociálne stiahnutie.<br><br>Uveďte prípadné red flags, chýbajúce údaje alebo návrh úpravy.
+- Vaša poznámka
+
+page: end
+
+page: begin
+
+l: seed08_eval
+t: scale val4
+q: <b>Scenár 08 — Mierna depresívna symptomatika u staršieho muža po strate rutiny</b><br><br><b>Osoba:</b> 68-ročný muž, žije s partnerkou alebo manželkou.<br><br><b>Vzdelanie a fungovanie:</b> má stredoškolské vzdelanie s maturitou, v minulosti pracoval ako technik, teraz je na dôchodku.<br><br><b>Trvanie ťažkostí:</b> približne 10 týždňov.<br><br><b>Jadro ťažkostí:</b> skleslá nálada, strata záujmu, mierne zhoršený spánok, únava, slabšia koncentrácia a možný psychomotorický nepokoj alebo spomalenie.<br><br><b>Spánok a apetít:</b> spánok je o niečo horší, ale nejde o výraznú nespavosť; chuť do jedla je zachovaná.<br><br><b>Somatické ťažkosti:</b> menej energie a pomalšie rozbiehanie bez výraznejšieho somatického burdenu.<br><br><b>Anamnéza:</b> rodinná anamnéza ťažšej psychiatrickej poruchy nie je známa; bez predchádzajúcej psychiatrickej liečby.<br><br><b>Stresory a dopad:</b> zaťažuje ho strata dennej rutiny, menej zmysluplných aktivít a menej sociálnych podnetov po odchode do dôchodku; denné aktivity a záľuby vyžadujú viac úsilia než predtým.<br><br><b>Diferenciálna poznámka:</b> nejde len o nudu po dôchodku; depresívny obraz je síce mierny, ale konzistentný a bez známok mánie, psychózy alebo kognitívneho syndrómu.<br><br><b>Posúďte scenár:</b>
+- S01. Scenár zodpovedá bežnému ambulantnému profilu depresívnej symptomatiky.
+- S02. Demografický a sociálny kontext pôsobí realisticky.
+- S03. Symptómový profil je klinicky vierohodný.
+- S04. Scenár je jasný a zrozumiteľný.
+- S05. Scenár obsahuje dostatok informácií na generovanie rozhovoru.
+- S06. Scenár nepôsobí stereotypne alebo karikatúrne.
+- S07. Scenár je vhodný na použitie vo výskume AI-generovaných rozhovorov.
+
+l: seed08_severity
+t: radio
+q: <b>Scenár 08 — odhad závažnosti</b><br><br><b>Súhrn:</b> 68-ročný muž po strate rutiny v dôchodku, asi 10 týždňov trvajúce utlmenie, strata záujmu, menej energie a náročnejšie každodenné aktivity a záľuby.<br><br><b>Odhad cieľovej závažnosti scenára 08</b>
+- skôr mierna
+- skôr stredná
+- skôr stredne ťažká
+- neviem posúdiť
+
+l: seed08_comment
+t: textbox
+q: <b>Scenár 08 — komentár</b><br><br><b>Súhrn:</b> starší muž po strate rutiny, menej zmysluplných aktivít, utlmenie, únava a slabšia koncentrácia.<br><br>Uveďte prípadné red flags, chýbajúce údaje alebo návrh úpravy.
+- Vaša poznámka
+
+page: end
+
+page: begin
+
+l: seed09_eval
+t: scale val4
+q: <b>Scenár 09 — Stredná depresívna symptomatika u výkonovo zaťaženej ženy s rumináciami</b><br><br><b>Osoba:</b> 32-ročná žena, žije s partnerom, bez detí.<br><br><b>Vzdelanie a fungovanie:</b> má vysokoškolské vzdelanie, pracuje v analytickej kancelárskej role.<br><br><b>Trvanie ťažkostí:</b> približne 8 týždňov.<br><br><b>Jadro ťažkostí:</b> skleslá nálada, strata záujmu, porucha spánku, únava, zhoršená koncentrácia, pocity viny alebo bezcennosti a možný psychomotorický nepokoj alebo spomalenie.<br><br><b>Spánok a apetít:</b> ťažšie zaspáva, pretože večer ruminuje a nevie vypnúť; chuť do jedla je zväčša zachovaná.<br><br><b>Somatické ťažkosti:</b> vnútorné napätie, bolesti hlavy a tlak na hrudi pri záťaži.<br><br><b>Anamnéza:</b> matka sa ambulantne liečila pre úzkostno-depresívne ťažkosti; bez formálnej psychiatrickej liečby, dlhodobejšie však funguje v perfekcionistickom nastavení.<br><br><b>Stresory a dopad:</b> zaťažuje ju výkonový tlak, perfekcionizmus a ruminácie po práci; koncentrácia v práci aj schopnosť oddychovať sú zhoršené.<br><br><b>Diferenciálna poznámka:</b> nejde len o výkonový stres alebo úzkosť; prítomná je strata radosti, sebazneisťovanie a funkčný dopad typický pre depresívny obraz.<br><br><b>Posúďte scenár:</b>
+- S01. Scenár zodpovedá bežnému ambulantnému profilu depresívnej symptomatiky.
+- S02. Demografický a sociálny kontext pôsobí realisticky.
+- S03. Symptómový profil je klinicky vierohodný.
+- S04. Scenár je jasný a zrozumiteľný.
+- S05. Scenár obsahuje dostatok informácií na generovanie rozhovoru.
+- S06. Scenár nepôsobí stereotypne alebo karikatúrne.
+- S07. Scenár je vhodný na použitie vo výskume AI-generovaných rozhovorov.
+
+l: seed09_severity
+t: radio
+q: <b>Scenár 09 — odhad závažnosti</b><br><br><b>Súhrn:</b> 32-ročná žena, výkonový tlak a ruminácie, asi 8 týždňov trvajúca skleslosť, strata záujmu, porucha spánku, únava a zhoršená koncentrácia s ťažkosťami pri oddychu.<br><br><b>Odhad cieľovej závažnosti scenára 09</b>
+- skôr mierna
+- skôr stredná
+- skôr stredne ťažká
+- neviem posúdiť
+
+l: seed09_comment
+t: textbox
+q: <b>Scenár 09 — komentár</b><br><br><b>Súhrn:</b> výkonovo zaťažená žena, ruminácie, porucha spánku, strata záujmu, únava, vina a zhoršenie koncentrácie aj oddychu.<br><br>Uveďte prípadné red flags, chýbajúce údaje alebo návrh úpravy.
+- Vaša poznámka
+
+page: begin
+
+l: seed10_eval
+t: scale val4
+q: <b>Scenár 10 — Stredná depresívna symptomatika u muža s rutinou, stagnáciou a pasívnym A9 signálom</b><br><br><b>Osoba:</b> 36-ročný muž, žije s partnerkou alebo partnerom, bez detí.<br><br><b>Vzdelanie a fungovanie:</b> má stredoškolské vzdelanie s maturitou, pracuje v technickom supporte.<br><br><b>Trvanie ťažkostí:</b> približne 7 týždňov.<br><br><b>Jadro ťažkostí:</b> skleslá nálada, strata záujmu, porucha spánku, mierna zmena chuti do jedla, únava, zhoršená koncentrácia, pocity viny alebo bezcennosti, psychomotorický nepokoj alebo spomalenie a prípustné pasívne myšlienky na smrť bez plánu a bez úmyslu.<br><br><b>Spánok a apetít:</b> spánok je nepravidelný a ráno sa budí unavený; chuť do jedla je mierne znížená.<br><br><b>Somatické ťažkosti:</b> telesná vyčerpanosť, tenzné bolesti hlavy a pocit ťažkého tela.<br><br><b>Anamnéza:</b> otec mal podľa rodiny roky neliečenú skleslosť; bez predchádzajúcej psychiatrickej liečby.<br><br><b>Stresory a dopad:</b> zaťažuje ho pracovná rutina, stagnácia, preťaženie a menej kontaktu s priateľmi; zhoršuje sa motivácia po práci, sociálny kontakt aj koncentrácia.<br><br><b>Diferenciálna poznámka:</b> nejde len o frustráciu z práce alebo adjustment problém; prítomný je konzistentný depresívny syndróm aj s bezpečnostným A9 signálom.<br><br><b>Posúďte scenár:</b>
+- S01. Scenár zodpovedá bežnému ambulantnému profilu depresívnej symptomatiky.
+- S02. Demografický a sociálny kontext pôsobí realisticky.
+- S03. Symptómový profil je klinicky vierohodný.
+- S04. Scenár je jasný a zrozumiteľný.
+- S05. Scenár obsahuje dostatok informácií na generovanie rozhovoru.
+- S06. Scenár nepôsobí stereotypne alebo karikatúrne.
+- S07. Scenár je vhodný na použitie vo výskume AI-generovaných rozhovorov.
+
+l: seed10_severity
+t: radio
+q: <b>Scenár 10 — odhad závažnosti</b><br><br><b>Súhrn:</b> 36-ročný muž, rutina a stagnácia, asi 7 týždňov trvajúca skleslosť, strata záujmu, únava, porucha spánku, sociálne stiahnutie a prípustný pasívny A9 bez plánu a úmyslu.<br><br><b>Odhad cieľovej závažnosti scenára 10</b>
+- skôr mierna
+- skôr stredná
+- skôr stredne ťažká
+- neviem posúdiť
+
+l: seed10_comment
+t: textbox
+q: <b>Scenár 10 — komentár</b><br><br><b>Súhrn:</b> muž s rutinou a stagnáciou, porucha spánku, únava, strata záujmu, sociálne stiahnutie a pasívny A9 bez plánu a úmyslu.<br><br>Uveďte prípadné red flags, chýbajúce údaje alebo návrh úpravy.
+- Vaša poznámka
+
+page: end
+
+page: begin
+
+l: seed11_eval
+t: scale val4
+q: <b>Scenár 11 — Stredná depresívna symptomatika u ženy s nízkym príjmom a sociálnym stiahnutím</b><br><br><b>Osoba:</b> 53-ročná žena, rozvedená, žije sama, deti už nežijú v domácnosti.<br><br><b>Vzdelanie a fungovanie:</b> má nižšie stredné vzdelanie; aktuálne je dočasne mimo práce alebo na PN, predtým pracovala v predaji alebo pomocných službách.<br><br><b>Trvanie ťažkostí:</b> približne 12 týždňov.<br><br><b>Jadro ťažkostí:</b> skleslá nálada, strata záujmu, porucha spánku, znížená chuť do jedla, únava, zhoršená koncentrácia, pocity viny alebo bezcennosti a možný psychomotorický nepokoj alebo spomalenie.<br><br><b>Spánok a apetít:</b> spánok je prerušovaný a budí sa skoro ráno; chuť do jedla je znížená, občas vynecháva jedlo.<br><br><b>Somatické ťažkosti:</b> telesná ťažoba, difúzne bolesti a slabá ranná energia.<br><br><b>Anamnéza:</b> matka mala dlhodobo depresívne ťažkosti bez špecializovanej liečby; bez predchádzajúcej psychiatrickej liečby.<br><br><b>Stresory a dopad:</b> zaťažuje ju dlhodobé vyčerpanie, osamelosť a finančná neistota počas výpadku z práce; denný režim aj sociálne fungovanie sú zreteľne oslabené.<br><br><b>Diferenciálna poznámka:</b> nejde len o nízky príjem alebo izoláciu; symptómy sú pervasivné, depresívne a funkčne výrazné.<br><br><b>Posúďte scenár:</b>
+- S01. Scenár zodpovedá bežnému ambulantnému profilu depresívnej symptomatiky.
+- S02. Demografický a sociálny kontext pôsobí realisticky.
+- S03. Symptómový profil je klinicky vierohodný.
+- S04. Scenár je jasný a zrozumiteľný.
+- S05. Scenár obsahuje dostatok informácií na generovanie rozhovoru.
+- S06. Scenár nepôsobí stereotypne alebo karikatúrne.
+- S07. Scenár je vhodný na použitie vo výskume AI-generovaných rozhovorov.
+
+l: seed11_severity
+t: radio
+q: <b>Scenár 11 — odhad závažnosti</b><br><br><b>Súhrn:</b> 53-ročná žena, nízky príjem, sociálne stiahnutie a výpadok z práce, asi 12 týždňov trvajúca skleslosť, strata záujmu, porucha spánku, únava a výrazné oslabenie denného režimu.<br><br><b>Odhad cieľovej závažnosti scenára 11</b>
+- skôr mierna
+- skôr stredná
+- skôr stredne ťažká
+- neviem posúdiť
+
+l: seed11_comment
+t: textbox
+q: <b>Scenár 11 — komentár</b><br><br><b>Súhrn:</b> žena s nízkym príjmom a sociálnym stiahnutím, vyčerpanie, osamelosť, porucha spánku, strata záujmu a pokles denného fungovania.<br><br>Uveďte prípadné red flags, chýbajúce údaje alebo návrh úpravy.
+- Vaša poznámka
+
+page: end
+
+page: begin
+
+l: seed12_eval
+t: scale val4
+q: <b>Scenár 12 — Stredná depresívna symptomatika u muža s vysokou zodpovednosťou a utlmeným prežívaním</b><br><br><b>Osoba:</b> 46-ročný muž, žije s manželkou a dvomi deťmi.<br><br><b>Vzdelanie a fungovanie:</b> má vysokoškolské vzdelanie, pracuje vo vedúcej alebo seniornej odbornej role.<br><br><b>Trvanie ťažkostí:</b> približne 6 týždňov.<br><br><b>Jadro ťažkostí:</b> skleslá nálada, strata záujmu, porucha spánku, únava, zhoršená koncentrácia, pocity viny alebo bezcennosti a možný psychomotorický nepokoj alebo spomalenie.<br><br><b>Spánok a apetít:</b> večer nevie vypnúť, spánok je krátky a prerušovaný; chuť do jedla je zachovaná alebo len mierne slabšia.<br><br><b>Somatické ťažkosti:</b> tlak v hlave, svalové napätie a dlhodobé telesné stiahnutie.<br><br><b>Anamnéza:</b> strýko sa liečil pre opakovanú depresiu; bez predchádzajúcej psychiatrickej liečby.<br><br><b>Stresory a dopad:</b> zaťažuje ho vysoká zodpovednosť, chronické pracovné preťaženie a strata času na oddych a rodinu; koncentrácia v práci aj zapojenie v rodine si vyžadujú výrazné sebazaprenie.<br><br><b>Diferenciálna poznámka:</b> nejde len o primeranú reakciu na pracovnú záťaž; prítomné sú aj neurovegetatívne a afektívne symptómy naprieč prácou a rodinou.<br><br><b>Posúďte scenár:</b>
+- S01. Scenár zodpovedá bežnému ambulantnému profilu depresívnej symptomatiky.
+- S02. Demografický a sociálny kontext pôsobí realisticky.
+- S03. Symptómový profil je klinicky vierohodný.
+- S04. Scenár je jasný a zrozumiteľný.
+- S05. Scenár obsahuje dostatok informácií na generovanie rozhovoru.
+- S06. Scenár nepôsobí stereotypne alebo karikatúrne.
+- S07. Scenár je vhodný na použitie vo výskume AI-generovaných rozhovorov.
+
+l: seed12_severity
+t: radio
+q: <b>Scenár 12 — odhad závažnosti</b><br><br><b>Súhrn:</b> 46-ročný muž, vysoká zodpovednosť a chronické pracovné preťaženie, asi 6 týždňov trvajúca skleslosť, strata záujmu, porucha spánku, únava a pokles zapojenia v práci aj v rodine.<br><br><b>Odhad cieľovej závažnosti scenára 12</b>
+- skôr mierna
+- skôr stredná
+- skôr stredne ťažká
+- neviem posúdiť
+
+l: seed12_comment
+t: textbox
+q: <b>Scenár 12 — komentár</b><br><br><b>Súhrn:</b> muž s vysokou zodpovednosťou, porucha spánku, únava, strata záujmu, slabšia koncentrácia a utlmené fungovanie v práci aj v rodine.<br><br>Uveďte prípadné red flags, chýbajúce údaje alebo návrh úpravy.
+- Vaša poznámka
+
+page: end
+
+l: seed_overall
+t: textbox
+q: <b>Celková poznámka ku scenárom</b><br>Ak chcete, uveďte všeobecnú pripomienku k seedbooku ako celku.
+- Vaša poznámka
+
+l: closing
+t: info
+q: <hr><b>Ďakujeme za vyplnenie formulára.</b><br><br>Vaše odpovede pomôžu upraviť finálnu podobu ratingového nástroja aj štandardizovaných prípadových scenárov pred hlavným zberom dát.

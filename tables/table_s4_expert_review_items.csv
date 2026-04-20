@@ -1,0 +1,13 @@
+Kód,Položka,Relevantnosť M,Zrozumiteľnosť M,Potrebnosť M,Celkový priemer M,Podpora 3-4 (%),Potrebný follow-up
+R5,Neprimeraná dramatizácia alebo neprirodzená expresivita,2.67,2.67,3.0,2.78,66.7,True
+R2,Klišé alebo šablónovité odpovede,3.0,2.83,3.0,2.94,61.1,True
+R3,Nesúlad medzi kontextom a symptomatikou,3.0,3.17,3.0,3.06,66.7,True
+R1,Prítomnosť vnútorných kontradikcií v rozhovore,3.17,3.33,3.33,3.28,77.8,True
+G3,Vnútorná konzistentnosť rozhovoru,3.33,3.33,3.5,3.39,88.9,False
+R4,Podozrenie na inú primárnu psychopatológiu,3.5,3.83,3.33,3.56,88.9,False
+G5,Použiteľnosť rozhovoru na tréningové / výučbové účely,3.67,3.67,3.5,3.61,88.9,False
+S1,Odhad celkovej závažnosti depresívnej symptomatiky,3.67,3.67,3.67,3.67,94.4,False
+S2,Odhad funkčného dopadu na bežné fungovanie,3.5,3.83,3.67,3.67,94.4,False
+G1,Klinická vierohodnosť rozhovoru,3.67,3.67,3.83,3.72,88.9,False
+G2,Prirodzenosť jazyka a štýlu odpovedí,3.67,3.67,3.83,3.72,94.4,False
+G4,Súlad rozhovoru s obrazom depresívnej symptomatiky,3.5,3.83,3.83,3.72,94.4,False

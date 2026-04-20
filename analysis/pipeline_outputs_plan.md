@@ -26,10 +26,11 @@ Exploracia otvorenych komentarov ostava manualna alebo polo-manualna; pipeline m
 - `qc_dataset_summary.csv`
   - pocet hodnotitelov, transkriptov, seedov, ratingov, priemerny pocet ratingov na transkript, minimum, maximum, counts podla `guardrail`, `profile`, `guardrail x profile`
 - `descriptives_items.csv`
-  - frekvencie, mediány a IQR pre `G1-G5`, `A1-A9`, `S1`, `S2`, `R1-R5`, `guess_confidence`
+  - frekvencie, mediány a IQR pre `G1-G5`, `S1`, `S2`, `R1-R5`, `guess_confidence`
+  - transcript-level deskriptíva pre `A1-A9`, teda 1 riadok = 1 transkript, nie rating-weighted summary
 - `descriptives_composites.csv`
-  - mean, SD, median, IQR, min, max pre `plausibility_index`, `defect_index`, `symptom_error_mean`
-  - `severity_error` a `impact_error` ako priame `1-5` error skore medzi ľudskym `S1/S2` a seed anchors
+  - mean, SD, median, IQR, min, max pre `plausibility_index` a `defect_index` na rating-level
+  - `symptom_error_mean`, `severity_error` a `impact_error` ako transcript-level summary po agregácii na 1 riadok = 1 transkript
 - `expert_review_summary.csv`
   - pocet expertov, pocet posudenych poloziek, pocet posudenych seedov, pocet odporucanych uprav, najcastejsie typy pripomienok
 - `internal_consistency.csv`
@@ -150,6 +151,7 @@ Porovnavaju sa len riesenia s `k = 2` az `k = 4`. Do supplementu sa zaradi iba r
 
 - Jadro inferencie tvoria komparacie medzi podmienkami cez `LMM` a `CLMM`, nie korelacie a nie klastrovanie.
 - `S1` a `S2` su v jadre vedene ako samostatne human-rated ordinal outcome-y; popri nich sa teraz daju reportovat aj priame error ukazovatele voci `S1_anchor` a `S2_anchor`, kedze skaly su zarovnane na `1-5`.
+- Pre anchor fidelity vetvu plati, ze `symptom_error_mean`, `severity_error` a `impact_error` sa deskriptivne aj inferencne reportuju na transcript-level summary; `S1` a `S2` ostavaju samostatne rating-level ordinal outcome-y.
 - Planovane kontrasty pre `profile` maju byt primarne `R3 vs R1`; `R2 vs R1` a `R3 vs R2` maju byt sekundarne.
 - Pri signifikantnej interakcii `guardrail x profile` sa maju reportovat simple effects, nie plosne vsetky parove porovnania.
 - Korelacna matica a `PAM` maju byt interpretovane len ako doplnkovy opis struktury dat, nie ako dokaz pre `H1-H9`.

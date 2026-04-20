@@ -19,6 +19,14 @@ import zipfile
 from pathlib import Path
 from xml.sax.saxutils import escape
 
+from docx_table_style import (
+    FINAL_TABLE_STYLE,
+    MARGIN_DXA,
+    PAGE_HEIGHT_DXA,
+    PAGE_WIDTH_DXA,
+    TEXT_WIDTH_DXA,
+)
+
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 TABLES_DIR = REPO_ROOT / "tables"
@@ -26,10 +34,7 @@ PREVIEW_DIR = TABLES_DIR / "styled_preview"
 OUTPUT_DOCX = PREVIEW_DIR / "results_tables_preview.docx"
 CODEBOOK_PATH = REPO_ROOT / "analysis" / "codebook_rating_study.csv"
 
-PAGE_WIDTH_DXA = 11907
-PAGE_HEIGHT_DXA = 16840
-MARGIN_DXA = 1440
-TEXT_WIDTH_DXA = PAGE_WIDTH_DXA - 2 * MARGIN_DXA
+STYLE = FINAL_TABLE_STYLE
 
 HEADER_LABELS = {
     "metric": "Ukazovateľ",
@@ -174,6 +179,8 @@ def prettify_cell(value: str, *, column: str, table_id: str) -> str:
         return MODEL_FAMILY_LABELS.get(key, value.upper())
     if column == "icc_type":
         return value.upper()
+    if column == "Potrebný follow-up":
+        return {"true": "áno", "false": "nie"}.get(key, value)
 
     return value
 
@@ -196,39 +203,63 @@ def preview_table_6(path: Path) -> list[list[str]]:
     return preview_rows
 
 
-def make_paragraph(text: str, *, bold: bool = False, italic: bool = False, align: str = "left", after: int = 120, size: int = 24) -> str:
-    jc = {"left": "left", "center": "center", "right": "right"}[align]
-    rpr = []
+def run_properties(*, bold: bool = False, italic: bool = False, size: int | None = None) -> str:
+    resolved_size = STYLE.body_font_hp if size is None else size
+    rpr = [
+        f'<w:rFonts w:ascii="{STYLE.font_family}" w:hAnsi="{STYLE.font_family}" w:cs="{STYLE.font_family}"/>'
+    ]
     if bold:
         rpr.append("<w:b/>")
         rpr.append("<w:bCs/>")
     if italic:
         rpr.append("<w:i/>")
         rpr.append("<w:iCs/>")
-    rpr.append(f'<w:sz w:val="{size}"/>')
-    rpr.append(f'<w:szCs w:val="{size}"/>')
+    rpr.append(f'<w:sz w:val="{resolved_size}"/>')
+    rpr.append(f'<w:szCs w:val="{resolved_size}"/>')
+    return "".join(rpr)
+
+
+def make_paragraph(text: str, *, bold: bool = False, italic: bool = False, align: str = "left", after: int = 120, size: int | None = None) -> str:
+    jc = {"left": "left", "center": "center", "right": "right"}[align]
 
     return (
         '<w:p>'
         f'<w:pPr><w:jc w:val="{jc}"/><w:spacing w:after="{after}" w:line="276" w:lineRule="auto"/></w:pPr>'
         '<w:r>'
-        f'<w:rPr>{"".join(rpr)}</w:rPr>'
+        f'<w:rPr>{run_properties(bold=bold, italic=italic, size=size)}</w:rPr>'
         f'<w:t xml:space="preserve">{xml_text(text)}</w:t>'
         '</w:r>'
         '</w:p>'
     )
 
 
-def make_note_paragraph(text: str, *, after: int = 160) -> str:
+def make_caption_paragraph(label: str, title: str) -> str:
     return (
         '<w:p>'
-        f'<w:pPr><w:jc w:val="left"/><w:spacing w:after="{after}" w:line="240" w:lineRule="auto"/></w:pPr>'
+        f'<w:pPr><w:jc w:val="left"/><w:spacing w:after="{STYLE.title_after}" w:line="240" w:lineRule="auto"/></w:pPr>'
         '<w:r>'
-        '<w:rPr><w:i/><w:iCs/><w:sz w:val="21"/><w:szCs w:val="21"/></w:rPr>'
+        f'<w:rPr>{run_properties(bold=True, size=STYLE.caption_font_hp)}</w:rPr>'
+        f'<w:t xml:space="preserve">{xml_text(label)}. </w:t>'
+        '</w:r>'
+        '<w:r>'
+        f'<w:rPr>{run_properties(italic=True, size=STYLE.caption_font_hp)}</w:rPr>'
+        f'<w:t xml:space="preserve">{xml_text(title)}.</w:t>'
+        '</w:r>'
+        '</w:p>'
+    )
+
+
+def make_note_paragraph(text: str, *, after: int | None = None) -> str:
+    resolved_after = STYLE.note_after if after is None else after
+    return (
+        '<w:p>'
+        f'<w:pPr><w:jc w:val="left"/><w:spacing w:after="{resolved_after}" w:line="240" w:lineRule="auto"/></w:pPr>'
+        '<w:r>'
+        f'<w:rPr>{run_properties(italic=True, size=STYLE.note_font_hp)}</w:rPr>'
         '<w:t xml:space="preserve">Poznámka. </w:t>'
         '</w:r>'
         '<w:r>'
-        '<w:rPr><w:sz w:val="21"/><w:szCs w:val="21"/></w:rPr>'
+        f'<w:rPr>{run_properties(size=STYLE.note_font_hp)}</w:rPr>'
         f'<w:t xml:space="preserve">{xml_text(text)}</w:t>'
         '</w:r>'
         '</w:p>'
@@ -275,7 +306,14 @@ def make_table(rows: list[list[str]], table_width: int, *, table_id: str, widths
         f'<w:tblW w:w="{table_width}" w:type="dxa"/>',
         '<w:jc w:val="center"/>',
         '<w:tblLayout w:type="fixed"/>',
-        '<w:tblCellMar><w:left w:w="80" w:type="dxa"/><w:right w:w="80" w:type="dxa"/></w:tblCellMar>',
+        (
+            '<w:tblCellMar>'
+            f'<w:top w:w="{STYLE.cell_pad_top}" w:type="dxa"/>'
+            f'<w:left w:w="{STYLE.cell_pad_left}" w:type="dxa"/>'
+            f'<w:bottom w:w="{STYLE.cell_pad_bottom}" w:type="dxa"/>'
+            f'<w:right w:w="{STYLE.cell_pad_right}" w:type="dxa"/>'
+            '</w:tblCellMar>'
+        ),
         '<w:tblBorders>',
         '<w:top w:val="nil"/><w:left w:val="nil"/><w:bottom w:val="nil"/><w:right w:val="nil"/>',
         '<w:insideH w:val="nil"/><w:insideV w:val="nil"/>',
@@ -294,9 +332,13 @@ def make_table(rows: list[list[str]], table_width: int, *, table_id: str, widths
             align = column_alignment(column_name)
             display_value = prettify_header(cell) if is_header else prettify_cell(cell, column=column_name, table_id=table_id)
             cell_text = xml_text(display_value)
-            top_border = '<w:top w:val="single" w:sz="8" w:space="0" w:color="000000"/>' if is_header else '<w:top w:val="nil"/>'
+            top_border = (
+                f'<w:top w:val="single" w:sz="{STYLE.border_thick_sz}" w:space="0" w:color="{STYLE.border_color}"/>'
+                if is_header
+                else '<w:top w:val="nil"/>'
+            )
             bottom_border = (
-                '<w:bottom w:val="single" w:sz="8" w:space="0" w:color="000000"/>'
+                f'<w:bottom w:val="single" w:sz="{STYLE.border_mid_sz if is_header else STYLE.border_thick_sz}" w:space="0" w:color="{STYLE.border_color}"/>'
                 if is_header or is_last
                 else '<w:bottom w:val="nil"/>'
             )
@@ -305,9 +347,9 @@ def make_table(rows: list[list[str]], table_width: int, *, table_id: str, widths
                 f'<w:pPr><w:jc w:val="{align}"/><w:spacing w:after="0" w:line="240" w:lineRule="auto"/></w:pPr>'
                 '<w:r>'
                 + (
-                    '<w:rPr><w:b/><w:bCs/><w:sz w:val="24"/><w:szCs w:val="24"/></w:rPr>'
+                    f'<w:rPr>{run_properties(bold=True, size=STYLE.table_header_font_hp)}</w:rPr>'
                     if row_idx == 0
-                    else '<w:rPr><w:sz w:val="21"/><w:szCs w:val="21"/></w:rPr>'
+                    else f'<w:rPr>{run_properties(size=STYLE.table_body_font_hp)}</w:rPr>'
                 )
                 + f'<w:t xml:space="preserve">{cell_text}</w:t>'
                 '</w:r>'
@@ -367,19 +409,36 @@ def build_document_xml() -> str:
             "table_id": "table_6",
             "note": "LMM = lineárny zmiešaný model; CLMM = kumulatívny link mixed model; CI = interval spoľahlivosti. Modely sú v tomto preview preskočené pre nedostatočný počet riadkov alebo úrovní faktorov.",
         },
+        {
+            "label": "Tabuľka S4",
+            "title": "Predbežná expertná kontrola položiek ratingového nástroja",
+            "rows": read_csv(TABLES_DIR / "table_s4_expert_review_items.csv"),
+            "width": 9000,
+            "column_widths": [700, 2600, 900, 900, 900, 950, 950, 1100],
+            "table_id": "table_s4",
+            "note": "Vyššie skóre znamená priaznivejšie expertné posúdenie položky. Follow-up označuje položky, pri ktorých experti častejšie odporúčali ďalšie dolaďovanie formulácie.",
+        },
+        {
+            "label": "Tabuľka S5",
+            "title": "Predbežná expertná kontrola seed scenárov",
+            "rows": read_csv(TABLES_DIR / "table_s5_expert_review_seeds.csv"),
+            "width": 9300,
+            "column_widths": [500, 2500, 850, 900, 850, 900, 950, 1100, 750],
+            "table_id": "table_s5",
+            "note": "Zhoda so závažnosťou vyjadruje podiel expertov, ktorých odhad severity sa zhodol so zamýšľanou cieľovou úrovňou seedu.",
+        },
     ]
 
     body = [
         make_paragraph("Testovací preview výsledkových tabuliek", bold=True, align="center", after=180, size=32),
         make_paragraph(
-            "Toto je nový natívny DOCX preview build. Tabuľky sú zámerne užšie než textový blok, sú centrované a používajú len horizontálne čiary.",
+            f"Toto je nový natívny DOCX preview build so štýlovým presetom `{STYLE.name}`. Tabuľky sú užšie než textový blok, používajú Times New Roman, len horizontálne čiary a zjednotený caption/note systém.",
             after=220,
         ),
     ]
 
     for spec in specs:
-        body.append(make_paragraph(spec["label"], bold=True, after=60))
-        body.append(make_paragraph(spec["title"], italic=True, after=90))
+        body.append(make_caption_paragraph(spec["label"], spec["title"]))
         body.append(
             make_table(
                 spec["rows"],
@@ -389,9 +448,9 @@ def build_document_xml() -> str:
             )
         )
         if spec.get("note"):
-            body.append(make_note_paragraph(spec["note"], after=180))
+            body.append(make_note_paragraph(spec["note"]))
         else:
-            body.append(make_paragraph("", after=180))
+            body.append(make_paragraph("", after=STYLE.table_after))
 
     body_xml = "".join(body)
     sect = (
@@ -408,14 +467,14 @@ def build_document_xml() -> str:
 
 
 def build_styles_xml() -> str:
-    return """<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    return f"""<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <w:styles xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">
   <w:docDefaults>
     <w:rPrDefault>
       <w:rPr>
-        <w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman" w:cs="Times New Roman"/>
-        <w:sz w:val="24"/>
-        <w:szCs w:val="24"/>
+        <w:rFonts w:ascii="{STYLE.font_family}" w:hAnsi="{STYLE.font_family}" w:cs="{STYLE.font_family}"/>
+        <w:sz w:val="{STYLE.body_font_hp}"/>
+        <w:szCs w:val="{STYLE.body_font_hp}"/>
         <w:lang w:val="sk-SK"/>
       </w:rPr>
     </w:rPrDefault>

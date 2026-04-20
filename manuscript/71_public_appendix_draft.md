@@ -148,6 +148,10 @@ Táto príloha má niesť len tie doplnkové analytické výstupy, ktoré po fin
 | Tabuľka S2 | Profily PAM klastrov | `tables/table_s2_pam_cluster_profiles.csv` |
 | Tabuľka S3 | Rozloženie PAM klastrov podľa podmienok | `tables/table_s3_pam_cluster_by_condition.csv` |
 | Obrázok S2 | Mapovanie PAM klastrov | `figures/figure_s2_pam_cluster_map.png` |
+| Tabuľka S4 | Predbežná expertná kontrola položiek ratingového nástroja | `tables/table_s4_expert_review_items.csv` |
+| Tabuľka S5 | Predbežná expertná kontrola seed scenárov | `tables/table_s5_expert_review_seeds.csv` |
+| Obrázok S3 | Heatmap predbežnej expertnej kontroly položiek ratingového nástroja | `figures/figure_s3_expert_review_items_heatmap.png` |
+| Obrázok S4 | Heatmap predbežnej expertnej kontroly seed scenárov | `figures/figure_s4_expert_review_seeds_heatmap.png` |
 
 ### D.2 Redakčné pravidlo pre finálny výber
 

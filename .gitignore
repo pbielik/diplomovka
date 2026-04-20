@@ -9,6 +9,28 @@
 /diplomovka_plan_b_citekeys.docx
 /diplomovka_plan_b_citekeys_*.docx
 
+# Generated QC reports
+/analysis/qc_reports/*.json
+/analysis/qc_reports/*.md
+!/analysis/qc_reports/README.md
+/analysis/validity data/data.xlsx
+/analysis/validity data/data.csv
+/tables/current_export_preview/
+/figures/current_export_preview/
+/tables/styled_preview/expert_review_preview.html
+/tables/styled_preview/table_s4_expert_review_items.html
+/tables/styled_preview/table_s5_expert_review_seeds.html
+/diplomovka_preview_current_export.docx
+/analysis/validity data/data_repaired_trimmed.csv
+/.env
+/Rplots.pdf
+/.DS_Store
+/diplomovka_review_tracked.docx
+
+# Python cache
+__pycache__/
+*.pyc
+
 # Word lockfiles (Microsoft Word otvorený dokument)
 ~$*.docx
 ~$*.doc

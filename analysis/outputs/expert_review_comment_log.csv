@@ -1,0 +1,34 @@
+comment_scope,expert_id,target_id,comment_text
+seedbook_overall,E02,seedbook,"detailnejsi opis symptomov, emocneho prezivania"
+tool_overall,E04,tool,"libido (znížené pri depresii)... otázku na objektívne skutočnosti, kt. by mohli vysvetľovať únavu"
+tool_overall,E05,tool,"neviem posudiť, relevantné by bolo posúdenie po klinickej skúsenosti"
+tool_overall,E06,tool,"doplnila by som položku v zmysle ""medzi riadkami"" - ako psychológovia musíme vedieť hľadať aj medzi riadkami a pre tento typ klientov sa to vyskytuje - prípadne iné komunikačné špecifiká depresívnych klientov"
+seedbook_overall,E06,seedbook,keďže nemám skúsenosť s generovaním podobných scenárov bolo náročné na niektoré otázky odpovedať. Prispelo by podrobnejšie vysvetlenie na začiatku alebo príklad pre relaventnejšie zhodnotenie. Niektoré časti (najmä v A) boli ťažko zrozumiteľné pokiaľ nemám bližší prehľad o téme
+seed_specific,E01,S01,"Neporozumela som celkom tej poznámke ohľadne diferenciálnej dg. -  suspektne to nie je to len reakcia na stres, ale zároveň sa vylučujú aj kritéria ako psychóza, PPP, atď. Čiže ak to bolo myslená ako diferenciálna dg., tak akú inú dg. zvažujeme?~~Tiež by som potrebovala viac informácií v rámci vstupného skríningu, keby príde takáto pacientka do ambulancie, aby som mohla hodnotiť funkčný dopad a nastaviť intervencie."
+seed_specific,E01,S02,Znovu by som potrebovala viac konkrétnych informácií o konkrétnych dopadoch pacientovho stavu.
+seed_specific,E02,S01,analyza spustacov depresie
+seed_specific,E02,S02,ake su spustace? doslo k nejakym zmenam?
+seed_specific,E02,S03,"red flag: suicidalna ideacia, burnout, vycerpanie, pocity zlyhania, aka je psychosocialna podpora?"
+seed_specific,E02,S04,ake su proximalne spustace?
+seed_specific,E02,S05,ake je emocne prezivanie?
+seed_specific,E02,S07,"aky je denny rezim, ake su socialne vztahy/ socialna opora?"
+seed_specific,E02,S08,existencialna kriza?
+seed_specific,E02,S09,ake su proximalne sputace?
+seed_specific,E02,S10,preskumat suicidalnu ideaciu
+seed_specific,E04,S01,spúštač... čo sa dialo v alebo pred obdobím kedy ťažkosti začali
+seed_specific,E04,S02,"vzťahy, dôvody prečo žije s rodičmi, udalosti pred vznikom ťažkostí"
+seed_specific,E04,S04,"ako viete vylúčiť, že nejde o vyhorenie?"
+seed_specific,E04,S05,menopauza?
+seed_specific,E04,S06,udalosti predchádzajúce vzniku ťažkostí?
+seed_specific,E04,S08,celkový zdravotný stav?
+seed_specific,E05,S01,"scenar vykresluje bežný zakladny obraz, ktory je potreba klinicky s klientom upresniť"
+seed_specific,E05,S02,"zakladné východiská môžu vždy pôsobiť trochu stereotypne, diverzita vnika ponorenim sa do pripadu"
+seed_specific,E06,S01,8 týždňov ťažkostí zvyčajne ešte neprichádzajú
+seed_specific,E06,S02,ako predtým - nezvyknú prísť tak skoro (trvanie 9 týždňov)
+seed_specific,E06,S04,partnerkou alebo manželkou - vybrať jedno
+seed_specific,E06,S05,"predaji alebo službách. - vybrať jedno,  u matky bola dlhodobo prítomná neliečená skleslosť po rozvode?"
+seed_specific,E06,S06,"partnerkou alebo manželkou, - vybrať jedno, možný psychomotorický  - možný?,"
+seed_specific,E06,S08,"partnerkou alebo manželkou, možný psychomotorický,"
+seed_specific,E06,S09,"rána?,kvalita spánku?,"
+seed_specific,E06,S10,"partnerkou alebo partnerom?,"
+seed_specific,E06,S11,dočasne mimo práce alebo na PN - vybrať jedno

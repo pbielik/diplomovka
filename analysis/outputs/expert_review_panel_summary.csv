@@ -1,0 +1,2 @@
+n_experts,n_item_review_rows,n_seed_review_rows,n_item_dimension_ratings,n_seed_dimension_ratings,n_seed_severity_ratings,years_practice_median,years_practice_min,years_practice_max,n_with_any_tool_comment,n_with_seed_overall_comment,n_logged_comments_total
+6,72,72,216,504,72,9.0,4,25,3,2,33

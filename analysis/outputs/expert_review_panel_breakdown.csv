@@ -1,0 +1,18 @@
+field,label,n,share
+profession,psychológ / psychologička,4,0.667
+profession,Psychológ + psychoterapeut,1,0.167
+profession,lekár v príprave v psychiatrii,1,0.167
+specialization,poradenská psychológia,4,0.667
+specialization,klinická psychológia,1,0.167
+specialization,psychoterapia,1,0.167
+depression_experience,nízka / skôr menšia / občasná,3,0.5
+depression_experience,stredná / pravidelná,2,0.333
+depression_experience,vysoká / veľmi častá / výrazná,1,0.167
+interview_experience,stredná / pravidelná,3,0.5
+interview_experience,nízka / skôr menšia / občasná,2,0.333
+interview_experience,vysoká / veľmi častá / výrazná,1,0.167
+teaching_or_supervision_experience,stredná / pravidelná,5,0.833
+teaching_or_supervision_experience,nízka / skôr menšia / občasná,1,0.167
+ai_experience,nízka / skôr menšia / občasná,3,0.5
+ai_experience,žiadna,2,0.333
+ai_experience,stredná / pravidelná,1,0.167
