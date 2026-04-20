@@ -400,6 +400,7 @@ fit_lmm <- function(data, outcome) {
   coefficient_table <- as.data.frame(summary(model)$coefficients)
   coefficient_table$term <- rownames(coefficient_table)
   rownames(coefficient_table) <- NULL
+  has_t_value <- "t value" %in% names(coefficient_table)
 
   confint_table <- extract_confint(model, coefficient_table$term)
 
@@ -409,7 +410,7 @@ fit_lmm <- function(data, outcome) {
       std_error = `Std. Error`
     ) |>
     mutate(
-      statistic = if ("t value" %in% names(.)) .data[["t value"]] else NA_real_,
+      statistic = if (has_t_value) .data[["t value"]] else NA_real_,
       p_value = NA_real_,
       outcome = outcome,
       model_type = "lmm",
@@ -542,6 +543,7 @@ fit_transcript_lmm <- function(data, outcome) {
   coefficient_table <- as.data.frame(summary(model)$coefficients)
   coefficient_table$term <- rownames(coefficient_table)
   rownames(coefficient_table) <- NULL
+  has_t_value <- "t value" %in% names(coefficient_table)
 
   confint_table <- extract_confint(model, coefficient_table$term)
 
@@ -551,7 +553,7 @@ fit_transcript_lmm <- function(data, outcome) {
       std_error = `Std. Error`
     ) |>
     mutate(
-      statistic = if ("t value" %in% names(.)) .data[["t value"]] else NA_real_,
+      statistic = if (has_t_value) .data[["t value"]] else NA_real_,
       p_value = NA_real_,
       outcome = outcome,
       model_type = "transcript_lmm",
@@ -1108,7 +1110,7 @@ qc_dataset_summary <- bind_rows(
       as.character(n_distinct(analysis_long$transcript_id)),
       as.character(n_distinct(analysis_long$seed_id)),
       as.character(nrow(analysis_long)),
-      as.character(round(mean(table(analysis_long$transcript_id)), 2)),
+      as.character(mean(table(analysis_long$transcript_id))),
       as.character(min(table(analysis_long$transcript_id))),
       as.character(max(table(analysis_long$transcript_id))),
       severity_error_mode

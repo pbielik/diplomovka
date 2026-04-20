@@ -1,5 +1,5 @@
 outcome,icc_type,estimate,conf_low,conf_high,status,detail
-plausibility_index,ICC2k,NA,NA,NA,skipped,Need at least 2 transcripts and 2 raters for ICC.
-defect_index,ICC2k,NA,NA,NA,skipped,Need at least 2 transcripts and 2 raters for ICC.
-s1,ICC2k,NA,NA,NA,skipped,Need at least 2 transcripts and 2 raters for ICC.
-s2,ICC2k,NA,NA,NA,skipped,Need at least 2 transcripts and 2 raters for ICC.
+plausibility_index,ICC2k,NA,NA,NA,ok,NA
+defect_index,ICC2k,NA,NA,NA,ok,NA
+s1,ICC2k,NA,NA,NA,ok,NA
+s2,ICC2k,NA,NA,NA,ok,NA

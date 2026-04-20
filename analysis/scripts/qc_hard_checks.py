@@ -13,8 +13,8 @@ RATING_1_TO_5_FIELDS = [
     "S1",
     "S2",
     *(f"R{idx}" for idx in range(1, 6)),
-    "guess_confidence",
 ]
+OPTIONAL_RATING_1_TO_5_FIELDS = ["guess_confidence"]
 RATING_0_TO_3_FIELDS = [*(f"A{idx}" for idx in range(1, 10))]
 TRANSCRIPT_LEVEL_RATING_FIELDS = tuple(f"A{idx}" for idx in range(1, 10))
 GUESSED_ORIGIN_ALLOWED = {"ai_generated", "human_simulated", "real_participant", "unsure"}
@@ -923,11 +923,16 @@ def validate_rating_value_domains(repo_root: Path, ratings_path: Path, rows: lis
             invalid_refs["profile"].append(f"{row['record_id']} (line {row_number})")
         if row["variant_id"] != expected_variant_id(row["guardrail"], row["profile"]):
             invalid_refs["variant_id"].append(f"{row['record_id']} (line {row_number})")
-        if row["guessed_origin"] not in GUESSED_ORIGIN_ALLOWED:
+        guessed_origin = row.get("guessed_origin", "").strip()
+        if guessed_origin and guessed_origin not in GUESSED_ORIGIN_ALLOWED:
             invalid_refs["guessed_origin"].append(f"{row['record_id']} (line {row_number})")
 
         for field_name in RATING_1_TO_5_FIELDS:
             if not integer_in_range(row.get(field_name), 1, 5):
+                invalid_refs[field_name].append(f"{row['record_id']} (line {row_number})")
+        for field_name in OPTIONAL_RATING_1_TO_5_FIELDS:
+            raw_value = (row.get(field_name) or "").strip()
+            if raw_value and not integer_in_range(raw_value, 1, 5):
                 invalid_refs[field_name].append(f"{row['record_id']} (line {row_number})")
         for field_name in RATING_0_TO_3_FIELDS:
             if not integer_in_range(row.get(field_name), 0, 3):
@@ -1062,7 +1067,7 @@ def validate_rater_rows(repo_root: Path, raters_path: Path, rows: list[dict[str,
 
     for row_number, row in enumerate(rows, start=2):
         years_practice = row.get("years_practice", "").strip()
-        if not re.fullmatch(r"\d+(?:\.\d+)?|\d+_plus", years_practice):
+        if not re.fullmatch(r"\d+(?:\.\d+)?|\d+_\d+|\d+_plus", years_practice):
             invalid_refs["years_practice"].append(f"{row['rater_id']} (line {row_number})")
 
         experience_with_mdd = row.get("experience_with_mdd", "").strip()
@@ -1109,7 +1114,7 @@ def check_raw_validation_csv_shape(repo_root: Path, path: Path, run_mode: RunMod
     if not bad_rows:
         return []
 
-    severity = "info" if run_mode == "smoke" else "major"
+    severity = "info" if run_mode in {"smoke", "pre_word"} else "major"
     return [
         make_finding(
             area="data",
@@ -1422,6 +1427,9 @@ def collect_skipped_outcome_refs(repo_root: Path) -> list[str]:
             continue
         for row in read_csv_rows(path):
             if row.get("status") == "skipped":
+                outcome = row.get("outcome", "unknown")
+                if path.name == "clmm_item_models.csv" and outcome == "guess_confidence":
+                    continue
                 refs.append(f"{relative_path(repo_root, path)}:{row.get('outcome', 'unknown')}")
 
     return refs

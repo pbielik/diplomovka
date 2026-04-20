@@ -1,6 +1,16 @@
 outcome,guardrail,profile,emmean,std_error,conf_low,conf_high,status,detail
-plausibility_index,NA,NA,NA,NA,NA,NA,skipped,LMM not fitted.
-defect_index,NA,NA,NA,NA,NA,NA,skipped,LMM not fitted.
-symptom_error_mean,NA,NA,NA,NA,NA,NA,skipped,Transcript-level LMM not fitted.
-severity_error,NA,NA,NA,NA,NA,NA,skipped,Transcript-level LMM not fitted.
-impact_error,NA,NA,NA,NA,NA,NA,skipped,Transcript-level LMM not fitted.
+plausibility_index,NA,NA,NA,NA,NA,NA,failed,"ℹ In argument: `conf_low = .data$lower.CL`.
+Caused by error in `.data$lower.CL`:
+! Column `lower.CL` not found in `.data`."
+defect_index,NA,NA,NA,NA,NA,NA,failed,"ℹ In argument: `conf_low = .data$lower.CL`.
+Caused by error in `.data$lower.CL`:
+! Column `lower.CL` not found in `.data`."
+symptom_error_mean,NA,NA,NA,NA,NA,NA,failed,"ℹ In argument: `conf_low = .data$lower.CL`.
+Caused by error in `.data$lower.CL`:
+! Column `lower.CL` not found in `.data`."
+severity_error,NA,NA,NA,NA,NA,NA,failed,"ℹ In argument: `conf_low = .data$lower.CL`.
+Caused by error in `.data$lower.CL`:
+! Column `lower.CL` not found in `.data`."
+impact_error,NA,NA,NA,NA,NA,NA,failed,"ℹ In argument: `conf_low = .data$lower.CL`.
+Caused by error in `.data$lower.CL`:
+! Column `lower.CL` not found in `.data`."

@@ -28,7 +28,7 @@ Základný súbor výskumu tvorí populácia odborníkov z oblasti psychológie,
 
 Výskumný súbor tvorili **odborní hodnotitelia** z oblasti psychológie, psychoterapie a psychiatrie, ktorí mali skúsenosť s prácou s klientmi s depresívnou symptomatikou alebo s diagnózou MDD. Inklúznymi kritériami boli: (a) odborné vzdelanie alebo odborná prax v oblasti psychológie, psychoterapie alebo psychiatrie; (b) skúsenosť s prácou s depresívnou symptomatikou alebo s diagnózou MDD; (c) ochota zúčastniť sa na hodnotení textových transkriptov. Exklúznym kritériom bola absencia relevantnej odbornej skúsenosti alebo nedokončené hodnotenie v rozsahu znemožňujúcom jeho analytické použitie.
 
-Počet zaradených hodnotiteľov bol **[doplniť finálny počet]**. Po doplnení finálnych údajov budú v tejto kapitole uvedené tie základné charakteristiky súboru, ktoré sú relevantné pre interpretáciu výsledkov: profesijné zloženie, dĺžka praxe, typ pracovného prostredia a skúsenosť s prácou s pacientmi s depresívnou symptomatikou. Tieto charakteristiky sú metodicky relevantné, pretože môžu ovplyvňovať prísnosť alebo spôsob expertného hodnotenia.
+Počet zaradených hodnotiteľov bol **6**. Všetci zaradení hodnotitelia sa identifikovali ako psychológovia; podľa exportovaných metadát dvaja uviedli špecializáciu v klinickej psychológii a štyria v psychoterapii. Dĺžka praxe bola v exporte zachytená pásmami od `0-2` do `16+` rokov a kontakt s depresívnou symptomatikou bol uvádzaný ako týždenný alebo denný. Tieto charakteristiky sú metodicky relevantné, pretože môžu ovplyvňovať prísnosť alebo spôsob expertného hodnotenia.
 
 #### 2.2.3 Jednotka analýzy
 

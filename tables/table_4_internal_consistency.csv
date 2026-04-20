@@ -1,4 +1,4 @@
 block,n_items,n_rows,alpha,omega,status,detail
-g1_g5,5,4,-0.9333333333333332,NA,ok,Alpha estimated; omega failed.
-plausibility_core,3,4,-8.000000000000005,NA,ok,Alpha estimated; omega failed.
-r1_r5,5,4,-Inf,NA,ok,Alpha estimated; omega failed.
+g1_g5,5,166,0.834143637236824,0.8478376950735018,ok,NA
+plausibility_core,3,166,0.7955822550831799,0.80114106630207,ok,NA
+r1_r5,5,166,0.7133162142333092,0.7410529153561685,ok,NA
