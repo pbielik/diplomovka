@@ -317,6 +317,38 @@ extract_confint <- function(model, terms) {
     filter(term %in% terms)
 }
 
+extract_emmeans_table <- function(model, outcome) {
+  emm_summary <- as.data.frame(summary(emmeans::emmeans(model, ~ guardrail * profile), infer = c(TRUE, TRUE)))
+
+  lower_name <- dplyr::case_when(
+    "lower.CL" %in% names(emm_summary) ~ "lower.CL",
+    "asymp.LCL" %in% names(emm_summary) ~ "asymp.LCL",
+    TRUE ~ NA_character_
+  )
+  upper_name <- dplyr::case_when(
+    "upper.CL" %in% names(emm_summary) ~ "upper.CL",
+    "asymp.UCL" %in% names(emm_summary) ~ "asymp.UCL",
+    TRUE ~ NA_character_
+  )
+
+  if (is.na(lower_name) || is.na(upper_name)) {
+    stop("emmeans summary is missing confidence interval columns.")
+  }
+
+  emm_summary |>
+    transmute(
+      outcome = outcome,
+      guardrail = as.character(.data$guardrail),
+      profile = as.character(.data$profile),
+      emmean = .data$emmean,
+      std_error = .data$SE,
+      conf_low = .data[[lower_name]],
+      conf_high = .data[[upper_name]],
+      status = "ok",
+      detail = NA_character_
+    )
+}
+
 fit_lmm <- function(data, outcome) {
   analysis_data <- data |>
     filter(!is.na(.data[[outcome]])) |>
@@ -428,21 +460,7 @@ fit_lmm <- function(data, outcome) {
     )
 
   emm_table <- tryCatch(
-    {
-      emm <- emmeans::emmeans(model, ~ guardrail * profile)
-      as.data.frame(summary(emm, infer = c(TRUE, TRUE))) |>
-        transmute(
-          outcome = outcome,
-          guardrail = as.character(.data$guardrail),
-          profile = as.character(.data$profile),
-          emmean = .data$emmean,
-          std_error = .data$SE,
-          conf_low = .data$lower.CL,
-          conf_high = .data$upper.CL,
-          status = "ok",
-          detail = NA_character_
-        )
-    },
+    extract_emmeans_table(model, outcome),
     error = function(e) {
       tibble(
         outcome = outcome,
@@ -571,21 +589,7 @@ fit_transcript_lmm <- function(data, outcome) {
     )
 
   emm_table <- tryCatch(
-    {
-      emm <- emmeans::emmeans(model, ~ guardrail * profile)
-      as.data.frame(summary(emm, infer = c(TRUE, TRUE))) |>
-        transmute(
-          outcome = outcome,
-          guardrail = as.character(.data$guardrail),
-          profile = as.character(.data$profile),
-          emmean = .data$emmean,
-          std_error = .data$SE,
-          conf_low = .data$lower.CL,
-          conf_high = .data$upper.CL,
-          status = "ok",
-          detail = NA_character_
-        )
-    },
+    extract_emmeans_table(model, outcome),
     error = function(e) {
       tibble(
         outcome = outcome,
