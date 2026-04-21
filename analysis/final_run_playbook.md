@@ -146,9 +146,12 @@ Po uspesnom `pre_word` QC a po prepise manuscriptu:
 ./tools/build_word_preview.sh
 ./tools/build_word_clean.sh
 ./tools/build_word_plan_b_citekeys.sh
+./tools/build_word_near_final.sh
 ```
 
 Pouzi ten build, ktory zodpoveda faze Word workflowu.
+
+`build_word_near_final.sh` je nova authoring vetva pre situaciu, ked uz nechces len preview alebo clean paste export, ale reference-DOCX build so sekciami, automatickym obsahom, zoznamom tabuliek/obrazkov, viditelnym strankovanim od Uvodu a rimskym cislovanim appendixu. Nad tymto DOCX uz typicky dorabas hlavne zive Zotero citacie a bibliografiu priamo vo Worde.
 
 ## Exit criteria
 

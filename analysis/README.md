@@ -3,6 +3,7 @@
 ## Čo je tu pripravené
 - `codebook_rating_study.csv`
 - `methods_variables_table.csv`
+- `derived_variables_table.csv`
 - `hypotheses_H1_H6.md`
 - `rating_export_readiness_checklist.md`
 - `expert_content_review_framework.md`
@@ -13,6 +14,18 @@
 - `templates/` — CSV šablóny vrátane pilotného expert review passu
 - `scripts/thesis_rating_pipeline.R` — R kostra
 - `scripts/run_thesis_qc.py` — deterministic QC gate pre clean dáta, output projections a citekeys
+
+## Dve vrstvy CSV výstupov
+
+V `analysis/outputs/` sa po novom držia dve paralelné vrstvy:
+
+- technické autoritatívne CSV bez manuscript premenovania, napr. `lmm_core_models.csv`
+- čitateľské helper CSV pre Results/prose s príponou `_report.csv`, napr. `lmm_core_models_report.csv`
+
+Pravidlo je zámerné:
+
+- technické CSV ostávajú stabilné pre QC, helper skripty a reproducibilitu
+- `_report.csv` vrstva používa manuscript-facing labels ako `G0/G1`, `P1/P2/P3` a plné názvy outcome-ov
 
 ## Jednotka analýzy
 1 riadok = 1 hodnotenie 1 ratera na 1 transkripte.
@@ -38,6 +51,8 @@ Autoritatívny skript je `analysis/scripts/thesis_rating_pipeline.R`.
   `alpha`, `omega` a `ICC`.
 - `lme4`:
   lineárne mixed models pre numerické outcome-y.
+- `lmerTest`:
+  Satterthwaite p-hodnoty pre lineárne mixed models.
 - `ordinal`:
   cumulative link mixed models pre ordinálne outcome-y.
 - `emmeans`:

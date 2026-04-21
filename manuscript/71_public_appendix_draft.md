@@ -21,6 +21,9 @@ Položky `G1` až `G5`, `S1`, `S2`, `R1` až `R5` a položka istoty odhadu pôvo
 
 ### A.2 Blok G: Globálne hodnotenie kvality rozhovoru
 
+**Tabuľka A1**  
+*Blok G: Globálne hodnotenie kvality rozhovoru*
+
 | Kód | Položka | Typ odpovede |
 | --- | --- | --- |
 | `G1` | Klinická vierohodnosť rozhovoru | 5-bodová škála |
@@ -31,12 +34,18 @@ Položky `G1` až `G5`, `S1`, `S2`, `R1` až `R5` a položka istoty odhadu pôvo
 
 ### A.3 Blok S: Globálny odhad závažnosti a funkčného dopadu
 
+**Tabuľka A2**  
+*Blok S: Globálny odhad závažnosti a funkčného dopadu*
+
 | Kód | Položka | Typ odpovede |
 | --- | --- | --- |
 | `S1` | Ľudský odhad celkovej závažnosti depresívnej symptomatiky | 5-bodová škála |
 | `S2` | Ľudský odhad funkčného dopadu na bežné fungovanie | 5-bodová škála |
 
 ### A.4 Blok R: Problematické prvky a varovné signály
+
+**Tabuľka A3**  
+*Blok R: Problematické prvky a varovné signály*
 
 | Kód | Položka | Typ odpovede |
 | --- | --- | --- |
@@ -47,6 +56,9 @@ Položky `G1` až `G5`, `S1`, `S2`, `R1` až `R5` a položka istoty odhadu pôvo
 | `R5` | Neprimeraná dramatizácia alebo neprirodzená expresivita | 5-bodová škála |
 
 ### A.5 Doplnkové položky
+
+**Tabuľka A4**  
+*Doplnkové položky ratingového dotazníka*
 
 | Premenná | Obsah | Typ odpovede |
 | --- | --- | --- |
@@ -64,7 +76,10 @@ Do verejnej verzie prílohy nepatria:
 - interné workflow poznámky pre randomizáciu alebo distribúciu transkriptov.
 
 ## Príloha B
-**Operacionalizačná tabuľka premenných, kompozitov a ich analytického použitia**
+**Operacionalizačná tabuľka premenných, kompozitov a stručný preklad zmiešaných modelov**
+
+**Tabuľka B1**  
+*Prehľad premenných, outcome-ov a analytického použitia*
 
 | Blok | Premenné | Škála | Význam | Analytické použitie |
 | --- | --- | --- | --- | --- |
@@ -76,15 +91,69 @@ Do verejnej verzie prílohy nepatria:
 | QC a defektové outcome-y | `R1` až `R5`, index defektov | ordinálne položky; kompozit približne intervalový | kontradikcie, klišé, nesúlad, iná psychopatológia, dramatizácia | deskriptíva, ordinal mixed models, lineárne zmiešané modely |
 | Exploratórne outcome-y | odhad pôvodu rozhovoru, istota odhadu, komentár | nominálna; ordinálna; text | percepcia pôvodu rozhovoru a kvalitatívna spätná väzba | frekvencie, doplnkové modely, tematické kódovanie |
 
-### B.1 Hlavné odvodené ukazovatele
+### B.1 Hlavné odvodené ukazovatele a ich konštrukcia
 
-| Ukazovateľ | Výpočet | Interpretácia |
+**Tabuľka B2**  
+*Hlavné odvodené ukazovatele a ich konštrukcia*
+
+| Ukazovateľ | Zdrojové premenné | Výpočet | Reportovaná úroveň | Interpretácia |
+| --- | --- | --- | --- | --- |
+| Index klinickej vierohodnosti | `G1`, `G3`, `G4` | `mean(G1, G3, G4)` | rating-level kompozit | vyššia hodnota znamená vyššiu klinickú vierohodnosť rozhovoru |
+| Index defektov | `R1`, `R2`, `R3`, `R4`, `R5` | `mean(R1, R2, R3, R4, R5)` | rating-level kompozit | vyššia hodnota znamená vyšší výskyt defektov |
+| Priemerná absolútna chyba v symptomatických doménach | `A1` až `A9` a `A1_anchor` až `A9_anchor` | `mean(abs(Ai - Ai_anchor))` pre `i = 1...9` | transcript-level ukazovateľ | nižšia hodnota znamená vyššiu zhodu so seed profilom |
+| Chyba odhadu závažnosti | `S1`, `S1_anchor` | najprv `abs(S1 - S1_anchor)` pri jednotlivom hodnotení, potom priemer za prepis rozhovoru | transcript-level report z rating-level error skóre | nižšia hodnota znamená vyššiu zhodu so seed kotvou závažnosti |
+| Chyba odhadu funkčného dopadu | `S2`, `S2_anchor` | najprv `abs(S2 - S2_anchor)` pri jednotlivom hodnotení, potom priemer za prepis rozhovoru | transcript-level report z rating-level error skóre | nižšia hodnota znamená vyššiu zhodu so seed kotvou funkčného dopadu |
+
+Poznámka. Položky `S1` a `S2` ako samostatné ľudské ratingy ostávajú v hlavnej analytickej vetve ordinálnymi rating-level premennými. Na transcript-level sa presúvajú iba ich odvodené chybové verzie, aby anchor-fidelity vetva nevážila prepisy rozhovorov podľa počtu dostupných hodnotení. Položky `A1` až `A9` sú už od začiatku transcript-level metadata, nie opakované ľudské ratingy.
+
+### B.2 Fixné a náhodné efekty v hlavných modeloch
+
+**Tabuľka B3**  
+*Fixné a náhodné efekty v hlavných modeloch*
+
+| Prvok modelu | Typ | Význam |
 | --- | --- | --- |
-| Index klinickej vierohodnosti | `(G1 + G3 + G4) / 3` | vyššia hodnota znamená vyššiu klinickú vierohodnosť rozhovoru |
-| Index defektov | `(R1 + R2 + R3 + R4 + R5) / 5` | vyššia hodnota znamená vyšší výskyt defektov |
-| Priemerná absolútna chyba v symptomatických doménach | `mean(abs(Ai - Ai_anchor))` pre `A1` až `A9` | nižšia hodnota znamená vyššiu zhodu so seed profilom |
-| Chyba odhadu závažnosti | `abs(S1 - S1_anchor)` | nižšia hodnota znamená vyššiu zhodu so seed kotvou |
-| Chyba odhadu funkčného dopadu | `abs(S2 - S2_anchor)` | nižšia hodnota znamená vyššiu zhodu so seed kotvou |
+| `guardrail` | fixný efekt | rozdiel medzi `G0` a `G1`, teda medzi podmienkou bez a so štruktúrujúcim klinickým usmernením |
+| `profile` | fixný efekt | rozdiel medzi štýlmi odpovedania `P1`, `P2` a `P3` |
+| `guardrail × profile` | fixná interakcia | ukazuje, či sa efekt usmernenia mení podľa profilu odpovedania |
+| `seed_id` | náhodný intercept | zohľadňuje, že niektoré východiskové scenáre môžu byť celkovo ľahšie alebo ťažšie hodnotené |
+| `rater_id` | náhodný intercept | zohľadňuje, že niektorí hodnotitelia môžu byť prísnejší alebo miernejší |
+
+### B.3 Základné modelové rovnice
+
+Pri výstupných ukazovateľoch na úrovni jednotlivých hodnotení, najmä pri indexe klinickej vierohodnosti a indexe defektov, sa používa tento základný tvar lineárneho zmiešaného modelu:
+
+`outcome ~ guardrail * profile + (1 | seed_id) + (1 | rater_id)`
+
+Čítanie modelu je nasledovné: výsledný ukazovateľ vysvetľujeme klinickým usmernením, profilom odpovedania a ich interakciou, pričom zároveň dovolíme, aby sa priemerná úroveň hodnotení líšila medzi východiskovými scenármi a medzi hodnotiteľmi.
+
+Pri výstupných ukazovateľoch na úrovni prepisu rozhovoru `symptom_error_mean`, `severity_error` a `impact_error` sa po agregácii na úroveň jedného prepisu rozhovoru používa tento tvar:
+
+`outcome ~ guardrail * profile + (1 | seed_id)`
+
+V tomto bloku už v modeli nevystupuje `rater_id`, pretože sledovaný ukazovateľ je najprv sumarizovaný na úroveň prepisu rozhovoru. Tento krok bráni tomu, aby prepisy rozhovorov s vyšším počtom hodnotení dostali väčšiu váhu len preto, že boli častejšie posúdené.
+
+### B.4 Ako čítať koeficienty v interakčnom modeli
+
+V hlavnom kódovaní je referenčnou kombináciou bunka `G0 × P1`, teda rozhovor bez štruktúrujúceho klinického usmernenia a so zdržanlivým štýlom odpovedania simulovaného pacienta.
+
+**Tabuľka B4**  
+*Základný preklad koeficientov v interakčnom modeli*
+
+| Termín v tabuľke | Ako ho čítať |
+| --- | --- |
+| Intercept | odhad pre referenčnú kombináciu `G0 × P1` |
+| `guardrail` | rozdiel `G1` oproti `G0` pri profile `P1` |
+| koeficient pre `P2` | rozdiel `P2` oproti `P1` pri `G0` |
+| koeficient pre `P3` | rozdiel `P3` oproti `P1` pri `G0` |
+| interakcia `G1 × P2` | o koľko sa efekt usmernenia v `P2` mení oproti `P1` |
+| interakcia `G1 × P3` | o koľko sa efekt usmernenia v `P3` mení oproti `P1` |
+
+Prakticky to znamená, že samotné koeficienty interakčného modelu sú vhodné na presnú inferenčnú interpretáciu, ale pre čitateľské porozumenie bývajú menej intuitívne. Preto je užitočné dopĺňať ich aj o odhadované marginálne priemery pre všetky bunky `G0/G1 × P1/P2/P3`, ktoré ukazujú priamo odhadovanú priemernú úroveň výsledného ukazovateľa v každej experimentálnej kombinácii.
+
+### B.5 Poznámka k reportovaniu lineárnych zmiešaných modelov
+
+V lineárnych zmiešaných modeloch sa v tejto práci reportujú odhady koeficientov, štandardné chyby, `t` štatistiky, Waldove 95 % intervaly spoľahlivosti a `p`-hodnoty. `p`-hodnoty v `LMM` vetve vychádzajú z balíka `lmerTest` so Satterthwaite aproximáciou stupňov voľnosti. Pri interpretácii však aj tak ostáva dôležité čítať popri `p`-hodnote najmä smer efektu, jeho veľkosť a interval spoľahlivosti.
 
 ## Príloha C
 **Public-safe schéma seedov a anchorovania**
@@ -92,6 +161,9 @@ Do verejnej verzie prílohy nepatria:
 Táto príloha zámerne neobsahuje plný seed corpus. Jej funkciou je ukázať logiku klinického anchorovania bez odovzdania celého proprietárneho balíka prípadov.
 
 ### C.1 Symptomatické a globálne anchor domény
+
+**Tabuľka C1**  
+*Symptomatické a globálne anchor domény*
 
 | Doména | Obsah |
 | --- | --- |
@@ -110,6 +182,9 @@ Táto príloha zámerne neobsahuje plný seed corpus. Jej funkciou je ukázať l
 ### C.2 Ilustračný seed prípad
 
 Nasledujúci príklad ukazuje, ako vyzerá jeden public-safe ilustračný seed bez plnej naratívnej seed dokumentácie.
+
+**Tabuľka C2**  
+*Ilustračný public-safe seed prípad*
 
 | Prvok | Ilustračný príklad |
 | --- | --- |
@@ -135,33 +210,35 @@ Pre potreby práce preto stačí:
 - v hlavnom texte transparentne vysvetliť, že plný seed corpus bol použitý pri generovaní a analytickom porovnaní.
 
 ## Príloha D
-**Doplnkové tabuľky a grafy**
+**Doplnkové analytické výstupy**
 
-Táto príloha má niesť len tie doplnkové analytické výstupy, ktoré po finálnom run-e zostanú interpretačne zmysluplné a zároveň nebudú zbytočne duplikovať hlavný text.
+Táto príloha zhromažďuje doplnkové analytické výstupy, ktoré rozširujú hlavný text, ale nie sú nevyhnutné na sledovanie jeho hlavnej argumentačnej línie. Ich funkciou je poskytnúť plnší technický kontext bez toho, aby jadro výsledkovej časti nadmerne zaťažovali rozsiahle tabuľky, modelové výstupy a exploratívne vizualizácie.
 
-### D.1 Odporúčaný supplement balík
+### D.1 Plné deskriptívne a frekvenčné tabuľky
 
-| Označenie | Obsah | Zdrojový artefakt |
-| --- | --- | --- |
-| Tabuľka S1 | Spearmanova korelačná matica transcript-level kompozitov | `tables/table_s1_spearman_transcript_composites.csv` |
-| Obrázok S1 | Heatmap korelačnej matice | `figures/figure_s1_spearman_heatmap.png` |
-| Tabuľka S2 | Profily PAM klastrov | `tables/table_s2_pam_cluster_profiles.csv` |
-| Tabuľka S3 | Rozloženie PAM klastrov podľa podmienok | `tables/table_s3_pam_cluster_by_condition.csv` |
-| Obrázok S2 | Mapovanie PAM klastrov | `figures/figure_s2_pam_cluster_map.png` |
-| Tabuľka S4 | Predbežná expertná kontrola položiek ratingového nástroja | `tables/table_s4_expert_review_items.csv` |
-| Tabuľka S5 | Predbežná expertná kontrola seed scenárov | `tables/table_s5_expert_review_seeds.csv` |
-| Obrázok S3 | Heatmap predbežnej expertnej kontroly položiek ratingového nástroja | `figures/figure_s3_expert_review_items_heatmap.png` |
-| Obrázok S4 | Heatmap predbežnej expertnej kontroly seed scenárov | `figures/figure_s4_expert_review_seeds_heatmap.png` |
+V tejto časti sú zaradené plné tabuľkové výstupy, ktoré v hlavnom texte vystupujú len v skrátenej alebo sumarizovanej podobe.
 
-### D.2 Redakčné pravidlo pre finálny výber
+<!-- FULL_RUN_APPENDIX_D_SECTION_1 -->
 
-Do finálnej verzie prílohy D zaradiť iba tie tabuľky a grafy, ktoré:
+### D.2 Plné modelové výstupy
 
-- budú po finálnom analytickom behu stabilné a interpretačne obhájiteľné,
-- budú mať jasnú väzbu na hlavný text,
-- nebudú len technickým výstupom pipeline bez výpovednej hodnoty.
+Táto časť obsahuje plné koeficientové tabuľky a doplnkové modelové výstupy, ktoré v hlavnom texte slúžia najmä ako podklad pre stručnejšie interpretačné zhrnutie.
 
-Ak niektorý doplnkový výstup po finálnom run-e neostane stabilný alebo interpretačne čistý, má ostať v internom workflowe a nie v appendixe.
+<!-- FULL_RUN_APPENDIX_D_SECTION_2 -->
+
+### D.3 Doplnkové korelačné výstupy
+
+Táto časť sumarizuje korelačné prepojenia medzi transcript-level kompozitmi a ďalšími agregovanými ukazovateľmi.
+
+<!-- FULL_RUN_APPENDIX_D_SECTION_3 -->
+
+### D.4 Doplnková exploratívna PAM typológia prepisov rozhovorov
+
+Táto časť obsahuje doplnkovú exploratívnu typológiu prepisov rozhovorov pomocou metódy PAM. Analýza nebola použitá na testovanie hypotéz `H1` až `H9` a nenahrádza hlavné zmiešané modely. Jej účelom je iba orientačne ukázať, či sa v agregovaných dátach na úrovni prepisu rozhovoru črtajú opakujúce sa profily kvality.
+
+Poznámka. PAM typológia je uvedená výlučne ako doplnkový exploratívny výstup. Neslúži na inferenčné rozhodovanie o hlavných hypotézach a nemá byť interpretovaná ako dôkaz samostatných typov AI-generovaných rozhovorov.
+
+<!-- FULL_RUN_APPENDIX_D_SECTION_4 -->
 
 ## Príloha E
 **Stručná public-safe verzia etických a rater inštrukčných dokumentov**
@@ -193,6 +270,9 @@ Do verejnej prílohy E nepatria:
 ## Príloha F
 **Kompaktná mapa empirických otázok, hypotéz, outcome-ov a modelov**
 
+**Tabuľka F1**  
+*Mapa empirických otázok, hypotéz, outcome-ov a modelov*
+
 | Blok | Funkcia bloku | VO | H | Hlavné outcome-y | Model alebo postup |
 | --- | --- | --- | --- | --- | --- |
 | A | globálna kvalita interview | `VO1` | `H1`, `H2`, `H5` | index klinickej vierohodnosti; `G2`; `G5` | deskriptíva, `LMM`, ordinal mixed models |
@@ -210,10 +290,25 @@ Do verejnej prílohy E nepatria:
 - Blok B ukazuje, čo s kvalitou robí štýl odpovedania simulovaného pacienta.
 - Blok C uzatvára interakciu, zhodu hodnotiteľov a doplnkové signály o pôvode rozhovoru a komentároch.
 
-## Poznámka k ďalšiemu kroku
+## Príloha H
+**Vyhlásenie o použití generatívnej AI pri vypracovaní diplomovej práce**
 
-Tento súbor je zámerne písaný ako medzivrstva medzi interným framingom v `manuscript/70_appendices.md` a finálnym Word appendixom. Pri poslednom prechode do Wordu bude treba:
+Táto príloha sa vzťahuje výlučne na využitie generatívnej AI ako podporného nástroja pri príprave textu, redakčných úpravách a technických pomocných úlohách. Nevzťahuje sa na empirickú časť výskumu, v ktorej generatívna AI vystupuje ako súčasť skúmaného simulačného rámca a ako zdroj analyzovaného materiálu.
 
-1. skrátiť technické formulácie na fakultne prirodzenejší prose,
-2. doplniť finálne názvy tabuliek a obrázkov podľa posledného analytického run-u,
-3. rozhodnúť, či príloha D ostane celá, alebo sa zúži len na jeden doplnkový analytický blok.
+### H.1 Rozsah a povaha využitia
+
+Pri vypracovaní tejto diplomovej práce boli v obmedzenej, kontrolovanej a podriadenej miere využité generatívne jazykové modely ako pomocné nástroje pri jazykových, štylistických, organizačných a technických úlohách. Ich použitie malo podporný charakter a neslúžilo ako náhrada odbornej práce autora.
+
+### H.2 Oblasti využitia
+
+Generatívna AI bola použitá najmä na jazykové a štylistické spresnenie textu, návrhy alternatívnych formulácií viet a odsekov, kontrolu zrozumiteľnosti a vnútornej nadväznosti rukopisu a technickú pomoc pri príprave pomocných skriptov, exportov a organizácie doplnkových materiálov.
+
+### H.3 Oblasti, v ktorých AI použitá nebola
+
+Generatívna AI nebola použitá na vytváranie, falšovanie alebo nahrádzanie výskumných dát, na autonómnu realizáciu alebo nekontrolované preberanie štatistických analýz, na samostatnú interpretáciu výsledkov ani na formulovanie finálnych vedeckých záverov. Nebola ani náhradou za odborné metodologické rozhodnutia autora alebo za Zotero ako zdroj pravdy pre bibliografické údaje a finálne citačné rozhodnutia.
+
+### H.4 Autorská kontrola a zodpovednosť
+
+Všetky metodologické rozhodnutia, výber a interpretácia odbornej literatúry, analytické postupy, interpretácia výsledkov, diskusia aj finálne znenie textu boli priebežne kriticky posúdené, upravené a schválené autorom práce, ktorý za ich obsah nesie plnú zodpovednosť.
+
+Výstupy generatívnej AI neboli preberané automaticky ani nekriticky. Každý návrh bol individuálne posúdený autorom a podľa potreby upravený, doplnený alebo zamietnutý.

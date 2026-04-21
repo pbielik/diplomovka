@@ -36,8 +36,20 @@ profile_label <- function(x) {
   dplyr::recode(x, R1 = "P1", R2 = "P2", R3 = "P3", .default = x)
 }
 
+guardrail_code <- function(x) {
+  dplyr::recode(x, off = "G0", on = "G1", .default = x)
+}
+
 cell_label <- function(guardrail, profile) {
-  paste0(guardrail, " × ", profile_label(profile))
+  paste0(guardrail_code(guardrail), " × ", profile_label(profile))
+}
+
+localized_scenario_label <- function(x) {
+  dplyr::recode(
+    x,
+    `Žena v strednom veku s caregiving záťažou` = "Žena v strednom veku so záťažou pri starostlivosti o blízkeho",
+    .default = x
+  )
 }
 
 fmt_num <- function(x, digits = 2) {
@@ -92,20 +104,28 @@ write_md_table <- function(df, path, digits = 2) {
   writeLines(lines, path, useBytes = TRUE)
 }
 
+caption_lines <- function(label, title) {
+  c(
+    sprintf("**%s**  ", label),
+    sprintf("*%s*", title),
+    ""
+  )
+}
+
 table_caption <- function(number, title) {
-  c(sprintf("**Tabuľka %d. %s.**", number, title), "")
+  caption_lines(sprintf("Tabuľka %d", number), title)
 }
 
 figure_caption <- function(number, title) {
-  c(sprintf("**Obrázok %d. %s.**", number, title), "")
+  caption_lines(sprintf("Obrázok %d", number), title)
 }
 
 supplement_table_caption <- function(label, title) {
-  c(sprintf("**Tabuľka %s. %s.**", label, title), "")
+  caption_lines(sprintf("Tabuľka %s", label), title)
 }
 
 supplement_figure_caption <- function(label, title) {
-  c(sprintf("**Obrázok %s. %s.**", label, title), "")
+  caption_lines(sprintf("Obrázok %s", label), title)
 }
 
 safe_alpha <- function(data, vars, block_label) {
@@ -143,14 +163,14 @@ extract_lmm_row <- function(data, outcome, label) {
 
   if (is.null(fit)) {
     return(tibble(
-      Outcome = label,
+      Ukazovateľ = label,
       Model = "LMM",
-      `Guardrail b` = NA_real_,
-      `Guardrail SE` = NA_real_,
+      `Usmernenie b` = NA_real_,
+      `Usmernenie SE` = NA_real_,
       `Profil P2 b` = NA_real_,
       `Profil P3 b` = NA_real_,
-      `Najvacsi interakcny abs(b)` = NA_real_,
-      `Interakcne p (min)` = NA_real_
+      `Najväčší absolútny interakčný koeficient (b)` = NA_real_,
+      `Najnižšia interakčná p-hodnota` = NA_real_
     ))
   }
 
@@ -168,17 +188,21 @@ extract_lmm_row <- function(data, outcome, label) {
   ))
 
   tibble(
-    Outcome = label,
+    Ukazovateľ = label,
     Model = "LMM",
-    `Guardrail b` = term_value("guardrailon", "Estimate"),
-    `Guardrail SE` = term_value("guardrailon", "Std. Error"),
+    `Usmernenie b` = term_value("guardrailon", "Estimate"),
+    `Usmernenie SE` = term_value("guardrailon", "Std. Error"),
     `Profil P2 b` = term_value("profileP2", "Estimate"),
     `Profil P3 b` = term_value("profileP3", "Estimate"),
-    `Najvacsi interakcny abs(b)` = suppressWarnings(max(interactions, na.rm = TRUE)),
-    `Interakcne p (min)` = NA_real_
+    `Najväčší absolútny interakčný koeficient (b)` = suppressWarnings(max(interactions, na.rm = TRUE)),
+    `Najnižšia interakčná p-hodnota` = NA_real_
   ) %>%
     mutate(
-      `Najvacsi interakcny abs(b)` = ifelse(is.infinite(`Najvacsi interakcny abs(b)`), NA_real_, `Najvacsi interakcny abs(b)`)
+      `Najväčší absolútny interakčný koeficient (b)` = ifelse(
+        is.infinite(`Najväčší absolútny interakčný koeficient (b)`),
+        NA_real_,
+        `Najväčší absolútny interakčný koeficient (b)`
+      )
     )
 }
 
@@ -199,14 +223,14 @@ extract_transcript_lmm_row <- function(data, outcome, label) {
 
   if (is.null(fit)) {
     return(tibble(
-      Outcome = label,
-      Model = "LMM-transcript",
-      `Guardrail b` = NA_real_,
-      `Guardrail SE` = NA_real_,
+      Ukazovateľ = label,
+      Model = "LMM (prepis rozhovoru)",
+      `Usmernenie b` = NA_real_,
+      `Usmernenie SE` = NA_real_,
       `Profil P2 b` = NA_real_,
       `Profil P3 b` = NA_real_,
-      `Najvacsi interakcny abs(b)` = NA_real_,
-      `Interakcne p (min)` = NA_real_
+      `Najväčší absolútny interakčný koeficient (b)` = NA_real_,
+      `Najnižšia interakčná p-hodnota` = NA_real_
     ))
   }
 
@@ -224,17 +248,21 @@ extract_transcript_lmm_row <- function(data, outcome, label) {
   ))
 
   tibble(
-    Outcome = label,
-    Model = "LMM-transcript",
-    `Guardrail b` = term_value("guardrailon", "Estimate"),
-    `Guardrail SE` = term_value("guardrailon", "Std. Error"),
+    Ukazovateľ = label,
+    Model = "LMM (prepis rozhovoru)",
+    `Usmernenie b` = term_value("guardrailon", "Estimate"),
+    `Usmernenie SE` = term_value("guardrailon", "Std. Error"),
     `Profil P2 b` = term_value("profileP2", "Estimate"),
     `Profil P3 b` = term_value("profileP3", "Estimate"),
-    `Najvacsi interakcny abs(b)` = suppressWarnings(max(interactions, na.rm = TRUE)),
-    `Interakcne p (min)` = NA_real_
+    `Najväčší absolútny interakčný koeficient (b)` = suppressWarnings(max(interactions, na.rm = TRUE)),
+    `Najnižšia interakčná p-hodnota` = NA_real_
   ) %>%
     mutate(
-      `Najvacsi interakcny abs(b)` = ifelse(is.infinite(`Najvacsi interakcny abs(b)`), NA_real_, `Najvacsi interakcny abs(b)`)
+      `Najväčší absolútny interakčný koeficient (b)` = ifelse(
+        is.infinite(`Najväčší absolútny interakčný koeficient (b)`),
+        NA_real_,
+        `Najväčší absolútny interakčný koeficient (b)`
+      )
     )
 }
 
@@ -256,14 +284,14 @@ extract_clmm_row <- function(data, outcome, label) {
 
   if (is.null(fit)) {
     return(tibble(
-      Outcome = label,
+      Ukazovateľ = label,
       Model = "CLMM",
-      `Guardrail b` = NA_real_,
-      `Guardrail SE` = NA_real_,
+      `Usmernenie b` = NA_real_,
+      `Usmernenie SE` = NA_real_,
       `Profil P2 b` = NA_real_,
       `Profil P3 b` = NA_real_,
-      `Najvacsi interakcny abs(b)` = NA_real_,
-      `Interakcne p (min)` = NA_real_
+      `Najväčší absolútny interakčný koeficient (b)` = NA_real_,
+      `Najnižšia interakčná p-hodnota` = NA_real_
     ))
   }
 
@@ -285,18 +313,26 @@ extract_clmm_row <- function(data, outcome, label) {
   )
 
   tibble(
-    Outcome = label,
+    Ukazovateľ = label,
     Model = "CLMM",
-    `Guardrail b` = term_value("guardrailon", "Estimate"),
-    `Guardrail SE` = term_value("guardrailon", "Std. Error"),
+    `Usmernenie b` = term_value("guardrailon", "Estimate"),
+    `Usmernenie SE` = term_value("guardrailon", "Std. Error"),
     `Profil P2 b` = term_value("profileP2", "Estimate"),
     `Profil P3 b` = term_value("profileP3", "Estimate"),
-    `Najvacsi interakcny abs(b)` = suppressWarnings(max(interaction_estimates, na.rm = TRUE)),
-    `Interakcne p (min)` = suppressWarnings(min(interaction_ps, na.rm = TRUE))
+    `Najväčší absolútny interakčný koeficient (b)` = suppressWarnings(max(interaction_estimates, na.rm = TRUE)),
+    `Najnižšia interakčná p-hodnota` = suppressWarnings(min(interaction_ps, na.rm = TRUE))
   ) %>%
     mutate(
-      `Najvacsi interakcny abs(b)` = ifelse(is.infinite(`Najvacsi interakcny abs(b)`), NA_real_, `Najvacsi interakcny abs(b)`),
-      `Interakcne p (min)` = ifelse(is.infinite(`Interakcne p (min)`), NA_real_, `Interakcne p (min)`)
+      `Najväčší absolútny interakčný koeficient (b)` = ifelse(
+        is.infinite(`Najväčší absolútny interakčný koeficient (b)`),
+        NA_real_,
+        `Najväčší absolútny interakčný koeficient (b)`
+      ),
+      `Najnižšia interakčná p-hodnota` = ifelse(
+        is.infinite(`Najnižšia interakčná p-hodnota`),
+        NA_real_,
+        `Najnižšia interakčná p-hodnota`
+      )
     )
 }
 
@@ -312,7 +348,7 @@ analysis_long <- raw %>%
     profile = factor(profile_label(iv_realization_profile), levels = c("P1", "P2", "P3")),
     cell = factor(
       cell_label(iv_prompt_guardrail_mode, iv_realization_profile),
-      levels = c("off × P1", "off × P2", "off × P3", "on × P1", "on × P2", "on × P3")
+      levels = c("G0 × P1", "G0 × P2", "G0 × P3", "G1 × P1", "G1 × P2", "G1 × P3")
     ),
     g1 = suppressWarnings(as.numeric(`interview-rating_v1__G1_clinical_credibility`)),
     g2 = suppressWarnings(as.numeric(`interview-rating_v1__G2_natural_language`)),
@@ -345,7 +381,7 @@ analysis_anchored <- raw %>%
     profile = factor(profile_label(iv_realization_profile), levels = c("P1", "P2", "P3")),
     cell = factor(
       cell_label(iv_prompt_guardrail_mode, iv_realization_profile),
-      levels = c("off × P1", "off × P2", "off × P3", "on × P1", "on × P2", "on × P3")
+      levels = c("G0 × P1", "G0 × P2", "G0 × P3", "G1 × P1", "G1 × P2", "G1 × P3")
     ),
     s1 = suppressWarnings(as.numeric(`interview-rating_v1__S1_symptom_severity`)),
     s2 = suppressWarnings(as.numeric(`interview-rating_v1__S2_functional_impact`)),
@@ -391,21 +427,21 @@ analysis_transcript_anchored <- analysis_anchored %>%
 ratings_per_transcript <- table(analysis_long$transcript_id)
 ratings_distribution <- as.data.frame(table(ratings_per_transcript)) %>%
   transmute(
-    `Počet ratingov na transkript` = as.integer(as.character(ratings_per_transcript)),
-    `Počet transkriptov` = Freq
+    `Počet hodnotení na prepis rozhovoru` = as.integer(as.character(ratings_per_transcript)),
+    `Počet prepisov rozhovorov` = Freq
   ) %>%
-  arrange(`Počet ratingov na transkript`)
+  arrange(`Počet hodnotení na prepis rozhovoru`)
 
 dataset_overview <- bind_rows(
   tibble(
     Ukazovateľ = c(
-      "Počet ratingov",
-      "Počet transkriptov",
-      "Počet seed scenárov",
-      "Počet raterov v exporte",
-      "Priemerný počet ratingov na transkript",
-      "Minimum ratingov na transkript",
-      "Maximum ratingov na transkript"
+      "Počet hodnotení",
+      "Počet prepisov rozhovorov",
+      "Počet východiskových scenárov",
+      "Počet hodnotiteľov v exporte",
+      "Priemerný počet hodnotení na prepis rozhovoru",
+      "Minimum hodnotení na prepis rozhovoru",
+      "Maximum hodnotení na prepis rozhovoru"
     ),
     Hodnota = c(
       nrow(analysis_long),
@@ -425,18 +461,18 @@ dataset_overview <- bind_rows(
 rater_coverage <- analysis_long %>%
   group_by(rater_id) %>%
   summarise(
-    `Počet ratingov` = n(),
-    `Počet transkriptov` = n_distinct(transcript_id),
+    `Počet hodnotení` = n(),
+    `Počet prepisov rozhovorov` = n_distinct(transcript_id),
     `Počet profilov` = n_distinct(profile),
     `Počet buniek` = n_distinct(cell),
     .groups = "drop"
   ) %>%
   rename(`Hodnotiteľ` = rater_id) %>%
-  arrange(desc(`Počet ratingov`), `Hodnotiteľ`)
+  arrange(desc(`Počet hodnotení`), `Hodnotiteľ`)
 
 overall_descriptives <- bind_rows(
   tibble(
-    Outcome = c("Index klinickej vierohodnosti", "Index defektov", "Prirodzenosť jazyka (G2)", "Tréningová použiteľnosť (G5)", "Odhad závažnosti (S1)", "Odhad funkčného dopadu (S2)"),
+    `Ukazovateľ` = c("Index klinickej vierohodnosti", "Index defektov", "Prirodzenosť jazyka (G2)", "Tréningová použiteľnosť (G5)", "Odhad závažnosti (S1)", "Odhad funkčného dopadu (S2)"),
     `N` = c(
       sum(!is.na(analysis_long$plausibility_index)),
       sum(!is.na(analysis_long$defect_index)),
@@ -499,13 +535,13 @@ overall_descriptives <- bind_rows(
 cell_descriptives_rating <- analysis_long %>%
   group_by(cell) %>%
   summarise(
-    `N ratingov` = n(),
-    `Klinická vierohodnosť (ratingy)` = mean(plausibility_index, na.rm = TRUE),
-    `Defekty (ratingy)` = mean(defect_index, na.rm = TRUE),
-    `G2 prirodzenosť (ratingy)` = mean(g2, na.rm = TRUE),
-    `G5 použiteľnosť (ratingy)` = mean(g5, na.rm = TRUE),
-    `S1 závažnosť (ratingy)` = mean(s1, na.rm = TRUE),
-    `S2 funkčný dopad (ratingy)` = mean(s2, na.rm = TRUE),
+    `N hodnotení` = n(),
+    `Klinická vierohodnosť (hodnotenia)` = mean(plausibility_index, na.rm = TRUE),
+    `Defekty (hodnotenia)` = mean(defect_index, na.rm = TRUE),
+    `G2 prirodzenosť (hodnotenia)` = mean(g2, na.rm = TRUE),
+    `G5 použiteľnosť (hodnotenia)` = mean(g5, na.rm = TRUE),
+    `S1 závažnosť (hodnotenia)` = mean(s1, na.rm = TRUE),
+    `S2 funkčný dopad (hodnotenia)` = mean(s2, na.rm = TRUE),
     .groups = "drop"
   ) %>%
   rename(`Bunka dizajnu` = cell)
@@ -513,10 +549,10 @@ cell_descriptives_rating <- analysis_long %>%
 cell_descriptives_transcript <- analysis_transcript_anchored %>%
   group_by(cell) %>%
   summarise(
-    `N transkriptov` = n(),
-    `Symptom error (transkripty)` = mean(symptom_error_mean, na.rm = TRUE),
-    `Severity error (transkripty)` = mean(severity_error, na.rm = TRUE),
-    `Impact error (transkripty)` = mean(impact_error, na.rm = TRUE),
+    `N prepisov rozhovorov` = n(),
+    `Priemerná absolútna chyba v symptomatických doménach (prepisy rozhovorov)` = mean(symptom_error_mean, na.rm = TRUE),
+    `Chyba odhadu závažnosti (prepisy rozhovorov)` = mean(severity_error, na.rm = TRUE),
+    `Chyba odhadu funkčného dopadu (prepisy rozhovorov)` = mean(impact_error, na.rm = TRUE),
     .groups = "drop"
   ) %>%
   rename(`Bunka dizajnu` = cell)
@@ -539,7 +575,7 @@ core_pair <- analysis_long %>%
   pivot_wider(names_from = rater_id, values_from = c(plausibility_index, defect_index, s1, s2), names_sep = "_")
 
 pair_agreement <- tibble(
-  Outcome = c("Index klinickej vierohodnosti", "Index defektov", "Odhad závažnosti (S1)", "Odhad funkčného dopadu (S2)"),
+  `Ukazovateľ` = c("Index klinickej vierohodnosti", "Index defektov", "Odhad závažnosti (S1)", "Odhad funkčného dopadu (S2)"),
   `Presná zhoda` = c(
     mean(core_pair$plausibility_index_13 == core_pair$plausibility_index_14, na.rm = TRUE),
     mean(core_pair$defect_index_13 == core_pair$defect_index_14, na.rm = TRUE),
@@ -552,16 +588,16 @@ pair_agreement <- tibble(
     mean(abs(core_pair$s1_13 - core_pair$s1_14), na.rm = TRUE),
     mean(abs(core_pair$s2_13 - core_pair$s2_14), na.rm = TRUE)
   ),
-  `Počet spoločných transkriptov` = rep(nrow(core_pair), 4)
+  `Počet spoločných prepisov rozhovorov` = rep(nrow(core_pair), 4)
 )
 
 format_model_summary <- function(df) {
   df %>%
     mutate(
-      `Interakcne p (min)` = ifelse(
-        is.na(`Interakcne p (min)`),
-        "n/a",
-        sprintf("%.2f", `Interakcne p (min)`)
+      `Najnižšia interakčná p-hodnota` = ifelse(
+        is.na(`Najnižšia interakčná p-hodnota`),
+        "neuvádza sa",
+        formatC(`Najnižšia interakčná p-hodnota`, format = "f", digits = 2, decimal.mark = ",")
       )
     )
 }
@@ -577,9 +613,9 @@ model_summary_rating <- bind_rows(
   format_model_summary()
 
 model_summary_transcript <- bind_rows(
-  extract_transcript_lmm_row(analysis_transcript_anchored, "symptom_error_mean", "Symptom error mean"),
-  extract_transcript_lmm_row(analysis_transcript_anchored, "severity_error", "Severity error"),
-  extract_transcript_lmm_row(analysis_transcript_anchored, "impact_error", "Impact error")
+  extract_transcript_lmm_row(analysis_transcript_anchored, "symptom_error_mean", "Priemerná absolútna chyba v symptomatických doménach"),
+  extract_transcript_lmm_row(analysis_transcript_anchored, "severity_error", "Chyba odhadu závažnosti"),
+  extract_transcript_lmm_row(analysis_transcript_anchored, "impact_error", "Chyba odhadu funkčného dopadu")
 ) %>%
   format_model_summary()
 
@@ -592,7 +628,7 @@ guess_summary <- analysis_long %>%
       guessed_origin,
       ai_generated = "AI-generované",
       human_simulated = "ľudsky simulované",
-      real_participant = "reálny participant",
+      real_participant = "reálny účastník",
       .default = guessed_origin
     )
   ) %>%
@@ -609,10 +645,10 @@ comment_text <- analysis_long %>%
 comment_themes <- tibble(
   `Téma komentára` = c(
     "Nacvičené alebo natrénované odpovede",
-    "Slabší follow-up alebo chýbajúca hĺbka",
+    "Slabšie doplňujúce otázky alebo chýbajúca hĺbka",
     "Rodová nekonzistentnosť",
     "Doslovný preklad alebo neprirodzená slovenčina",
-    "Príliš explicitná safety formulácia"
+    "Príliš explicitná bezpečnostná formulácia"
   ),
   `Počet komentárov` = c(
     sum(str_detect(str_to_lower(comment_text$text), "nacvi|natren|pripraven|mechanic|robot")),
@@ -625,18 +661,18 @@ comment_themes <- tibble(
 
 anchored_summary <- tibble(
   Ukazovateľ = c(
-    "Počet seedov s referenčnými hodnotami",
-    "Počet transkriptov s referenčnými hodnotami",
-    "Počet ratingov naviazaných na referenčné seed hodnoty",
-    "Priemerná symptom error",
-    "SD symptom error",
-    "Medián symptom error",
-    "Priemerná severity error",
-    "SD severity error",
-    "Medián severity error",
-    "Priemerná impact error",
-    "SD impact error",
-    "Medián impact error"
+    "Počet východiskových scenárov s referenčnými hodnotami",
+    "Počet prepisov rozhovorov s referenčnými hodnotami",
+    "Počet hodnotení naviazaných na referenčné hodnoty východiskových scenárov",
+    "Priemerná absolútna chyba v symptomatických doménach",
+    "SD priemernej absolútnej chyby v symptomatických doménach",
+    "Medián priemernej absolútnej chyby v symptomatických doménach",
+    "Priemerná chyba odhadu závažnosti",
+    "SD chyby odhadu závažnosti",
+    "Medián chyby odhadu závažnosti",
+    "Priemerná chyba odhadu funkčného dopadu",
+    "SD chyby odhadu funkčného dopadu",
+    "Medián chyby odhadu funkčného dopadu"
   ),
   Hodnota = c(
     n_distinct(analysis_transcript_anchored$seed_id),
@@ -653,28 +689,28 @@ anchored_summary <- tibble(
     median(analysis_transcript_anchored$impact_error, na.rm = TRUE)
   ),
   `Základ N` = c(
-    "12 seedov",
-    "72 transkriptov",
-    "166 ratingov",
-    "72 transkriptov",
-    "72 transkriptov",
-    "72 transkriptov",
-    "72 transkriptov",
-    "72 transkriptov",
-    "72 transkriptov",
-    "72 transkriptov",
-    "72 transkriptov",
-    "72 transkriptov"
+    "12 východiskových scenárov",
+    "72 prepisov rozhovorov",
+    sprintf("%d hodnotení", nrow(analysis_anchored)),
+    "72 prepisov rozhovorov",
+    "72 prepisov rozhovorov",
+    "72 prepisov rozhovorov",
+    "72 prepisov rozhovorov",
+    "72 prepisov rozhovorov",
+    "72 prepisov rozhovorov",
+    "72 prepisov rozhovorov",
+    "72 prepisov rozhovorov",
+    "72 prepisov rozhovorov"
   )
 )
 
 plot_coverage <- ratings_distribution %>%
-  mutate(`Počet ratingov na transkript` = factor(`Počet ratingov na transkript`))
+  mutate(`Počet hodnotení na prepis rozhovoru` = factor(`Počet hodnotení na prepis rozhovoru`))
 
 figure_1_path <- normalizePath(file.path(figures_dir, "figure_1_ratings_per_transcript.png"), mustWork = FALSE)
-ggplot(plot_coverage, aes(x = `Počet ratingov na transkript`, y = `Počet transkriptov`)) +
+ggplot(plot_coverage, aes(x = `Počet hodnotení na prepis rozhovoru`, y = `Počet prepisov rozhovorov`)) +
   geom_col(fill = "#587C69", width = 0.65) +
-  labs(x = "Počet ratingov na transkript", y = "Počet transkriptov") +
+  labs(x = "Počet hodnotení na prepis rozhovoru", y = "Počet prepisov rozhovorov") +
   theme_minimal(base_size = 11)
 ggsave(figure_1_path, width = 6.8, height = 4.2, dpi = 220)
 
@@ -689,7 +725,7 @@ dist_long <- analysis_long %>%
   pivot_longer(everything(), names_to = "Outcome", values_to = "Hodnota") %>%
   bind_rows(
     analysis_transcript_anchored %>%
-      transmute(Outcome = "Symptom error mean", Hodnota = symptom_error_mean)
+      transmute(Outcome = "Priemerná absolútna chyba v symptomatických doménach", Hodnota = symptom_error_mean)
   )
 
 figure_2_path <- normalizePath(file.path(figures_dir, "figure_2_distributions.png"), mustWork = FALSE)
@@ -852,11 +888,11 @@ rater_profiles <- analysis_long %>%
     `S1 závažnosť_sd` = sd(s1, na.rm = TRUE),
     `S2 funkčný dopad_mean` = mean(s2, na.rm = TRUE),
     `S2 funkčný dopad_sd` = sd(s2, na.rm = TRUE),
-    `Počet ratingov` = n(),
+    `Počet hodnotení` = n(),
     .groups = "drop"
   ) %>%
   pivot_longer(
-    cols = -c(rater_id, `Počet ratingov`),
+    cols = -c(rater_id, `Počet hodnotení`),
     names_to = c("Outcome", ".value"),
     names_pattern = "(.+)_(mean|sd)"
   )
@@ -914,10 +950,21 @@ write_md_table(anchored_summary, table_10_path, digits = 2)
 
 if (file.exists(expert_items_csv_path) && file.exists(expert_seeds_csv_path)) {
   expert_items_preview <- readr::read_csv(expert_items_csv_path, show_col_types = FALSE) %>%
-    mutate(`Potrebný follow-up` = ifelse(`Potrebný follow-up`, "áno", "nie"))
+    mutate(`Potrebná doplňujúca úprava` = ifelse(`Potrebný follow-up`, "áno", "nie")) %>%
+    select(-`Potrebný follow-up`)
 
   expert_seeds_preview <- readr::read_csv(expert_seeds_csv_path, show_col_types = FALSE) %>%
-    mutate(Seed = as.character(as.integer(Seed)))
+    transmute(
+      `Kód scenára` = sprintf("%02d", as.integer(Seed)),
+      `Scenár` = localized_scenario_label(Scenár),
+      `Celkový priemer M`,
+      `Dostatok informácií M`,
+      `Nestereotypnosť M`,
+      `Vhodnosť pre výskum M`,
+      `Cieľová závažnosť`,
+      `Modálna expert. závažnosť`,
+      `Zhoda so závažnosťou (%)`
+    )
 
   write_md_table(expert_items_preview, table_s4_preview_path, digits = 1)
   write_md_table(expert_seeds_preview, table_s5_preview_path, digits = 1)
@@ -926,21 +973,21 @@ if (file.exists(expert_items_csv_path) && file.exists(expert_seeds_csv_path)) {
 writeLines(
   c(
     if (file.exists(table_s4_preview_path)) c(
-      supplement_table_caption("S4", "Predbežná expertná kontrola položiek ratingového nástroja"),
+      caption_lines("Tabuľka 1", "Predbežná expertná kontrola položiek hodnotiaceho nástroja"),
       readLines(table_s4_preview_path, warn = FALSE),
       "",
-      supplement_figure_caption("S3", "Heatmap predbežnej expertnej kontroly položiek ratingového nástroja"),
-      sprintf("![Obrázok S3](%s)", expert_items_heatmap_path),
+      caption_lines("Obrázok 1", "Tepelná mapa predbežnej expertnej kontroly položiek hodnotiaceho nástroja"),
+      sprintf("![Obrázok 1](%s)", expert_items_heatmap_path),
       ""
     ) else character(0),
     if (file.exists(table_s5_preview_path)) c(
-      supplement_table_caption("S5", "Predbežná expertná kontrola seed scenárov"),
+      caption_lines("Tabuľka 2", "Predbežná expertná kontrola východiskových scenárov"),
       readLines(table_s5_preview_path, warn = FALSE),
       "",
-      supplement_figure_caption("S4", "Heatmap predbežnej expertnej kontroly seed scenárov"),
-      sprintf("![Obrázok S4](%s)", expert_seeds_heatmap_path),
+      caption_lines("Obrázok 2", "Tepelná mapa predbežnej expertnej kontroly východiskových scenárov"),
+      sprintf("![Obrázok 2](%s)", expert_seeds_heatmap_path),
       "",
-      "Poznámka. Táto validačná vrstva sa interpretuje ako predbežná obsahová kalibrácia nástroja a seedov, nie ako finálny psychometrický dôkaz validity."
+      "Poznámka. Táto validačná vrstva sa interpretuje ako predbežná obsahová kalibrácia nástroja a východiskových scenárov, nie ako finálny psychometrický dôkaz validity."
     ) else character(0)
   ),
   file.path(tables_dir, "fragment_validation.md"),
@@ -949,14 +996,14 @@ writeLines(
 
 writeLines(
   c(
-    table_caption(1, "Základná charakteristika analyzovaného ratingového datasetu"),
+    table_caption(3, "Základná charakteristika analyzovaného súboru hodnotení"),
     readLines(table_1_path, warn = FALSE),
     "",
-    table_caption(2, "Pokrytie hodnotiteľov v analyzovanom datasete"),
+    table_caption(4, "Pokrytie hodnotiteľov v analyzovanom súbore"),
     readLines(table_2_path, warn = FALSE),
     "",
-    figure_caption(1, "Rozdelenie počtu ratingov na transkript"),
-    sprintf("![Obrázok 1](%s)", figure_1_path)
+    figure_caption(3, "Rozdelenie počtu hodnotení na prepis rozhovoru"),
+    sprintf("![Obrázok 3](%s)", figure_1_path)
   ),
   file.path(tables_dir, "fragment_dataset.md"),
   useBytes = TRUE
@@ -964,16 +1011,16 @@ writeLines(
 
 writeLines(
   c(
-    table_caption(3, "Deskriptívne ukazovatele hlavných ľudsky hodnotených outcome-ov"),
+    table_caption(5, "Deskriptívne ukazovatele hlavných ľudsky hodnotených premenných"),
     readLines(table_3_path, warn = FALSE),
     "",
-    "Poznámka. Všetky `N` v tejto tabuľke predstavujú počty ratingov. Pri viacerých položkách ostal medián aj IQR stlačený do úzkeho pásma; ratingy sa sústreďovali najmä v stredne vyšších kategóriách.",
+    "Poznámka. Všetky `N` v tejto tabuľke predstavujú počty hodnotení. Pri viacerých položkách ostal medián aj IQR stlačený do úzkeho pásma; hodnotenia sa sústreďovali najmä v stredne vyšších kategóriách.",
     "",
-    figure_caption(2, "Distribúcie hlavných kompozitov a vybraných položiek"),
-    sprintf("![Obrázok 2](%s)", figure_2_path),
+    figure_caption(4, "Distribúcie hlavných kompozitov a vybraných položiek"),
+    sprintf("![Obrázok 4](%s)", figure_2_path),
     "",
-    figure_caption(3, "Frekvenčné profily odpovedí pre bloky G, S a R"),
-    sprintf("![Obrázok 3](%s)", figure_3_path)
+    figure_caption(5, "Frekvenčné profily odpovedí pre bloky G, S a R"),
+    sprintf("![Obrázok 5](%s)", figure_3_path)
   ),
   file.path(tables_dir, "fragment_descriptives.md"),
   useBytes = TRUE
@@ -981,16 +1028,16 @@ writeLines(
 
 writeLines(
   c(
-    table_caption(4, "Predbežná vnútorná konzistencia ratingových blokov"),
+    table_caption(6, "Predbežná vnútorná konzistencia hodnotiacich blokov"),
     readLines(table_4_path, warn = FALSE),
     "",
-    table_caption(5, "Zhoda jadrovej dvojice hodnotiteľov 13 a 14"),
+    table_caption(7, "Zhoda jadrovej dvojice hodnotiteľov 13 a 14"),
     readLines(table_5_path, warn = FALSE),
     "",
     "Poznámka. ICC sa v tejto vrstve neuvádza ako hlavný ukazovateľ, keďže plné pokrytie zabezpečovala najmä dvojica hodnotiteľov 13 a 14 a jeden z nich používal škálu užšie.",
     "",
-    figure_caption(4, "Raterové profily priemeru a variability"),
-    sprintf("![Obrázok 4](%s)", figure_6_path)
+    figure_caption(6, "Profily hodnotiteľov podľa priemeru a variability"),
+    sprintf("![Obrázok 6](%s)", figure_6_path)
   ),
   file.path(tables_dir, "fragment_measurement.md"),
   useBytes = TRUE
@@ -998,23 +1045,24 @@ writeLines(
 
 writeLines(
   c(
-    "**Tabuľka 6A. Rating-level outcome-y podľa experimentálnych buniek.**",
-    "",
+    caption_lines("Tabuľka 8", "Ukazovatele na úrovni jednotlivých hodnotení podľa experimentálnych buniek"),
     readLines(table_6a_path, warn = FALSE),
     "",
-    "Poznámka. Všetky ukazovatele v tejto tabuľke vychádzajú zo 166 ľudských ratingov.",
+    sprintf("Poznámka. Všetky ukazovatele v tejto tabuľke vychádzajú zo %d ľudských hodnotení.", nrow(analysis_long)),
     "",
-    "**Tabuľka 6B. Transcript-level ukazovatele odchýlky podľa experimentálnych buniek.**",
-    "",
+    caption_lines("Tabuľka 9", "Ukazovatele odchýlky na úrovni prepisov rozhovorov podľa experimentálnych buniek"),
     readLines(table_6b_path, warn = FALSE),
     "",
-    "Poznámka. Všetky ukazovatele v tejto tabuľke sú počítané na úrovni 72 unikátnych transkriptov.",
+    sprintf(
+      "Poznámka. Všetky ukazovatele v tejto tabuľke sú počítané na úrovni %d unikátnych prepisov rozhovorov.",
+      n_distinct(analysis_transcript_anchored$transcript_id)
+    ),
     "",
-    figure_caption(5, "Krabicové grafy primárnych kompozitov podľa experimentálnych buniek"),
-    sprintf("![Obrázok 5](%s)", figure_4_path),
+    figure_caption(7, "Krabicové grafy primárnych kompozitov podľa experimentálnych buniek"),
+    sprintf("![Obrázok 7](%s)", figure_4_path),
     "",
-    figure_caption(6, "Krabicové grafy vybraných položiek G2, G5, S1 a S2 podľa experimentálnych buniek"),
-    sprintf("![Obrázok 6](%s)", figure_5_path)
+    figure_caption(8, "Krabicové grafy vybraných položiek G2, G5, S1 a S2 podľa experimentálnych buniek"),
+    sprintf("![Obrázok 8](%s)", figure_5_path)
   ),
   file.path(tables_dir, "fragment_cells.md"),
   useBytes = TRUE
@@ -1022,15 +1070,13 @@ writeLines(
 
 writeLines(
   c(
-    "**Tabuľka 7A. Kompaktný prehľad rating-level modelových odhadov.**",
-    "",
+    caption_lines("Tabuľka 10", "Kompaktný prehľad modelových odhadov na úrovni jednotlivých hodnotení"),
     readLines(table_7a_path, warn = FALSE),
     "",
-    "**Tabuľka 7B. Kompaktný prehľad transcript-level modelových odhadov.**",
-    "",
+    caption_lines("Tabuľka 11", "Kompaktný prehľad modelových odhadov na úrovni prepisov rozhovorov"),
     readLines(table_7b_path, warn = FALSE),
     "",
-    "Poznámka. Referenčná bunka bola `off × P1`. Pri LMM pre index klinickej vierohodnosti a index defektov sú použité random intercepty pre seed aj hodnotiteľa; pri transcript-level ukazovateľoch odchýlky voči anchorom (`symptom_error_mean`, `severity_error`, `impact_error`) len random intercept pre seed. Pri CLMM sú do kompaktnej tabuľky prenesené aj orientačné interakčné p-hodnoty pre najsilnejší interakčný člen. Hodnota `n/a` znamená, že daný riadok nemá priamo reportovaný interakčný p-koeficient v tejto kompaktnej projekcii."
+    "Poznámka. Referenčná bunka bola `G0 × P1`. Pri LMM pre index klinickej vierohodnosti a index defektov sú použité náhodné efekty pre východiskový scenár aj hodnotiteľa; pri troch ukazovateľoch odchýlky na úrovni prepisu rozhovoru len náhodný efekt pre východiskový scenár. Pri CLMM sú do kompaktnej tabuľky prenesené aj orientačné interakčné p-hodnoty pre najsilnejší interakčný člen. Formulácia `neuvádza sa` znamená, že daný riadok nemá v tejto kompaktnej projekcii priamo reportovanú interakčnú p-hodnotu."
   ),
   file.path(tables_dir, "fragment_models.md"),
   useBytes = TRUE
@@ -1038,14 +1084,14 @@ writeLines(
 
 writeLines(
   c(
-    table_caption(8, "Frekvenčný prehľad odhadovaného pôvodu rozhovoru"),
+    table_caption(13, "Frekvenčný prehľad odhadovaného pôvodu rozhovoru"),
     readLines(table_8_path, warn = FALSE),
     "",
-    table_caption(9, "Hrubé tematické kódy otvorených komentárov"),
+    table_caption(14, "Hrubé tematické kódy otvorených komentárov"),
     readLines(table_9_path, warn = FALSE),
     "",
-    figure_caption(7, "Najčastejšie témy otvorených komentárov"),
-    sprintf("![Obrázok 7](%s)", figure_7_path)
+    figure_caption(9, "Najčastejšie témy otvorených komentárov"),
+    sprintf("![Obrázok 9](%s)", figure_7_path)
   ),
   file.path(tables_dir, "fragment_exploratory.md"),
   useBytes = TRUE
@@ -1053,10 +1099,10 @@ writeLines(
 
 writeLines(
   c(
-    table_caption(10, "Transcript-level ukazovatele odchýlky voči referenčným hodnotám seed scenárov"),
+    table_caption(12, "Ukazovatele odchýlky voči referenčným hodnotám východiskových scenárov na úrovni prepisov rozhovorov"),
     readLines(table_10_path, warn = FALSE),
     "",
-    "Poznámka. Všetky tri ukazovatele odchýlky sú sumarizované na úrovni transkriptov. Pri `severity_error` a `impact_error` ide o transcript-level priemer expertných odhadov S1 a S2 voči referenčným hodnotám seed scenárov."
+    "Poznámka. Všetky tri ukazovatele odchýlky sú sumarizované na úrovni prepisov rozhovorov. Pri chybe odhadu závažnosti a chybe odhadu funkčného dopadu ide o priemer expertných odhadov S1 a S2 na úrovni prepisu rozhovoru voči referenčným hodnotám východiskových scenárov."
   ),
   file.path(tables_dir, "fragment_anchored.md"),
   useBytes = TRUE

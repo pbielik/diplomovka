@@ -41,11 +41,14 @@ set -euo pipefail
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$REPO_ROOT"
 
-INPUT_FILES=(
+BUILD_DIR="/tmp/diplomovka_full_run_results_build"
+RESULTS_BUILD="$BUILD_DIR/40_results_built.md"
+RESULTS_ASSET_BUILDER="analysis/scripts/build_full_run_results_assets.py"
+
+SOURCE_FILES=(
   "manuscript/10_title_abstract.md"
   "manuscript/20_introduction.md"
   "manuscript/30_method.md"
-  "manuscript/40_results.md"
   "manuscript/50_discussion.md"
   "manuscript/60_conclusion.md"
 )
@@ -54,12 +57,13 @@ BIB="references/zotero-thesis.bib"
 CSL="$HOME/Zotero/styles/apa.csl"
 LUA="tools/strip_heading_numbers.lua"
 LUA_NOTES="tools/drop_drafting_notes.lua"
+LUA_EMPHASIS="tools/normalize_emphasis_for_word.lua"
 TABLE_STYLE_POSTPROCESSOR="tools/apply_table_style_to_docx.py"
 OUTPUT="diplomovka_clean.docx"
 PANDOC_BIN="${PANDOC_BIN:-}"
 
 # Sanity checks.
-for f in "${INPUT_FILES[@]}"; do
+for f in "${SOURCE_FILES[@]}"; do
   if [[ ! -f "$f" ]]; then
     echo "CHYBA: vstupný súbor neexistuje: $f" >&2
     exit 1
@@ -87,8 +91,18 @@ if [[ ! -f "$LUA_NOTES" ]]; then
   exit 1
 fi
 
+if [[ ! -f "$LUA_EMPHASIS" ]]; then
+  echo "CHYBA: Lua filter neexistuje: $LUA_EMPHASIS" >&2
+  exit 1
+fi
+
 if [[ ! -f "$TABLE_STYLE_POSTPROCESSOR" ]]; then
   echo "CHYBA: DOCX table postprocessor neexistuje: $TABLE_STYLE_POSTPROCESSOR" >&2
+  exit 1
+fi
+
+if [[ ! -f "$RESULTS_ASSET_BUILDER" ]]; then
+  echo "CHYBA: build script pre Results fragmenty neexistuje: $RESULTS_ASSET_BUILDER" >&2
   exit 1
 fi
 
@@ -103,6 +117,23 @@ if [[ -z "$PANDOC_BIN" ]]; then
   fi
 fi
 
+mkdir -p "$BUILD_DIR"
+python3 "$RESULTS_ASSET_BUILDER" --output "$RESULTS_BUILD"
+
+INPUT_FILES=(
+  "manuscript/10_title_abstract.md"
+  "manuscript/20_introduction.md"
+  "manuscript/30_method.md"
+  "$RESULTS_BUILD"
+  "manuscript/50_discussion.md"
+  "manuscript/60_conclusion.md"
+)
+
+if [[ ! -f "$RESULTS_BUILD" ]]; then
+  echo "CHYBA: nevznikol built Results súbor: $RESULTS_BUILD" >&2
+  exit 1
+fi
+
 echo "Generujem $OUTPUT z ${#INPUT_FILES[@]} súborov (clean: bez čísel, shift -1)..."
 
 "$PANDOC_BIN" \
@@ -115,6 +146,7 @@ echo "Generujem $OUTPUT z ${#INPUT_FILES[@]} súborov (clean: bez čísel, shift
   --metadata=lang:sk-SK \
   --metadata=link-citations:true \
   --lua-filter="$LUA_NOTES" \
+  --lua-filter="$LUA_EMPHASIS" \
   --lua-filter="$LUA" \
   --output="$OUTPUT"
 

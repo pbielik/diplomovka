@@ -117,6 +117,184 @@ REQUIRED_COLUMNS = {
     },
 }
 
+SECTION_LABELS = {
+    "items": "Položky",
+    "composites": "Kompozity",
+}
+ANALYSIS_UNIT_LABELS = {
+    "rating": "hodnotenie",
+    "transcript": "prepis rozhovoru",
+}
+BLOCK_LABELS = {
+    "g1_g5": "Blok G1-G5",
+    "plausibility_core": "Jadro indexu klinickej vierohodnosti",
+    "r1_r5": "Blok R1-R5",
+}
+STATUS_LABELS = {
+    "ok": "ok",
+    "skipped": "preskočené",
+    "failed": "chyba",
+}
+MODEL_FAMILY_LABELS = {
+    "lmm": "LMM",
+    "clmm": "CLMM",
+}
+MODEL_TYPE_LABELS = {
+    "lmm": "LMM",
+    "transcript_lmm": "LMM (úroveň prepisu rozhovoru)",
+    "lmm_sensitivity_transcript": "LMM sensitivity s random interceptom pre prepis rozhovoru",
+    "clmm": "CLMM",
+}
+SOURCE_MODE_LABELS = {
+    "data_clean": "Vyčistené dáta",
+    "templates_smoke_run": "Template smoke-run",
+}
+SEVERITY_ERROR_MODE_LABELS = {
+    "direct_1to5": "Priama absolútna chyba na škále 1-5",
+}
+METRIC_LABELS = {
+    "source_mode": "Zdroj dát",
+    "n_raters": "Počet hodnotiteľov",
+    "n_transcripts": "Počet prepisov rozhovorov",
+    "n_seeds": "Počet seedov",
+    "n_ratings": "Počet hodnotení",
+    "mean_ratings_per_transcript": "Priemerný počet hodnotení na prepis rozhovoru",
+    "min_ratings_per_transcript": "Minimálny počet hodnotení na prepis rozhovoru",
+    "max_ratings_per_transcript": "Maximálny počet hodnotení na prepis rozhovoru",
+    "severity_error_mode": "Spôsob výpočtu chyby závažnosti",
+    "guardrail_off": "Počet hodnotení v G0",
+    "guardrail_on": "Počet hodnotení v G1",
+    "profile_R1": "Počet hodnotení pre P1",
+    "profile_R2": "Počet hodnotení pre P2",
+    "profile_R3": "Počet hodnotení pre P3",
+    "guardrail_off_profile_R1": "G0 × P1",
+    "guardrail_off_profile_R2": "G0 × P2",
+    "guardrail_off_profile_R3": "G0 × P3",
+    "guardrail_on_profile_R1": "G1 × P1",
+    "guardrail_on_profile_R2": "G1 × P2",
+    "guardrail_on_profile_R3": "G1 × P3",
+}
+
+
+def projection_key(value: str | None) -> str:
+    return (value or "").strip().lower()
+
+
+def load_projection_codebook_labels(repo_root: Path) -> dict[str, str]:
+    path = repo_root / "analysis" / "codebook_rating_study.csv"
+    if not path.exists():
+        return {}
+
+    labels: dict[str, str] = {}
+    with path.open("r", encoding="utf-8", newline="") as handle:
+        reader = csv.DictReader(handle)
+        for row in reader:
+            variable = projection_key(row.get("variable", ""))
+            label = (row.get("label") or "").strip()
+            if variable and label:
+                labels[variable] = label
+    return labels
+
+
+def map_projection_value(value: str, mapping: dict[str, str], *, normalize: bool = False) -> str:
+    if value is None:
+        return value
+    key = projection_key(value) if normalize else value
+    return mapping.get(key, value)
+
+
+def label_projection_variable(value: str, codebook_labels: dict[str, str]) -> str:
+    if value is None:
+        return value
+    return codebook_labels.get(projection_key(value), value)
+
+
+def label_projection_term(value: str) -> str:
+    if value is None or value == "":
+        return value
+    if value == "(Intercept)":
+        return "Intercept (referenčná kombinácia G0 × P1)"
+
+    normalized = value.replace("guardrailon", "guardrailG1").replace("profileR", "profileP")
+    if normalized == "guardrailG1":
+        return "Hlavný efekt klinického usmernenia G1 (vs. G0)"
+    if normalized == "profileP2":
+        return "Hlavný efekt P2 (vs. P1)"
+    if normalized == "profileP3":
+        return "Hlavný efekt P3 (vs. P1)"
+    if normalized in {"guardrailG1:profileP2", "profileP2:guardrailG1"}:
+        return "Interakcia klinického usmernenia G1 × P2"
+    if normalized in {"guardrailG1:profileP3", "profileP3:guardrailG1"}:
+        return "Interakcia klinického usmernenia G1 × P3"
+    return value
+
+
+def humanize_table_1_rows(rows: list[dict[str, str]]) -> list[dict[str, str]]:
+    humanized: list[dict[str, str]] = []
+    for row in rows:
+        updated = dict(row)
+        metric = row.get("metric", "")
+        updated["metric"] = METRIC_LABELS.get(metric, metric)
+        if metric == "source_mode":
+            updated["value"] = SOURCE_MODE_LABELS.get(row.get("value", ""), row.get("value", ""))
+        elif metric == "severity_error_mode":
+            updated["value"] = SEVERITY_ERROR_MODE_LABELS.get(row.get("value", ""), row.get("value", ""))
+        humanized.append(updated)
+    return humanized
+
+
+def humanize_table_2_rows(rows: list[dict[str, str]], codebook_labels: dict[str, str]) -> list[dict[str, str]]:
+    humanized: list[dict[str, str]] = []
+    for row in rows:
+        updated = dict(row)
+        updated["variable"] = label_projection_variable(row.get("variable", ""), codebook_labels)
+        updated["section"] = SECTION_LABELS.get(row.get("section", ""), row.get("section", ""))
+        updated["analysis_unit"] = ANALYSIS_UNIT_LABELS.get(row.get("analysis_unit", ""), row.get("analysis_unit", ""))
+        humanized.append(updated)
+    return humanized
+
+
+def humanize_table_3_rows(rows: list[dict[str, str]], codebook_labels: dict[str, str]) -> list[dict[str, str]]:
+    return [
+        dict(row, variable=label_projection_variable(row.get("variable", ""), codebook_labels))
+        for row in rows
+    ]
+
+
+def humanize_table_4_rows(rows: list[dict[str, str]]) -> list[dict[str, str]]:
+    humanized: list[dict[str, str]] = []
+    for row in rows:
+        updated = dict(row)
+        updated["block"] = BLOCK_LABELS.get(row.get("block", ""), row.get("block", ""))
+        updated["status"] = STATUS_LABELS.get(row.get("status", ""), row.get("status", ""))
+        humanized.append(updated)
+    return humanized
+
+
+def humanize_table_5_rows(rows: list[dict[str, str]], codebook_labels: dict[str, str]) -> list[dict[str, str]]:
+    humanized: list[dict[str, str]] = []
+    for row in rows:
+        updated = dict(row)
+        updated["outcome"] = label_projection_variable(row.get("outcome", ""), codebook_labels)
+        updated["status"] = STATUS_LABELS.get(row.get("status", ""), row.get("status", ""))
+        humanized.append(updated)
+    return humanized
+
+
+def humanize_table_6_rows(rows: list[dict[str, str]], codebook_labels: dict[str, str]) -> list[dict[str, str]]:
+    humanized: list[dict[str, str]] = []
+    for row in rows:
+        updated = dict(row)
+        updated["outcome"] = label_projection_variable(row.get("outcome", ""), codebook_labels)
+        updated["term"] = label_projection_term(row.get("term", ""))
+        updated["status"] = STATUS_LABELS.get(row.get("status", ""), row.get("status", ""))
+        if "model_family" in updated:
+            updated["model_family"] = MODEL_FAMILY_LABELS.get(row.get("model_family", ""), row.get("model_family", ""))
+        if "model_type" in updated:
+            updated["model_type"] = MODEL_TYPE_LABELS.get(row.get("model_type", ""), row.get("model_type", ""))
+        humanized.append(updated)
+    return humanized
+
 
 def run_all_hard_checks(repo_root: Path, run_mode: RunMode) -> list[CheckResult]:
     return [
@@ -401,6 +579,7 @@ def run_data_integrity_qc(repo_root: Path, run_mode: RunMode) -> CheckResult:
 
 def run_artifact_projection_qc(repo_root: Path, run_mode: RunMode) -> CheckResult:
     findings: list[Finding] = []
+    codebook_labels = load_projection_codebook_labels(repo_root)
 
     output_paths = {
         "qc_dataset_summary": repo_root / "analysis" / "outputs" / "qc_dataset_summary.csv",
@@ -423,6 +602,8 @@ def run_artifact_projection_qc(repo_root: Path, run_mode: RunMode) -> CheckResul
     }
     figure_paths = {
         "figure_1": repo_root / "figures" / "figure_1_primary_outcomes_by_condition.png",
+        "figure_1a": repo_root / "figures" / "figure_1a_plausibility_index_by_condition.png",
+        "figure_1b": repo_root / "figures" / "figure_1b_defect_index_by_condition.png",
         "figure_2": repo_root / "figures" / "figure_2_emmeans_core_models.png",
     }
 
@@ -476,7 +657,7 @@ def run_artifact_projection_qc(repo_root: Path, run_mode: RunMode) -> CheckResul
     findings.extend(
         compare_row_sets(
             repo_root=repo_root,
-            expected_rows=qc_dataset_summary,
+            expected_rows=humanize_table_1_rows(qc_dataset_summary),
             actual_rows=read_csv_rows(table_paths["table_1"]),
             expected_label="analysis/outputs/qc_dataset_summary.csv",
             actual_path=table_paths["table_1"],
@@ -493,7 +674,7 @@ def run_artifact_projection_qc(repo_root: Path, run_mode: RunMode) -> CheckResul
     findings.extend(
         compare_row_sets(
             repo_root=repo_root,
-            expected_rows=expected_table_2,
+            expected_rows=humanize_table_2_rows(expected_table_2, codebook_labels),
             actual_rows=read_csv_rows(table_paths["table_2"]),
             expected_label="descriptives_items + descriptives_composites",
             actual_path=table_paths["table_2"],
@@ -508,7 +689,7 @@ def run_artifact_projection_qc(repo_root: Path, run_mode: RunMode) -> CheckResul
     findings.extend(
         compare_row_sets(
             repo_root=repo_root,
-            expected_rows=expected_table_3,
+            expected_rows=humanize_table_3_rows(expected_table_3, codebook_labels),
             actual_rows=read_csv_rows(table_paths["table_3"]),
             expected_label="recomputed item frequencies from analysis_long.csv",
             actual_path=table_paths["table_3"],
@@ -522,7 +703,7 @@ def run_artifact_projection_qc(repo_root: Path, run_mode: RunMode) -> CheckResul
     findings.extend(
         compare_row_sets(
             repo_root=repo_root,
-            expected_rows=internal_consistency,
+            expected_rows=humanize_table_4_rows(internal_consistency),
             actual_rows=read_csv_rows(table_paths["table_4"]),
             expected_label="analysis/outputs/internal_consistency.csv",
             actual_path=table_paths["table_4"],
@@ -536,7 +717,7 @@ def run_artifact_projection_qc(repo_root: Path, run_mode: RunMode) -> CheckResul
     findings.extend(
         compare_row_sets(
             repo_root=repo_root,
-            expected_rows=icc_summary,
+            expected_rows=humanize_table_5_rows(icc_summary, codebook_labels),
             actual_rows=read_csv_rows(table_paths["table_5"]),
             expected_label="analysis/outputs/icc_summary.csv",
             actual_path=table_paths["table_5"],
@@ -551,11 +732,15 @@ def run_artifact_projection_qc(repo_root: Path, run_mode: RunMode) -> CheckResul
         dict(row, model_family="clmm")
         for row in clmm_item_models
         if row.get("outcome") in {"g2", "g5", "s1", "s2"}
+        and (
+            "guardrail" in (row.get("term") or "")
+            or "profile" in (row.get("term") or "")
+        )
     ]
     findings.extend(
         compare_row_sets(
             repo_root=repo_root,
-            expected_rows=expected_table_6,
+            expected_rows=humanize_table_6_rows(expected_table_6, codebook_labels),
             actual_rows=read_csv_rows(table_paths["table_6"]),
             expected_label="lmm_core_models + clmm_item_models",
             actual_path=table_paths["table_6"],

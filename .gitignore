@@ -8,6 +8,8 @@
 /diplomovka_clean_*.docx
 /diplomovka_plan_b_citekeys.docx
 /diplomovka_plan_b_citekeys_*.docx
+/diplomovka_near_final.docx
+/diplomovka_near_final_*.docx
 
 # Generated QC reports
 /analysis/qc_reports/*.json

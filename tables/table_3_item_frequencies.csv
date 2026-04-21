@@ -1,55 +1,55 @@
 variable,response,n,prop
-g1,1,1,0.006024096385542169
-g1,2,3,0.018072289156626505
-g1,3,14,0.08433734939759036
-g1,4,126,0.7590361445783133
-g1,5,22,0.13253012048192772
-g2,1,1,0.006024096385542169
-g2,2,13,0.0783132530120482
-g2,3,10,0.060240963855421686
-g2,4,132,0.7951807228915663
-g2,5,10,0.060240963855421686
-g3,2,2,0.012048192771084338
-g3,3,10,0.060240963855421686
-g3,4,129,0.7771084337349398
-g3,5,25,0.15060240963855423
-g4,2,4,0.024096385542168676
-g4,3,18,0.10843373493975904
-g4,4,124,0.7469879518072289
-g4,5,20,0.12048192771084337
-g5,1,1,0.006024096385542169
-g5,2,18,0.10843373493975904
-g5,3,15,0.09036144578313253
-g5,4,112,0.6746987951807228
-g5,5,20,0.12048192771084337
-r1,1,20,0.12048192771084337
-r1,2,129,0.7771084337349398
-r1,3,13,0.0783132530120482
-r1,4,4,0.024096385542168676
-r2,1,14,0.08433734939759036
-r2,2,124,0.7469879518072289
-r2,3,18,0.10843373493975904
-r2,4,9,0.05421686746987952
-r2,5,1,0.006024096385542169
-r3,1,35,0.21084337349397592
-r3,2,112,0.6746987951807228
-r3,3,10,0.060240963855421686
-r3,4,9,0.05421686746987952
-r4,1,31,0.18674698795180722
-r4,2,102,0.6144578313253012
-r4,3,22,0.13253012048192772
-r4,4,10,0.060240963855421686
-r4,5,1,0.006024096385542169
-r5,1,60,0.3614457831325301
-r5,2,102,0.6144578313253012
-r5,3,3,0.018072289156626505
-r5,4,1,0.006024096385542169
-s1,1,1,0.006024096385542169
-s1,2,23,0.13855421686746988
-s1,3,109,0.6566265060240963
-s1,4,30,0.18072289156626506
-s1,5,3,0.018072289156626505
-s2,2,18,0.10843373493975904
-s2,3,118,0.7108433734939759
-s2,4,26,0.1566265060240964
-s2,5,4,0.024096385542168676
+Klinická vierohodnosť rozhovoru,1,1,0.005025125628140704
+Klinická vierohodnosť rozhovoru,2,3,0.01507537688442211
+Klinická vierohodnosť rozhovoru,3,14,0.07035175879396985
+Klinická vierohodnosť rozhovoru,4,143,0.7185929648241206
+Klinická vierohodnosť rozhovoru,5,38,0.19095477386934673
+Prirodzenosť jazyka a štýlu odpovedí,1,1,0.005025125628140704
+Prirodzenosť jazyka a štýlu odpovedí,2,13,0.06532663316582915
+Prirodzenosť jazyka a štýlu odpovedí,3,10,0.05025125628140704
+Prirodzenosť jazyka a štýlu odpovedí,4,152,0.7638190954773869
+Prirodzenosť jazyka a štýlu odpovedí,5,23,0.11557788944723618
+Vnútorná konzistentnosť rozhovoru,2,2,0.010050251256281407
+Vnútorná konzistentnosť rozhovoru,3,10,0.05025125628140704
+Vnútorná konzistentnosť rozhovoru,4,133,0.6683417085427136
+Vnútorná konzistentnosť rozhovoru,5,54,0.271356783919598
+Súlad rozhovoru s obrazom depresívnej symptomatiky,2,4,0.020100502512562814
+Súlad rozhovoru s obrazom depresívnej symptomatiky,3,18,0.09045226130653267
+Súlad rozhovoru s obrazom depresívnej symptomatiky,4,157,0.7889447236180904
+Súlad rozhovoru s obrazom depresívnej symptomatiky,5,20,0.10050251256281408
+Použiteľnosť rozhovoru na tréningové / výučbové účely,1,1,0.005025125628140704
+Použiteľnosť rozhovoru na tréningové / výučbové účely,2,18,0.09045226130653267
+Použiteľnosť rozhovoru na tréningové / výučbové účely,3,15,0.07537688442211055
+Použiteľnosť rozhovoru na tréningové / výučbové účely,4,121,0.6080402010050251
+Použiteľnosť rozhovoru na tréningové / výučbové účely,5,44,0.22110552763819097
+Prítomnosť vnútorných kontradikcií v rozhovore,1,31,0.15577889447236182
+Prítomnosť vnútorných kontradikcií v rozhovore,2,151,0.7587939698492462
+Prítomnosť vnútorných kontradikcií v rozhovore,3,13,0.06532663316582915
+Prítomnosť vnútorných kontradikcií v rozhovore,4,4,0.020100502512562814
+Klišé alebo šablónovité odpovede,1,31,0.15577889447236182
+Klišé alebo šablónovité odpovede,2,140,0.7035175879396985
+Klišé alebo šablónovité odpovede,3,18,0.09045226130653267
+Klišé alebo šablónovité odpovede,4,9,0.04522613065326633
+Klišé alebo šablónovité odpovede,5,1,0.005025125628140704
+Nesúlad medzi kontextom a symptomatikou,1,60,0.3015075376884422
+Nesúlad medzi kontextom a symptomatikou,2,120,0.6030150753768844
+Nesúlad medzi kontextom a symptomatikou,3,10,0.05025125628140704
+Nesúlad medzi kontextom a symptomatikou,4,9,0.04522613065326633
+Podozrenie na inú primárnu psychopatológiu,1,31,0.15577889447236182
+Podozrenie na inú primárnu psychopatológiu,2,135,0.678391959798995
+Podozrenie na inú primárnu psychopatológiu,3,22,0.11055276381909548
+Podozrenie na inú primárnu psychopatológiu,4,10,0.05025125628140704
+Podozrenie na inú primárnu psychopatológiu,5,1,0.005025125628140704
+Neprimeraná dramatizácia alebo neprirodzená expresivita,1,93,0.46733668341708545
+Neprimeraná dramatizácia alebo neprirodzená expresivita,2,102,0.5125628140703518
+Neprimeraná dramatizácia alebo neprirodzená expresivita,3,3,0.01507537688442211
+Neprimeraná dramatizácia alebo neprirodzená expresivita,4,1,0.005025125628140704
+Ľudský odhad celkovej závažnosti depresívnej symptomatiky,1,1,0.005025125628140704
+Ľudský odhad celkovej závažnosti depresívnej symptomatiky,2,48,0.24120603015075376
+Ľudský odhad celkovej závažnosti depresívnej symptomatiky,3,117,0.5879396984924623
+Ľudský odhad celkovej závažnosti depresívnej symptomatiky,4,30,0.1507537688442211
+Ľudský odhad celkovej závažnosti depresívnej symptomatiky,5,3,0.01507537688442211
+Ľudský odhad funkčného dopadu na bežné fungovanie,2,43,0.21608040201005024
+Ľudský odhad funkčného dopadu na bežné fungovanie,3,126,0.6331658291457286
+Ľudský odhad funkčného dopadu na bežné fungovanie,4,26,0.1306532663316583
+Ľudský odhad funkčného dopadu na bežné fungovanie,5,4,0.020100502512562814

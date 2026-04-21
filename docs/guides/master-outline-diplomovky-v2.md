@@ -250,6 +250,18 @@ Len ak sú vopred zdôvodnené:
 - nezahltiť text číslami, ale zachovať interpretačnú logiku,
 - zachovať poradie: opis dát → kvalita merania → hlavné hypotézy → sekundárne analýzy → explorácie.
 
+#### Formálna úprava tabuliek a grafov podľa sprievodcu
+
+- číslo a názov patria nad objekt a majú byť zarovnané na ľavú stranu,
+- číslo tabuľky alebo grafu má byť tučné,
+- názov má byť kurzívou na samostatnom riadku pod číslom,
+- každá tabuľka a každý graf musia byť explicitne spomenuté v texte,
+- tabuľka alebo graf majú byť čitateľné aj bez dlhého dovysvetľovania v hlavnom texte,
+- všetky názvy stĺpcov, osí, legiend a položiek majú byť v jazyku práce, nie ako surový export zo štatistického programu,
+- neštandardné skratky a označenia treba vysvetliť v poznámke pod objektom; bežné štatistické skratky ako `M`, `SD`, `F`, `t`, `df`, `p`, `N` alebo `r` znovu nevysvetľovať,
+- pri tabuľkách preferovať horizontálne oddeľovače a bezdôvodne nepoužívať zvislé čiary,
+- pri grafoch držať čitateľné písmo a nepoužiť graf len preto, že ho vie exportovať software.
+
 #### Čomu sa vyhnúť
 
 - novým analýzam, ktoré nie sú naviazané na cieľ alebo hypotézy,

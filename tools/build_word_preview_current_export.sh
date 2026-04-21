@@ -84,6 +84,7 @@ PY
   --metadata=lang:sk-SK \
   --metadata=link-citations:true \
   --lua-filter="$REPO_ROOT/tools/drop_drafting_notes.lua" \
+  --lua-filter="$REPO_ROOT/tools/normalize_emphasis_for_word.lua" \
   --output="$OUTPUT_DOCX"
 
 python3 "$TABLE_STYLE_POSTPROCESSOR" "$OUTPUT_DOCX"

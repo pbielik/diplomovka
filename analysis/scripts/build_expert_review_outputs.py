@@ -39,6 +39,36 @@ HTML_ITEMS_PATH = STYLED_PREVIEW_DIR / "table_s4_expert_review_items.html"
 HTML_SEEDS_PATH = STYLED_PREVIEW_DIR / "table_s5_expert_review_seeds.html"
 HTML_PREVIEW_PATH = STYLED_PREVIEW_DIR / "expert_review_preview.html"
 
+ITEM_LABELS_SHORT = {
+    "G1": "Klinická vierohodnosť",
+    "G2": "Prirodzenosť jazyka",
+    "G3": "Vnútorná konzistentnosť",
+    "G4": "Zhoda s depresiou",
+    "G5": "Tréningová použiteľnosť",
+    "S1": "Odhad závažnosti",
+    "S2": "Odhad funkčného dopadu",
+    "R1": "Vnútorné kontradikcie",
+    "R2": "Klišé a šablónovitosť",
+    "R3": "Kontextový nesúlad",
+    "R4": "Iná psychopatológia",
+    "R5": "Neprimeraná dramatizácia",
+}
+
+SEED_TITLES_SHORT = {
+    1: "Pracovno-študijné preťaženie",
+    2: "Smenná práca a záťaž",
+    3: "Záťaž pri starostlivosti",
+    4: "Vysoká pracovná záťaž",
+    5: "Rozvod a finančný tlak",
+    6: "Dlhodobá pracovná záťaž",
+    7: "Vdovstvo a strata rytmu",
+    8: "Strata dennej rutiny",
+    9: "Výkonový tlak a ruminácie",
+    10: "Stagnácia s pasívnym A9",
+    11: "Nízky príjem a stiahnutie",
+    12: "Vysoká zodpovednosť a utlmenie",
+}
+
 PROFESSION_MAP = {
     "1": "psychológ / psychologička",
     "2": "psychiater / psychiatrička",
@@ -203,77 +233,173 @@ def color_for_score(score: float, low: float = 1.0, high: float = 4.0) -> tuple[
     return lerp_color(start, end, ratio)
 
 
-def draw_heatmap(
+def panel_dimensions(
     *,
+    data: pd.DataFrame,
+    value_cols: list[str],
+    cell_width: int,
+    cell_height: int,
+    label_width: int,
+    header_height: int,
+    panel_title_height: int,
+    panel_subtitle_height: int,
+    panel_bottom_padding: int,
+) -> tuple[int, int]:
+    width = label_width + len(value_cols) * cell_width
+    height = panel_title_height + panel_subtitle_height + header_height + len(data) * cell_height + panel_bottom_padding
+    return width, height
+
+
+def draw_heatmap_panel(
+    *,
+    draw: ImageDraw.ImageDraw,
     data: pd.DataFrame,
     row_label_col: str,
     value_cols: list[str],
     display_cols: list[str],
-    title: str,
-    subtitle: str,
-    output_path: Path,
-) -> None:
-    title_font = load_font(28)
-    subtitle_font = load_font(18)
-    header_font = load_font(17)
-    label_font = load_font(17)
-    cell_font = load_font(16)
-    note_font = load_font(15)
+    panel_title: str,
+    x: int,
+    y: int,
+    label_header: str,
+    header_font: ImageFont.ImageFont,
+    label_font: ImageFont.ImageFont,
+    cell_font: ImageFont.ImageFont,
+    panel_title_font: ImageFont.ImageFont,
+    panel_subtitle_font: ImageFont.ImageFont,
+    cell_width: int,
+    cell_height: int,
+    label_width: int,
+    header_height: int,
+) -> int:
+    panel_title_height = 24
+    panel_subtitle_height = 14
+    panel_bottom_padding = 16
 
-    cell_width = 130
-    cell_height = 42
-    label_width = 420
-    top_margin = 120
-    left_margin = 28
-    right_margin = 24
-    bottom_margin = 80
+    draw.text((x, y), panel_title, fill=(32, 37, 41), font=panel_title_font)
+    draw.text((x, y + 24), "Priemerné skóre na škále 1 až 4.", fill=(86, 92, 100), font=panel_subtitle_font)
 
-    image_width = left_margin + label_width + len(value_cols) * cell_width + right_margin
-    image_height = top_margin + (len(data) + 1) * cell_height + bottom_margin
-    image = Image.new("RGB", (image_width, image_height), color=(252, 249, 244))
-    draw = ImageDraw.Draw(image)
-
-    draw.text((left_margin, 20), title, fill=(32, 37, 41), font=title_font)
-    draw.text((left_margin, 58), subtitle, fill=(86, 92, 100), font=subtitle_font)
-
-    header_y = top_margin
+    header_y = y + panel_title_height + panel_subtitle_height + 10
     draw.rectangle(
-        [left_margin, header_y, left_margin + label_width + len(value_cols) * cell_width, header_y + cell_height],
+        [x, header_y, x + label_width + len(value_cols) * cell_width, header_y + header_height],
         fill=(236, 232, 225),
         outline=(185, 179, 168),
     )
-    draw.text((left_margin + 12, header_y + 11), "Položka", fill=(32, 37, 41), font=header_font)
+    draw.text((x + 12, header_y + 10), label_header, fill=(32, 37, 41), font=header_font)
+
     for idx, header in enumerate(display_cols):
-        x0 = left_margin + label_width + idx * cell_width
-        draw.rectangle([x0, header_y, x0 + cell_width, header_y + cell_height], outline=(185, 179, 168))
-        header_lines = wrap_text(draw, header, header_font, cell_width - 16)
+        x0 = x + label_width + idx * cell_width
+        draw.rectangle([x0, header_y, x0 + cell_width, header_y + header_height], outline=(185, 179, 168))
+        header_lines = wrap_text(draw, header, header_font, cell_width - 14)
         for line_idx, line in enumerate(header_lines[:2]):
-            draw.text((x0 + 10, header_y + 6 + line_idx * 16), line, fill=(32, 37, 41), font=header_font)
+            draw.text((x0 + 8, header_y + 8 + line_idx * 15), line, fill=(32, 37, 41), font=header_font)
 
     for row_idx, (_, row) in enumerate(data.iterrows(), start=1):
-        y0 = top_margin + row_idx * cell_height
+        y0 = header_y + header_height + (row_idx - 1) * cell_height
         y1 = y0 + cell_height
         draw.rectangle(
-            [left_margin, y0, left_margin + label_width, y1],
+            [x, y0, x + label_width, y1],
             fill=(248, 245, 239) if row_idx % 2 else (244, 240, 233),
             outline=(220, 214, 205),
         )
         label_lines = wrap_text(draw, str(row[row_label_col]), label_font, label_width - 16)
         for line_idx, line in enumerate(label_lines[:2]):
-            draw.text((left_margin + 12, y0 + 8 + line_idx * 15), line, fill=(42, 46, 52), font=label_font)
+            draw.text((x + 12, y0 + 7 + line_idx * 15), line, fill=(42, 46, 52), font=label_font)
         for col_idx, value_col in enumerate(value_cols):
-            x0 = left_margin + label_width + col_idx * cell_width
+            x0 = x + label_width + col_idx * cell_width
             score = float(row[value_col])
             fill = color_for_score(score)
             draw.rectangle([x0, y0, x0 + cell_width, y1], fill=fill, outline=(220, 214, 205))
             text_fill = (248, 248, 248) if score >= 3.2 else (31, 37, 41)
             text = f"{score:.2f}"
             text_width = draw.textlength(text, font=cell_font)
-            draw.text((x0 + (cell_width - text_width) / 2, y0 + 12), text, fill=text_fill, font=cell_font)
+            draw.text((x0 + (cell_width - text_width) / 2, y0 + 11), text, fill=text_fill, font=cell_font)
 
-    legend_y = image_height - 48
-    draw.text((left_margin, legend_y), "Škála: 1 = slabé hodnotenie, 4 = silná podpora.", fill=(86, 92, 100), font=note_font)
+    return header_y + header_height + len(data) * cell_height + panel_bottom_padding
 
+
+def draw_multi_panel_heatmap(
+    *,
+    panels: list[dict[str, object]],
+    title: str,
+    subtitle: str,
+    output_path: Path,
+    label_header: str,
+) -> None:
+    title_font = load_font(28)
+    subtitle_font = load_font(18)
+    panel_title_font = load_font(20)
+    panel_subtitle_font = load_font(14)
+    header_font = load_font(16)
+    label_font = load_font(16)
+    cell_font = load_font(16)
+    note_font = load_font(15)
+
+    cell_width = 128
+    cell_height = 42
+    label_width = 360
+    header_height = 48
+    panel_title_height = 24
+    panel_subtitle_height = 14
+    panel_bottom_padding = 16
+    top_margin = 110
+    left_margin = 28
+    right_margin = 24
+    bottom_margin = 68
+    panel_gap = 30
+
+    max_panel_width = 0
+    total_panel_height = 0
+    for panel in panels:
+        panel_data = panel["data"]
+        panel_value_cols = panel["value_cols"]
+        panel_width, panel_height = panel_dimensions(
+            data=panel_data,
+            value_cols=panel_value_cols,
+            cell_width=cell_width,
+            cell_height=cell_height,
+            label_width=label_width,
+            header_height=header_height,
+            panel_title_height=panel_title_height,
+            panel_subtitle_height=panel_subtitle_height,
+            panel_bottom_padding=panel_bottom_padding,
+        )
+        max_panel_width = max(max_panel_width, panel_width)
+        total_panel_height += panel_height
+    total_panel_height += panel_gap * (len(panels) - 1)
+
+    image_width = left_margin + max_panel_width + right_margin
+    image_height = top_margin + total_panel_height + bottom_margin
+    image = Image.new("RGB", (image_width, image_height), color=(252, 249, 244))
+    draw = ImageDraw.Draw(image)
+
+    draw.text((left_margin, 20), title, fill=(32, 37, 41), font=title_font)
+    draw.text((left_margin, 58), subtitle, fill=(86, 92, 100), font=subtitle_font)
+
+    current_y = top_margin
+    for panel in panels:
+        current_y = draw_heatmap_panel(
+            draw=draw,
+            data=panel["data"],
+            row_label_col=panel["row_label_col"],
+            value_cols=panel["value_cols"],
+            display_cols=panel["display_cols"],
+            panel_title=panel["panel_title"],
+            x=left_margin,
+            y=current_y,
+            label_header=label_header,
+            header_font=header_font,
+            label_font=label_font,
+            cell_font=cell_font,
+            panel_title_font=panel_title_font,
+            panel_subtitle_font=panel_subtitle_font,
+            cell_width=cell_width,
+            cell_height=cell_height,
+            label_width=label_width,
+            header_height=header_height,
+        ) + panel_gap
+
+    legend_y = image_height - 44
+    draw.text((left_margin, legend_y), "Škála: 1 = slabšia podpora, 4 = silnejšia podpora.", fill=(86, 92, 100), font=note_font)
     image.save(output_path)
 
 
@@ -632,7 +758,7 @@ def prepare_table_s5(seed_summary: pd.DataFrame) -> pd.DataFrame:
         {
             "Celkový priemer M": 2,
             "Dostatok informácií M": 2,
-            "Nes stereotypnosť M": 2,
+            "Nestereotypnosť M": 2,
             "Vhodnosť pre výskum M": 2,
         }
     )
@@ -708,11 +834,11 @@ def write_combined_preview(table_s4: pd.DataFrame, table_s5: pd.DataFrame) -> No
       Detailné CSV ostávajú v <code>tables/</code> a obrázky v <code>figures/</code>.
     </p>
 
-    <h2>Tabuľka S4: Položky ratingového nástroja</h2>
+    <h2>Položky ratingového nástroja</h2>
     {table_s4.to_html(index=False, border=0)}
     <img src="../../figures/{FIGURE_ITEMS_PATH.name}" alt="Heatmap expert review položiek">
 
-    <h2>Tabuľka S5: Seed scenáre</h2>
+    <h2>Východiskové scenáre</h2>
     {table_s5.to_html(index=False, border=0)}
     <img src="../../figures/{FIGURE_SEEDS_PATH.name}" alt="Heatmap expert review seedov">
   </div>
@@ -750,59 +876,99 @@ def main() -> None:
     table_s4.to_csv(TABLE_ITEMS_PATH, index=False)
     table_s5.to_csv(TABLE_SEEDS_PATH, index=False)
 
-    draw_heatmap(
-        data=item_summary.assign(
-            label=lambda df: df["item_code"] + " — " + df["item_label"]
-        ),
-        row_label_col="label",
-        value_cols=[
-            "relevance_mean_1_4",
-            "clarity_mean_1_4",
-            "need_mean_1_4",
-            "overall_mean_1_4",
-        ],
-        display_cols=["Relevantnosť", "Zrozumiteľnosť", "Potrebnosť", "Celkový priemer"],
-        title="Obrázok S3. Predbežná expertná kontrola položiek ratingového nástroja",
-        subtitle="Priemerné skóre na škále 1-4; položky sú zoradené od najnižšieho celkového priemeru.",
-        output_path=FIGURE_ITEMS_PATH,
+    item_summary_core = (
+        item_summary.loc[item_summary["item_code"].str.startswith(("G", "S"))]
+        .assign(label=lambda df: df["item_code"] + " — " + df["item_code"].map(ITEM_LABELS_SHORT))
+        .sort_values(["item_code"])
+        .reset_index(drop=True)
     )
-    draw_heatmap(
-        data=seed_summary.assign(label=lambda df: "S" + df["seed_id"].map(lambda x: f"{int(x):02d}") + " — " + df["seed_title"]),
-        row_label_col="label",
-        value_cols=[
-            "ambulatory_profile_mean_1_4",
-            "context_realism_mean_1_4",
-            "symptom_plausibility_mean_1_4",
-            "clarity_mean_1_4",
-            "information_sufficiency_mean_1_4",
-            "anti_stereotypy_mean_1_4",
-            "research_usefulness_mean_1_4",
-            "overall_mean_1_4",
+    item_summary_warning = (
+        item_summary.loc[item_summary["item_code"].str.startswith("R")]
+        .assign(label=lambda df: df["item_code"] + " — " + df["item_code"].map(ITEM_LABELS_SHORT))
+        .sort_values(["item_code"])
+        .reset_index(drop=True)
+    )
+    draw_multi_panel_heatmap(
+        panels=[
+            {
+                "data": item_summary_core,
+                "row_label_col": "label",
+                "value_cols": [
+                    "relevance_mean_1_4",
+                    "clarity_mean_1_4",
+                    "need_mean_1_4",
+                    "overall_mean_1_4",
+                ],
+                "display_cols": ["Relevantnosť", "Zrozumiteľnosť", "Potrebnosť", "Celkovo"],
+                "panel_title": "Panel A. Globálne položky a odhady",
+            },
+            {
+                "data": item_summary_warning,
+                "row_label_col": "label",
+                "value_cols": [
+                    "relevance_mean_1_4",
+                    "clarity_mean_1_4",
+                    "need_mean_1_4",
+                    "overall_mean_1_4",
+                ],
+                "display_cols": ["Relevantnosť", "Zrozumiteľnosť", "Potrebnosť", "Celkovo"],
+                "panel_title": "Panel B. Defektové položky",
+            },
         ],
-        display_cols=[
-            "Ambulantný profil",
-            "Kontext",
-            "Symptómy",
-            "Jasnosť",
-            "Dostatok informácií",
-            "Nestereotypnosť",
-            "Vhodnosť pre výskum",
-            "Celkový priemer",
+        title="Predbežná expertná kontrola položiek hodnotiaceho nástroja",
+        subtitle="Heatmapa používa skrátené slovenské labely a dva panely, aby zostala čitateľná aj vo Word exporte.",
+        output_path=FIGURE_ITEMS_PATH,
+        label_header="Položka",
+    )
+
+    seed_summary_short = seed_summary.assign(
+        label=lambda df: "S"
+        + df["seed_id"].map(lambda x: f"{int(x):02d}")
+        + " — "
+        + df["seed_id"].map(lambda value: SEED_TITLES_SHORT[int(value)])
+    )
+    draw_multi_panel_heatmap(
+        panels=[
+            {
+                "data": seed_summary_short,
+                "row_label_col": "label",
+                "value_cols": [
+                    "ambulatory_profile_mean_1_4",
+                    "context_realism_mean_1_4",
+                    "symptom_plausibility_mean_1_4",
+                    "clarity_mean_1_4",
+                ],
+                "display_cols": ["Amb. profil", "Kontext", "Symptómy", "Jasnosť"],
+                "panel_title": "Panel A. Klinická vierohodnosť scenára",
+            },
+            {
+                "data": seed_summary_short,
+                "row_label_col": "label",
+                "value_cols": [
+                    "information_sufficiency_mean_1_4",
+                    "anti_stereotypy_mean_1_4",
+                    "research_usefulness_mean_1_4",
+                    "overall_mean_1_4",
+                ],
+                "display_cols": ["Info. dostatok", "Nestereotyp.", "Pre výskum", "Celkovo"],
+                "panel_title": "Panel B. Výskumná použiteľnosť scenára",
+            },
         ],
-        title="Obrázok S4. Predbežná expertná kontrola seed scenárov",
-        subtitle="Priemerné skóre na škále 1-4; scenáre sú zoradené od najnižšieho celkového priemeru.",
+        title="Predbežná expertná kontrola východiskových scenárov",
+        subtitle="Heatmapa je rozdelená do dvoch panelov, aby zostali dlhšie názvy scenárov a kritérií čitateľné.",
         output_path=FIGURE_SEEDS_PATH,
+        label_header="Scenár",
     )
 
     write_html_table(
         table_s4,
-        "Tabuľka S4. Predbežná expertná kontrola položiek ratingového nástroja",
+        "Predbežná expertná kontrola položiek ratingového nástroja",
         "Hodnotenia vychádzajú zo šiestich expertov. Stĺpec podpory udáva podiel ratingov 3-4 v percentách.",
         HTML_ITEMS_PATH,
     )
     write_html_table(
         table_s5,
-        "Tabuľka S5. Predbežná expertná kontrola seed scenárov",
+        "Predbežná expertná kontrola východiskových scenárov",
         "Hodnotenia vychádzajú zo šiestich expertov. Pri severity je uvedená cieľová a modálna expertne vnímaná závažnosť.",
         HTML_SEEDS_PATH,
     )

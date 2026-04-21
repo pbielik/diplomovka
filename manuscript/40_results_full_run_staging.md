@@ -69,7 +69,8 @@ Function:
 Source files:
 - `tables/table_2_descriptives.csv`
 - `tables/table_3_item_frequencies.csv`
-- `figures/figure_1_primary_outcomes_by_condition.png`
+- `figures/figure_1a_plausibility_index_by_condition.png`
+- `figures/figure_1b_defect_index_by_condition.png`
 
 Draft skeleton:
 
@@ -114,7 +115,8 @@ Function:
 Source files:
 - `analysis/outputs/analysis_long.csv`
 - `analysis/outputs/transcript_level_summary.csv`
-- `figures/figure_1_primary_outcomes_by_condition.png`
+- `figures/figure_1a_plausibility_index_by_condition.png`
+- `figures/figure_1b_defect_index_by_condition.png`
 - `tables/styled_preview/results_preview.html`
 
 Draft skeleton:
@@ -130,7 +132,9 @@ Function:
 
 Source files:
 - `tables/table_6_mixed_models_core.csv`
+- `tables/table_s6_lmm_sensitivity_transcript_id.csv`
 - `analysis/outputs/lmm_core_models.csv`
+- `analysis/outputs/lmm_sensitivity_transcript_id_models.csv`
 - `analysis/outputs/clmm_item_models.csv`
 - `analysis/outputs/emmeans_core_models.csv`
 - `docs/vo_h_model_results_map.md`
@@ -164,6 +168,8 @@ Na urovni jadrovych outcome-ov sa neobjavil silny interakcny efekt podporujuci h
 Ak sa objavi jediny vyraznejsi signal v ordinalnych alebo secondary modeloch, pouzi vetu:
 
 Najvyraznejsi interakcny signal sa objavil pri `[[INTERACTION_OUTCOME]]`, kde `[[INTERACTION_PATTERN_SUMMARY]]`. Tento vysledok preto zostava doplnkovym alebo exploratornym zistenim, nie nosnym nalezom prace.
+
+Pre rating-level kompozity bol zaroven odhadnuty aj doplnkovy sensitivity model s random interceptom pre konkretny transkript. Tento robustness check priniesol pri indexe klinickej vierohodnosti aj pri indexe defektov prakticky rovnaky obraz ako hlavny model: smer efektov sa nemenil a vecna interpretacia ostala zhodna. Kedze ide len o doplnkovu kontrolnu vetvu a v aktualnom rune sa pri nej objavila aj singularita, je reportovana iba v Tabulke 9, nie ako jadro hlavnej inferencnej tabulky.
 
 ## 3.7 Transcript-level ukazovatele odchylky voci referencnym hodnotam seed scenarov
 

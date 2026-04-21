@@ -4,4 +4,4 @@ rater_id,profession,specialization,years_practice,experience_with_mdd,notes
 13,psychologist,psychotherapy,3_5,daily,interview_experience=minimal; ai_experience=low; confidence_mdd=3; n_ratings=72
 14,psychologist,psychotherapy,6_10,weekly,interview_experience=regular; ai_experience=medium; confidence_mdd=4; n_ratings=72
 15,psychologist,psychotherapy,0_2,weekly,interview_experience=minimal; ai_experience=none; confidence_mdd=4; n_ratings=1
-16,psychologist,clinical_psychology,11_15,daily,interview_experience=occasional; ai_experience=low; confidence_mdd=5; n_ratings=12
+16,psychologist,clinical_psychology,11_15,daily,interview_experience=occasional; ai_experience=low; confidence_mdd=5; n_ratings=45

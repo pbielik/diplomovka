@@ -219,12 +219,25 @@ def run_properties(*, bold: bool = False, italic: bool = False, size: int | None
     return "".join(rpr)
 
 
-def make_paragraph(text: str, *, bold: bool = False, italic: bool = False, align: str = "left", after: int = 120, size: int | None = None) -> str:
+def make_paragraph(
+    text: str,
+    *,
+    bold: bool = False,
+    italic: bool = False,
+    align: str = "left",
+    after: int = 120,
+    size: int | None = None,
+    left_indent: int = 0,
+    right_indent: int = 0,
+) -> str:
     jc = {"left": "left", "center": "center", "right": "right"}[align]
+    indent_xml = ""
+    if left_indent or right_indent:
+        indent_xml = f'<w:ind w:left="{left_indent}" w:right="{right_indent}"/>'
 
     return (
         '<w:p>'
-        f'<w:pPr><w:jc w:val="{jc}"/><w:spacing w:after="{after}" w:line="276" w:lineRule="auto"/></w:pPr>'
+        f'<w:pPr><w:jc w:val="{jc}"/>{indent_xml}<w:spacing w:after="{after}" w:line="276" w:lineRule="auto"/></w:pPr>'
         '<w:r>'
         f'<w:rPr>{run_properties(bold=bold, italic=italic, size=size)}</w:rPr>'
         f'<w:t xml:space="preserve">{xml_text(text)}</w:t>'
@@ -233,19 +246,29 @@ def make_paragraph(text: str, *, bold: bool = False, italic: bool = False, align
     )
 
 
-def make_caption_paragraph(label: str, title: str) -> str:
+def caption_inset(table_width: int) -> int:
+    return max(0, int((TEXT_WIDTH_DXA - min(table_width, TEXT_WIDTH_DXA)) / 2))
+
+
+def make_caption_block(label: str, title: str, *, object_width: int) -> str:
+    inset = caption_inset(object_width)
     return (
-        '<w:p>'
-        f'<w:pPr><w:jc w:val="left"/><w:spacing w:after="{STYLE.title_after}" w:line="240" w:lineRule="auto"/></w:pPr>'
-        '<w:r>'
-        f'<w:rPr>{run_properties(bold=True, size=STYLE.caption_font_hp)}</w:rPr>'
-        f'<w:t xml:space="preserve">{xml_text(label)}. </w:t>'
-        '</w:r>'
-        '<w:r>'
-        f'<w:rPr>{run_properties(italic=True, size=STYLE.caption_font_hp)}</w:rPr>'
-        f'<w:t xml:space="preserve">{xml_text(title)}.</w:t>'
-        '</w:r>'
-        '</w:p>'
+        make_paragraph(
+            label,
+            bold=True,
+            after=STYLE.caption_after,
+            size=STYLE.caption_font_hp,
+            left_indent=inset,
+            right_indent=inset,
+        )
+        + make_paragraph(
+            title,
+            italic=True,
+            after=STYLE.title_after,
+            size=STYLE.caption_font_hp,
+            left_indent=inset,
+            right_indent=inset,
+        )
     )
 
 
@@ -383,7 +406,7 @@ def build_document_xml() -> str:
             "table_id": "table_1",
         },
         {
-            "label": "Tabuľka 4",
+            "label": "Tabuľka 2",
             "title": "Vnútorná konzistencia ratingových blokov",
             "rows": read_csv(TABLES_DIR / "table_4_internal_consistency.csv"),
             "width": 8600,
@@ -392,7 +415,7 @@ def build_document_xml() -> str:
             "note": "α = Cronbachovo α; ω = McDonaldovo ω. Koeficienty v tomto preview vychádzajú z veľmi malej pilotnej vzorky, preto ich treba čítať len orientačne.",
         },
         {
-            "label": "Tabuľka 5",
+            "label": "Tabuľka 3",
             "title": "Interrater reliabilita hlavných outcome-ov",
             "rows": read_csv(TABLES_DIR / "table_5_icc.csv"),
             "width": 8600,
@@ -401,7 +424,7 @@ def build_document_xml() -> str:
             "note": "ICC = intratriedna korelácia; CI = interval spoľahlivosti. Odhady sú v tomto preview preskočené, pretože pilotné dáta zatiaľ neobsahujú aspoň dvoch hodnotiteľov pre aspoň dva transkripty.",
         },
         {
-            "label": "Tabuľka 6",
+            "label": "Tabuľka 4",
             "title": "Súhrn jadrových zmiešaných modelov",
             "rows": preview_table_6(TABLES_DIR / "table_6_mixed_models_core.csv"),
             "width": 8400,
@@ -410,7 +433,7 @@ def build_document_xml() -> str:
             "note": "LMM = lineárny zmiešaný model; CLMM = kumulatívny link mixed model; CI = interval spoľahlivosti. Modely sú v tomto preview preskočené pre nedostatočný počet riadkov alebo úrovní faktorov.",
         },
         {
-            "label": "Tabuľka S4",
+            "label": "Tabuľka 5",
             "title": "Predbežná expertná kontrola položiek ratingového nástroja",
             "rows": read_csv(TABLES_DIR / "table_s4_expert_review_items.csv"),
             "width": 9000,
@@ -419,7 +442,7 @@ def build_document_xml() -> str:
             "note": "Vyššie skóre znamená priaznivejšie expertné posúdenie položky. Follow-up označuje položky, pri ktorých experti častejšie odporúčali ďalšie dolaďovanie formulácie.",
         },
         {
-            "label": "Tabuľka S5",
+            "label": "Tabuľka 6",
             "title": "Predbežná expertná kontrola seed scenárov",
             "rows": read_csv(TABLES_DIR / "table_s5_expert_review_seeds.csv"),
             "width": 9300,
@@ -432,13 +455,13 @@ def build_document_xml() -> str:
     body = [
         make_paragraph("Testovací preview výsledkových tabuliek", bold=True, align="center", after=180, size=32),
         make_paragraph(
-            f"Toto je nový natívny DOCX preview build so štýlovým presetom `{STYLE.name}`. Tabuľky sú užšie než textový blok, používajú Times New Roman, len horizontálne čiary a zjednotený caption/note systém.",
+            f"Toto je nový natívny DOCX preview build so štýlovým presetom `{STYLE.name}`. Tabuľky sú užšie než textový blok, používajú Times New Roman, len horizontálne čiary a caption systém podľa lokálneho sprievodcu.",
             after=220,
         ),
     ]
 
     for spec in specs:
-        body.append(make_caption_paragraph(spec["label"], spec["title"]))
+        body.append(make_caption_block(spec["label"], spec["title"], object_width=spec["width"]))
         body.append(
             make_table(
                 spec["rows"],

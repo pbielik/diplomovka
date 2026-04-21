@@ -1,6 +1,6 @@
 # Pipeline Outputs Plan
 
-> Posledna aktualizacia: 2026-04-14
+> Posledna aktualizacia: 2026-04-21
 > Ucel: presne zafixovat, ake vystupy ma generovat analyticka pipeline pre manuscript, Word workflow a doplnkovy appendix.
 
 ## 1. Rozdelenie vystupov
@@ -11,9 +11,17 @@ Pipeline ma produkovat tri vrstvy vystupov:
 2. `tables/` — manuscript-ready tabulky pre hlavny text a supplement.
 3. `figures/` — manuscript-ready grafy pre hlavny text a supplement.
 
+V `analysis/outputs/` sa pri klucovych CSV po novom drzia aj dva naming rezimy:
+
+- technicky autoritativny export, napr. `lmm_core_models.csv`
+- report-facing helper export s priponou `_report.csv`, napr. `lmm_core_models_report.csv`
+
+Technicky export ostava zdroj pravdy pre QC a helper skripty. `_report.csv` vrstva sluzi pre rychle citanie, prose drafting a manualnu pracu nad Results, a preto pouziva manuscript labels `G0/G1`, `P1/P2/P3` a plne nazvy outcome-ov.
+
 Popri CSV/PNG artefaktoch ma pipeline po novom generovat aj vizualny preview layer:
 
 - `tables/styled_preview/` — HTML preview tabuliek a hlavných obrázkov vo word-like štýle s captionom nad objektom, bez zvislých čiar a s horizontálnymi oddeľovačmi.
+- captiony v preview a Word workflowe maju sledovat lokalny sprievodca: cislo nad objektom tučne, nazov na dalsom riadku kurzivou a poznamka pod objektom.
 
 Exploracia otvorenych komentarov ostava manualna alebo polo-manualna; pipeline ma pre nu pripravit len pomocne summary, nie definitivne tematicke kodovanie.
 
@@ -69,12 +77,16 @@ Exploracia otvorenych komentarov ostava manualna alebo polo-manualna; pipeline m
 - `styled_preview/table_1.html` az `styled_preview/table_6.html`
   - individualne HTML preview hlavnych tabuliek v thesis-style layoute
 - `styled_preview/results_preview.html`
-  - spolocny preview dokument pre Tabulku 1-6 a Obrázok 1-2
+  - spolocny preview dokument pre Tabulku 1-6 a Obrázok 1-3
 
 ### 2.3 `figures/`
 
 - `figure_1_primary_outcomes_by_condition.png`
-  - boxploty alebo violin+box pre `plausibility_index` a `defect_index` podla `guardrail x profile`
+  - spolocny dvojpanelovy helper graf pre `plausibility_index` a `defect_index` podla `guardrail x profile`
+- `figure_1a_plausibility_index_by_condition.png`
+  - samostatny boxplot pre `plausibility_index` podla `guardrail x profile`
+- `figure_1b_defect_index_by_condition.png`
+  - samostatny boxplot pre `defect_index` podla `guardrail x profile`
 - `figure_2_emmeans_core_models.png`
   - estimated marginal means s 95 % CI pre `plausibility_index` a `defect_index`; podla potreby facet aj pre `symptom_error_mean`
 
@@ -147,6 +159,27 @@ Porovnavaju sa len riesenia s `k = 2` az `k = 4`. Do supplementu sa zaradi iba r
 - `figure_s2_pam_cluster_map.png`
   - 2D vizualizacia klastrov, napriklad cez PCA alebo MDS
 
+### 3.3 Sensitivity LMM s random interceptom pre `transcript_id`
+
+Ako robustness check pre rating-level kompozity je mozne doplnit aj sensitivity model, ktory k hlavnemu modelu prida samostatny random intercept pre `transcript_id`:
+
+- hlavny model: `outcome ~ guardrail * profile + (1 | seed_id) + (1 | rater_id)`
+- sensitivity model: `outcome ~ guardrail * profile + (1 | seed_id) + (1 | transcript_id) + (1 | rater_id)`
+
+Tato vetva nema nahradzat core model v hlavnom texte. Jej funkciou je overit, ci sa smer a hruby interpretacny zaver nemenia po explicitnom zohladneni variability medzi transkriptmi.
+
+#### `analysis/outputs/`
+
+- `lmm_sensitivity_transcript_id_models.csv`
+  - tidy summary sensitivity modelu pre rating-level `plausibility_index` a `defect_index`
+- `emmeans_sensitivity_transcript_id_models.csv`
+  - estimated marginal means pre ten isty sensitivity model
+
+#### `tables/`
+
+- `table_s6_lmm_sensitivity_transcript_id.csv`
+  - supplementarna tabulka sensitivity LMM s random interceptom pre `transcript_id`
+
 ## 4. Poznamky k modelom a poradiu reportovania
 
 - Jadro inferencie tvoria komparacie medzi podmienkami cez `LMM` a `CLMM`, nie korelacie a nie klastrovanie.
@@ -155,6 +188,7 @@ Porovnavaju sa len riesenia s `k = 2` az `k = 4`. Do supplementu sa zaradi iba r
 - Planovane kontrasty pre `profile` maju byt primarne `R3 vs R1`; `R2 vs R1` a `R3 vs R2` maju byt sekundarne.
 - Pri signifikantnej interakcii `guardrail x profile` sa maju reportovat simple effects, nie plosne vsetky parove porovnania.
 - Korelacna matica a `PAM` maju byt interpretovane len ako doplnkovy opis struktury dat, nie ako dokaz pre `H1-H9`.
+- Sensitivity LMM s `transcript_id` ma byt interpretovany ako robustness check pre rating-level kompozity, nie ako nahrada hlavneho modelu.
 - Ak `PAM` nebude dostatocne stabilny alebo interpretovatelny, vystupy sa mozu ponechat len v `analysis/outputs/` a do manuscriptu ich nezaradovat.
 
 ## 5. Minimalny set pre prve run-ready spracovanie
@@ -173,7 +207,9 @@ Ak je cielom prvy plnohodnotny beh pipeline, minimalny set hotovych vystupov je:
 10. `table_5_icc.csv`
 11. `table_6_mixed_models_core.csv`
 12. `figure_1_primary_outcomes_by_condition.png`
-13. `figure_2_emmeans_core_models.png`
-14. `tables/styled_preview/results_preview.html`
+13. `figure_1a_plausibility_index_by_condition.png`
+14. `figure_1b_defect_index_by_condition.png`
+15. `figure_2_emmeans_core_models.png`
+16. `tables/styled_preview/results_preview.html`
 
 Spearmanova matica a `PAM` mozu nasledovat az v druhom passe po stabilizacii jadra.

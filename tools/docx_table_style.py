@@ -44,8 +44,8 @@ FINAL_TABLE_STYLE = TableStylePreset(
     note_font_hp=18,          # 9 pt
     caption_after=70,
     title_after=80,
-    note_after=180,
-    table_after=210,
+    note_after=240,
+    table_after=240,
     cell_pad_left=90,
     cell_pad_right=90,
     cell_pad_top=35,
@@ -56,4 +56,3 @@ FINAL_TABLE_STYLE = TableStylePreset(
     border_thin_sz=4,
     default_table_width_pct=0.88,
 )
-

@@ -1,28 +1,28 @@
 variable,n_non_missing,levels_used,median,iqr,mean,sd,min,max,analysis_unit,section
-g1,166,5,4,0,3.9939759036144578,0.5877227541787712,1,5,rating,items
-g2,166,5,4,0,3.8253012048192767,0.6783837071896384,1,5,rating,items
-g3,166,4,4,0,4.066265060240964,0.5061505605285151,2,5,rating,items
-g4,166,4,4,0,3.963855421686747,0.5709276477544469,2,5,rating,items
-g5,166,5,4,0,3.795180722891567,0.8129115072727462,1,5,rating,items
-guess_confidence,25,4,3,1,2.88,0.8326663997864531,2,5,rating,items
-r1,166,4,2,0,2.0060240963855422,0.5449157616500293,1,4,rating,items
-r2,166,5,2,0,2.1506024096385543,0.6662192730263315,1,5,rating,items
-r3,166,4,2,0,1.9578313253012045,0.6993712296277013,1,4,rating,items
-r4,166,5,2,0,2.0843373493975905,0.7816814708494075,1,5,rating,items
-r5,166,4,2,1,1.6686746987951806,0.5437084135750829,1,4,rating,items
-s1,166,5,3,0,3.066265060240964,0.6432450135827616,1,5,rating,items
-s2,166,4,3,0,3.0963855421686746,0.5952225523449253,2,5,rating,items
-a1,72,2,2,1,2.3333333333333335,0.4747126632775413,2,3,transcript,items
-a2,72,2,2.5,1,2.5,0.5035088149780135,2,3,transcript,items
-a3,72,3,3,0,2.7222222222222223,0.6102925233085031,1,3,transcript,items
-a4,72,3,1,2,1.1527777777777777,0.8163767809738968,0,2,transcript,items
-a5,72,2,2,1,1.5972222222222223,0.49389861028929444,1,2,transcript,items
-a6,72,2,3,0,2.9027777777777777,0.2983391690356929,2,3,transcript,items
-a7,72,4,2,0.25,1.7777777777777777,0.5867605558673425,0,3,transcript,items
-a8,72,3,2,0,1.9305555555555556,0.45428752106973747,1,3,transcript,items
-a9,72,2,0,1,0.41666666666666663,0.4964663868173118,0,1,transcript,items
-defect_index,166,NA,2,0.40000000000000013,1.9734939759036145,0.4461510377084633,1,3.6,rating,composites
-plausibility_index,166,NA,4,0,4.008032128514056,0.46846954376951555,2.3333333333333335,5,rating,composites
-impact_error,72,NA,0.5,0.5,0.4016203703703704,0.36587793660335904,0,1,transcript,composites
-severity_error,72,NA,0.5,0.5,0.35300925925925924,0.3355247961059622,0,1,transcript,composites
-symptom_error_mean,72,NA,0.5555555555555556,0.3333333333333333,0.5308641975308642,0.19755259835220937,0.1111111111111111,0.8888888888888888,transcript,composites
+Klinická vierohodnosť rozhovoru,199,5,4,0,4.07537688442211,0.602475309581141,1,5,hodnotenie,Položky
+Prirodzenosť jazyka a štýlu odpovedí,199,5,4,0,3.9195979899497484,0.6842882014343089,1,5,hodnotenie,Položky
+Vnútorná konzistentnosť rozhovoru,199,4,4,1,4.201005025125628,0.5683566555019889,2,5,hodnotenie,Položky
+Súlad rozhovoru s obrazom depresívnej symptomatiky,199,4,4,0,3.969849246231156,0.5213574719155354,2,5,hodnotenie,Položky
+Použiteľnosť rozhovoru na tréningové / výučbové účely,199,5,4,0,3.949748743718592,0.8393645005802135,1,5,hodnotenie,Položky
+Istota odhadu pôvodu,58,4,2,1,2.5689655172413794,0.7036762853610689,2,5,hodnotenie,Položky
+Prítomnosť vnútorných kontradikcií v rozhovore,199,4,2,0,1.9497487437185925,0.5481718350972323,1,4,hodnotenie,Položky
+Klišé alebo šablónovité odpovede,199,5,2,0,2.0402010050251262,0.6878395101447409,1,5,hodnotenie,Položky
+Nesúlad medzi kontextom a symptomatikou,199,4,2,1,1.839195979899498,0.7136981202528461,1,4,hodnotenie,Položky
+Podozrenie na inú primárnu psychopatológiu,199,5,2,0,2.07035175879397,0.7142668607517089,1,5,hodnotenie,Položky
+Neprimeraná dramatizácia alebo neprirodzená expresivita,199,4,2,1,1.557788944723618,0.5554387979435731,1,4,hodnotenie,Položky
+Ľudský odhad celkovej závažnosti depresívnej symptomatiky,199,5,3,0,2.9296482412060296,0.6853999620397289,1,5,hodnotenie,Položky
+Ľudský odhad funkčného dopadu na bežné fungovanie,199,4,3,0,2.954773869346733,0.6536338394555594,2,5,hodnotenie,Položky
+PHQ-9 symptomatické metadata: depresívna nálada,72,2,2,1,2.3333333333333335,0.4747126632775413,2,3,prepis rozhovoru,Položky
+PHQ-9 symptomatické metadata: strata záujmu / anhedónia,72,2,2.5,1,2.5,0.5035088149780135,2,3,prepis rozhovoru,Položky
+PHQ-9 symptomatické metadata: poruchy spánku,72,3,3,0,2.7222222222222223,0.6102925233085031,1,3,prepis rozhovoru,Položky
+PHQ-9 symptomatické metadata: zmeny apetítu / hmotnosti,72,3,1,2,1.1527777777777777,0.8163767809738968,0,2,prepis rozhovoru,Položky
+PHQ-9 symptomatické metadata: psychomotorické spomalenie alebo nepokoj,72,2,2,1,1.5972222222222223,0.49389861028929444,1,2,prepis rozhovoru,Položky
+PHQ-9 symptomatické metadata: únava / nízka energia,72,2,3,0,2.9027777777777777,0.2983391690356929,2,3,prepis rozhovoru,Položky
+PHQ-9 symptomatické metadata: pocity viny / bezcennosti,72,4,2,0.25,1.7777777777777777,0.5867605558673425,0,3,prepis rozhovoru,Položky
+PHQ-9 symptomatické metadata: zhoršená koncentrácia / rozhodovanie,72,3,2,0,1.9305555555555556,0.45428752106973747,1,3,prepis rozhovoru,Položky
+PHQ-9 symptomatické metadata: pasívne myšlienky na smrť,72,2,0,1,0.41666666666666663,0.4964663868173118,0,1,prepis rozhovoru,Položky
+Kompozit defektov,199,NA,2,0.6000000000000001,1.8914572864321608,0.45424750399260166,1,3.6,hodnotenie,Kompozity
+Kompozit klinickej vierohodnosti,199,NA,4,0.33333333333333304,4.082077051926298,0.4683798959364242,2.3333333333333335,5,hodnotenie,Kompozity
+Absolútna chyba S2 voči seedu,72,NA,0.5,0.33333333333333326,0.4756944444444445,0.301092656751907,0,1,prepis rozhovoru,Kompozity
+Absolútna chyba S1 voči seedu,72,NA,0.33333333333333337,0.33333333333333326,0.431712962962963,0.2918179985973075,0,1,prepis rozhovoru,Kompozity
+Priemerná absolútna chyba v symptomatických doménach A1-A9 voči seedu,72,NA,0.5555555555555556,0.3333333333333333,0.5308641975308642,0.19755259835220937,0.1111111111111111,0.8888888888888888,prepis rozhovoru,Kompozity

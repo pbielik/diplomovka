@@ -34,11 +34,12 @@ Toto je odporúčaný **public-safe balík**, ktorý môže ísť priamo do Word
 | Príloha | Názov | Zdroj v repo | Prečo tam patrí | Poznámka k redakcii |
 | --- | --- | --- | --- | --- |
 | A | Finálny ratingový nástroj | `manuscript/30_method.md`, `analysis/codebook_rating_study.csv` | čitateľ uvidí plné znenie položiek a škál | bez screenshotov survey engine; len čisté znenie položiek, škály a inštrukcia pre ratera |
-| B | Operacionalizačná tabuľka premenných a kompozitov | `analysis/methods_variables_table.csv`, `analysis/codebook_rating_study.csv` | kompaktná opora medzi teóriou, premennými a analýzou | upraviť do jazyka práce; technické názvy ponechať len tam, kde sú potrebné |
+| B | Operacionalizačná tabuľka premenných a kompozitov + stručný preklad mixed modelov | `analysis/methods_variables_table.csv`, `analysis/codebook_rating_study.csv`, `analysis/derived_variables_table.csv`, `manuscript/30_method.md` | kompaktná opora medzi teóriou, premennými, analytickými úrovňami a čítaním hlavných modelov | upraviť do jazyka práce; technické názvy ponechať len tam, kde sú potrebné |
 | C | Public-safe schéma seedov a anchorovania | `manuscript/30_method.md`, `analysis/data_clean/seed_anchors_final.csv` | ukáže logiku seed anchoringu bez odovzdania celého know-how balíka | zaradiť len schému domén A1-A9, logiku anchorov a 1 ilustračný seed; nie celý 12-seed corpus |
 | D | Doplnkové tabuľky a grafy | `tables/table_s1_spearman_transcript_composites.csv`, `tables/table_s2_pam_cluster_profiles.csv`, `tables/table_s3_pam_cluster_by_condition.csv`, `figures/figure_s1_spearman_heatmap.png`, `figures/figure_s2_pam_cluster_map.png` | patrí sem iba doplnkový analytický materiál, ktorý podporuje text, ale netvorí jadro testovania | zaradiť len tie supplementy, ktoré ostanú interpretačne zmysluplné po finálnom run-e |
 | E | Etické a rater inštrukčné dokumenty v odľahčenej verzii | `manuscript/30_method.md`, prípadné finálne dokumenty k zberu | zvyšujú transparentnosť procedúry | bez interných runtime pravidiel a bez technických branching pokynov |
 | F | Kompaktná mapa empirických otázok, hypotéz, outcome-ov a modelov | `docs/vo_h_model_results_map.md`, `manuscript/20_introduction.md`, `manuscript/30_method.md` | lokálny sprievodca priamo odporúča empirické VO/H presunúť do príloh, ak by zahlcovali text | urobiť z toho jednu prehľadnú tabuľku, nie viacstranový interný planning doc |
+| H | Transparentné vyhlásenie o využití generatívnej AI pri vypracovaní práce | reálny authoring a technický workflow práce | zvyšuje metodickú a etickú transparentnosť a odlišuje AI ako predmet výskumu od AI ako podporného nástroja pri písaní | držať text stručný, vecný a viazaný na reálne použitie; nepreháňať technické detaily, ale jasne pomenovať hranice použitia |
 
 ## Vrstva B: Neverejné alebo obmedzene šírené prílohy
 
@@ -75,11 +76,12 @@ Ak by som to mal teraz zafixovať ako najrozumnejší cieľový stav, odporúča
 ### Verejný appendix balík
 
 1. Príloha A — finálny ratingový dotazník.
-2. Príloha B — operacionalizačná tabuľka premenných, kompozitov a ich analytického použitia.
+2. Príloha B — operacionalizačná tabuľka premenných, kompozitov, analytických úrovní a stručného prekladu mixed modelov.
 3. Príloha C — skrátená schéma seedov a anchor domén s jedným ilustračným prípadom.
 4. Príloha D — doplnkové tabuľky a grafy, ktoré ostanú po finálnom run-e interpretačne zmysluplné.
 5. Príloha E — etické a rater inštrukčné dokumenty v redigovanej verzii.
 6. Príloha F — kompaktná mapa empirických otázok, hypotéz, outcome-ov a modelov.
+7. Príloha H — transparentné vyhlásenie o využití generatívnej AI pri authoringu a technickom workflowe práce.
 
 ### Neverejný alebo obmedzene šírený appendix balík
 

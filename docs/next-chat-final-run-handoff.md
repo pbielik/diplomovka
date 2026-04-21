@@ -1,6 +1,6 @@
 # Next Chat Handoff: Final Run
 
-> Posledná aktualizácia: 2026-04-20
+> Posledná aktualizácia: 2026-04-21
 > Účel: odovzdať ďalšiemu chatu presne to, čo má urobiť pri poslednom exporte ratingov, bez nutnosti znovu rekonštruovať workflow.
 
 ## Aktuálny stav
@@ -17,6 +17,7 @@
 
 - Playbook pre posledný run: `analysis/final_run_playbook.md`
 - Staging scaffold pre Results: `manuscript/40_results_full_run_staging.md`
+  - staging uz obsahuje aj pripraveny wording pre doplnkovy sensitivity `LMM` s `(1 | transcript_id)` a odkaz na kontinuálne číslovanú sensitivity tabuľku
 - Dashboard: `docs/aktualny-stav-diplomovky.md`
 - Backlog: `docs/backlog-diplomovky.md`
 

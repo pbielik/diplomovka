@@ -1,0 +1,6 @@
+variable,label,source_variables,formula,reporting_level,interpretation
+plausibility_index,Index klinickej vierohodnosti,"G1,G3,G4","mean(G1, G3, G4)","rating-level kompozit","Vyššie = vyššia klinická vierohodnosť rozhovoru"
+defect_index,Index defektov,"R1,R2,R3,R4,R5","mean(R1, R2, R3, R4, R5)","rating-level kompozit","Vyššie = viac defektov a horšia kvalita"
+symptom_error_mean,Priemerná absolútna chyba v symptomatických doménach,"A1-A9,A1_anchor-A9_anchor","mean(abs(Ai - Ai_anchor)) pre i = 1...9","transcript-level ukazovateľ","Nižšie = vyššia zhoda so symptomatickým profilom východiskového scenára"
+severity_error,Chyba odhadu závažnosti,"S1,S1_anchor","rating-level abs(S1 - S1_anchor), potom transcript-level mean","transcript-level report z rating-level error skóre","Nižšie = vyššia zhoda s kotvou závažnosti"
+impact_error,Chyba odhadu funkčného dopadu,"S2,S2_anchor","rating-level abs(S2 - S2_anchor), potom transcript-level mean","transcript-level report z rating-level error skóre","Nižšie = vyššia zhoda s kotvou funkčného dopadu"

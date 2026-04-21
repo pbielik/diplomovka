@@ -8,6 +8,7 @@ suppressPackageStartupMessages({
   library(janitor)
   library(psych)
   library(lme4)
+  library(lmerTest)
   library(ordinal)
   library(emmeans)
   library(cluster)
@@ -20,6 +21,7 @@ output_dir <- file.path(repo_root, "analysis", "outputs")
 tables_dir <- file.path(repo_root, "tables")
 figures_dir <- file.path(repo_root, "figures")
 styled_preview_dir <- file.path(tables_dir, "styled_preview")
+codebook_path <- file.path(repo_root, "analysis", "codebook_rating_study.csv")
 
 dir.create(output_dir, recursive = TRUE, showWarnings = FALSE)
 dir.create(tables_dir, recursive = TRUE, showWarnings = FALSE)
@@ -123,7 +125,401 @@ html_escape <- function(x) {
 }
 
 display_header <- function(name) {
+  mapped <- unname(header_label_map[name])
+  if (!is.na(mapped) && nzchar(mapped)) {
+    return(mapped)
+  }
+
   gsub("_", " ", name, fixed = TRUE)
+}
+
+load_codebook_label_map <- function(path) {
+  if (!file.exists(path)) {
+    return(stats::setNames(character(0), character(0)))
+  }
+
+  codebook <- tryCatch(
+    readr::read_csv(path, show_col_types = FALSE) |>
+      janitor::clean_names(),
+    error = function(e) NULL
+  )
+
+  if (is.null(codebook) || !all(c("variable", "label") %in% names(codebook))) {
+    return(stats::setNames(character(0), character(0)))
+  }
+
+  labels <- trimws(codebook$label)
+  names(labels) <- tolower(trimws(codebook$variable))
+  labels
+}
+
+map_named_values <- function(x, mapping, normalize = FALSE) {
+  values <- as.character(x)
+  lookup <- if (normalize) tolower(values) else values
+  mapped <- unname(mapping[lookup])
+  fallback <- values
+  replace_idx <- !is.na(mapped) & nzchar(mapped)
+  fallback[replace_idx] <- mapped[replace_idx]
+  fallback[is.na(x)] <- NA_character_
+  fallback
+}
+
+guardrail_label_map <- c(
+  "0" = "G0",
+  "1" = "G1",
+  "off" = "G0",
+  "on" = "G1",
+  "G0" = "G0",
+  "G1" = "G1"
+)
+
+profile_label_map <- c(
+  "R1" = "P1",
+  "R2" = "P2",
+  "R3" = "P3",
+  "P1" = "P1",
+  "P2" = "P2",
+  "P3" = "P3"
+)
+
+section_label_map <- c(
+  "items" = "Položky",
+  "composites" = "Kompozity"
+)
+
+analysis_unit_label_map <- c(
+  "rating" = "hodnotenie",
+  "transcript" = "prepis rozhovoru"
+)
+
+block_label_map <- c(
+  "g1_g5" = "Blok G1-G5",
+  "plausibility_core" = "Jadro indexu klinickej vierohodnosti",
+  "r1_r5" = "Blok R1-R5"
+)
+
+model_family_label_map <- c(
+  "lmm" = "LMM",
+  "clmm" = "CLMM"
+)
+
+model_type_label_map <- c(
+  "lmm" = "LMM",
+  "transcript_lmm" = "LMM (úroveň prepisu rozhovoru)",
+  "lmm_sensitivity_transcript" = "LMM sensitivity s random interceptom pre prepis rozhovoru",
+  "clmm" = "CLMM"
+)
+
+status_label_map <- c(
+  "ok" = "ok",
+  "skipped" = "preskočené",
+  "failed" = "chyba"
+)
+
+grouping_label_map <- c(
+  "overall" = "Celkovo",
+  "guardrail" = "Klinické usmernenie",
+  "profile" = "Profil",
+  "guardrail_profile" = "Klinické usmernenie × profil"
+)
+
+guessed_origin_label_map <- c(
+  "ai_generated" = "AI-generovaný rozhovor",
+  "human_simulated" = "Ľudsky simulovaný rozhovor",
+  "real_participant" = "Reálny participant",
+  "unsure" = "Neisté"
+)
+
+source_mode_label_map <- c(
+  "data_clean" = "Vyčistené dáta",
+  "templates_smoke_run" = "Template smoke-run"
+)
+
+severity_error_mode_label_map <- c(
+  "direct_1to5" = "Priama absolútna chyba na škále 1-5"
+)
+
+metric_label_map <- c(
+  "source_mode" = "Zdroj dát",
+  "n_raters" = "Počet hodnotiteľov",
+  "n_transcripts" = "Počet prepisov rozhovorov",
+  "n_seeds" = "Počet seedov",
+  "n_ratings" = "Počet hodnotení",
+  "mean_ratings_per_transcript" = "Priemerný počet hodnotení na prepis rozhovoru",
+  "min_ratings_per_transcript" = "Minimálny počet hodnotení na prepis rozhovoru",
+  "max_ratings_per_transcript" = "Maximálny počet hodnotení na prepis rozhovoru",
+  "severity_error_mode" = "Spôsob výpočtu chyby závažnosti",
+  "guardrail_off" = "Počet hodnotení v G0",
+  "guardrail_on" = "Počet hodnotení v G1",
+  "profile_R1" = "Počet hodnotení pre P1",
+  "profile_R2" = "Počet hodnotení pre P2",
+  "profile_R3" = "Počet hodnotení pre P3",
+  "guardrail_off_profile_R1" = "G0 × P1",
+  "guardrail_off_profile_R2" = "G0 × P2",
+  "guardrail_off_profile_R3" = "G0 × P3",
+  "guardrail_on_profile_R1" = "G1 × P1",
+  "guardrail_on_profile_R2" = "G1 × P2",
+  "guardrail_on_profile_R3" = "G1 × P3"
+)
+
+header_label_map <- c(
+  "metric" = "Ukazovateľ",
+  "value" = "Hodnota",
+  "variable" = "Premenná",
+  "section" = "Sekcia",
+  "analysis_unit" = "Analytická úroveň",
+  "n_non_missing" = "n",
+  "levels_used" = "Počet použitých kategórií",
+  "mean" = "Priemer",
+  "sd" = "SD",
+  "median" = "Medián",
+  "iqr" = "IQR",
+  "min" = "Min",
+  "max" = "Max",
+  "response" = "Odpoveď",
+  "prop" = "Podiel",
+  "block" = "Blok",
+  "n_items" = "Počet položiek",
+  "n_rows" = "Počet riadkov",
+  "outcome" = "Ukazovateľ",
+  "icc_type" = "Typ ICC",
+  "model_family" = "Model",
+  "model_type" = "Typ modelu",
+  "term" = "Term",
+  "estimate" = "Odhad",
+  "std_error" = "SE",
+  "statistic" = "Testová štatistika",
+  "p_value" = "p",
+  "conf_low" = "95 % CI dolná",
+  "conf_high" = "95 % CI horná",
+  "status" = "Stav",
+  "detail" = "Poznámka",
+  "variable_1" = "Premenná 1",
+  "variable_2" = "Premenná 2",
+  "rho" = "Spearmanovo rho",
+  "grouping" = "Skupina",
+  "guardrail" = "Klinické usmernenie",
+  "profile" = "Profil",
+  "cluster" = "Klastr",
+  "n" = "Počet",
+  "n_transcripts" = "Počet prepisov rozhovorov"
+)
+
+variable_label_map <- load_codebook_label_map(codebook_path)
+
+label_variable <- function(x) {
+  map_named_values(x, variable_label_map, normalize = TRUE)
+}
+
+label_guardrail <- function(x) {
+  map_named_values(x, guardrail_label_map)
+}
+
+label_profile <- function(x) {
+  map_named_values(x, profile_label_map)
+}
+
+label_model_term <- function(x) {
+  values <- as.character(x)
+
+  vapply(values, function(value) {
+    if (is.na(value)) {
+      return(NA_character_)
+    }
+
+    if (!nzchar(value)) {
+      return(value)
+    }
+
+    if (value == "(Intercept)") {
+      return("Intercept (referenčná kombinácia G0 × P1)")
+    }
+
+    normalized <- value
+    normalized <- gsub("guardrailon", "guardrailG1", normalized, fixed = TRUE)
+    normalized <- gsub("profileR", "profileP", normalized, fixed = TRUE)
+
+    if (normalized == "guardrailG1") {
+      return("Hlavný efekt klinického usmernenia G1 (vs. G0)")
+    }
+
+    if (normalized == "profileP2") {
+      return("Hlavný efekt P2 (vs. P1)")
+    }
+
+    if (normalized == "profileP3") {
+      return("Hlavný efekt P3 (vs. P1)")
+    }
+
+    if (normalized == "guardrailG1:profileP2" || normalized == "profileP2:guardrailG1") {
+      return("Interakcia klinického usmernenia G1 × P2")
+    }
+
+    if (normalized == "guardrailG1:profileP3" || normalized == "profileP3:guardrailG1") {
+      return("Interakcia klinického usmernenia G1 × P3")
+    }
+
+    value
+  }, character(1), USE.NAMES = FALSE)
+}
+
+humanize_qc_dataset_summary <- function(data) {
+  data |>
+    mutate(
+      value = case_when(
+        .data$metric == "source_mode" ~ map_named_values(.data$value, source_mode_label_map),
+        .data$metric == "severity_error_mode" ~ map_named_values(.data$value, severity_error_mode_label_map),
+        TRUE ~ as.character(.data$value)
+      ),
+      metric = map_named_values(.data$metric, metric_label_map)
+    )
+}
+
+humanize_descriptives_table <- function(data) {
+  humanized <- data |>
+    mutate(
+      variable = label_variable(.data$variable),
+      analysis_unit = map_named_values(.data$analysis_unit, analysis_unit_label_map)
+    )
+
+  if ("section" %in% names(humanized)) {
+    humanized <- humanized |>
+      mutate(section = map_named_values(.data$section, section_label_map))
+  }
+
+  humanized
+}
+
+humanize_item_frequencies <- function(data) {
+  data |>
+    mutate(variable = label_variable(.data$variable))
+}
+
+humanize_internal_consistency <- function(data) {
+  data |>
+    mutate(
+      block = map_named_values(.data$block, block_label_map),
+      status = map_named_values(.data$status, status_label_map)
+    )
+}
+
+humanize_icc_table <- function(data) {
+  data |>
+    mutate(
+      outcome = label_variable(.data$outcome),
+      status = map_named_values(.data$status, status_label_map)
+    )
+}
+
+humanize_model_table <- function(data) {
+  humanized <- data |>
+    mutate(
+      outcome = label_variable(.data$outcome),
+      term = label_model_term(.data$term),
+      status = map_named_values(.data$status, status_label_map)
+    )
+
+  if ("model_family" %in% names(humanized)) {
+    humanized <- humanized |>
+      mutate(model_family = map_named_values(.data$model_family, model_family_label_map))
+  }
+
+  if ("model_type" %in% names(humanized)) {
+    humanized <- humanized |>
+      mutate(model_type = map_named_values(.data$model_type, model_type_label_map))
+  }
+
+  humanized
+}
+
+humanize_spearman_table <- function(data) {
+  data |>
+    mutate(
+      variable_1 = label_variable(.data$variable_1),
+      variable_2 = label_variable(.data$variable_2),
+      status = map_named_values(.data$status, status_label_map)
+    )
+}
+
+humanize_pam_profiles <- function(data) {
+  if (all(c("component", "status", "detail") %in% names(data))) {
+    return(data |> mutate(status = map_named_values(.data$status, status_label_map)))
+  }
+
+  data
+}
+
+humanize_pam_crosstab <- function(data) {
+  if (all(c("component", "status", "detail") %in% names(data))) {
+    return(data |> mutate(status = map_named_values(.data$status, status_label_map)))
+  }
+
+  data |>
+    mutate(
+      guardrail = label_guardrail(.data$guardrail),
+      profile = label_profile(.data$profile),
+      grouping = map_named_values(.data$grouping, grouping_label_map)
+    )
+}
+
+humanize_emmeans_table <- function(data) {
+  data |>
+    mutate(
+      outcome = label_variable(.data$outcome),
+      guardrail = label_guardrail(.data$guardrail),
+      profile = label_profile(.data$profile),
+      status = map_named_values(.data$status, status_label_map)
+    )
+}
+
+humanize_transcript_level_summary <- function(data) {
+  data |>
+    mutate(
+      guardrail = label_guardrail(.data$guardrail),
+      profile = label_profile(.data$profile)
+    )
+}
+
+humanize_guess_origin_summary <- function(data) {
+  humanized <- data |>
+    mutate(
+      grouping = map_named_values(.data$grouping, grouping_label_map),
+      guardrail = label_guardrail(.data$guardrail),
+      profile = label_profile(.data$profile),
+      guessed_origin = ifelse(
+        is.na(.data$guessed_origin) | .data$guessed_origin == "",
+        "Nevyplnené",
+        map_named_values(.data$guessed_origin, guessed_origin_label_map)
+      )
+    )
+
+  if ("status" %in% names(humanized)) {
+    humanized <- humanized |>
+      mutate(status = map_named_values(.data$status, status_label_map))
+  }
+
+  humanized
+}
+
+humanize_guess_origin_logit <- function(data) {
+  data |>
+    mutate(
+      term = dplyr::case_when(
+        .data$term == "(Intercept)" ~ "Intercept",
+        .data$term == "plausibility_index" ~ label_variable("plausibility_index"),
+        .data$term == "defect_index" ~ label_variable("defect_index"),
+        TRUE ~ .data$term
+      ),
+      status = map_named_values(.data$status, status_label_map)
+    )
+}
+
+humanize_comment_summary <- function(data) {
+  data |>
+    mutate(
+      guardrail = label_guardrail(.data$guardrail),
+      profile = label_profile(.data$profile)
+    )
 }
 
 format_cell_value <- function(x) {
@@ -225,12 +621,18 @@ write_table_html_page <- function(data, caption_label, caption_title, output_pat
   writeLines(page_html, output_path, useBytes = TRUE)
 }
 
-build_figure_html_fragment <- function(image_rel_path, caption_label, caption_title) {
+build_figure_html_fragment <- function(image_rel_path, caption_label, caption_title, note = NULL) {
+  note_html <- ""
+  if (!is.null(note) && nzchar(note)) {
+    note_html <- paste0("<p class=\"figure-note\">", html_escape(note), "</p>")
+  }
+
   paste0(
     "<section class=\"figure-block\">",
     "<p class=\"caption-label\">", html_escape(caption_label), "</p>",
     "<p class=\"caption-title\">", html_escape(caption_title), "</p>",
     "<img src=\"", html_escape(image_rel_path), "\" alt=\"", html_escape(caption_title), "\" class=\"thesis-figure\">",
+    note_html,
     "</section>"
   )
 }
@@ -253,7 +655,8 @@ write_results_preview_page <- function(table_specs, figure_specs, output_path) {
       build_figure_html_fragment(
         image_rel_path = spec$image_rel_path,
         caption_label = spec$caption_label,
-        caption_title = spec$caption_title
+        caption_title = spec$caption_title,
+        note = if ("note" %in% names(spec)) spec$note else NULL
       )
     }, character(1)),
     collapse = ""
@@ -262,7 +665,7 @@ write_results_preview_page <- function(table_specs, figure_specs, output_path) {
   page_html <- paste0(
     "<!DOCTYPE html><html lang=\"sk\"><head><meta charset=\"utf-8\">",
     "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">",
-    "<title>Preview tabuliek a obrázkov</title>",
+    "<title>Náhľad tabuliek a obrázkov</title>",
     "<style>",
     "body{font-family:'Times New Roman',serif;font-size:12pt;line-height:1.35;color:#000;margin:32px auto;max-width:1100px;padding:0 24px;}",
     "h1,h2{font-weight:700;}",
@@ -279,10 +682,11 @@ write_results_preview_page <- function(table_specs, figure_specs, output_path) {
     ".thesis-table td.text{text-align:left;}",
     ".empty-row{text-align:left;}",
     ".table-note{font-size:10.5pt;margin-top:6px;}",
+    ".figure-note{font-size:10.5pt;margin-top:6px;}",
     ".thesis-figure{display:block;max-width:100%;height:auto;margin:0 auto;border:none;}",
     "</style></head><body>",
-    "<h1>Preview tabuliek a obrázkov pre Results</h1>",
-    "<p class=\"lead\">Štýl je nastavený podľa vzoru z bakalárky: caption nad objektom, bez zvislých čiar, s horizontálnymi oddeľovačmi.</p>",
+    "<h1>Náhľad tabuliek a obrázkov pre Results</h1>",
+    "<p class=\"lead\">Štýl je nastavený podľa lokálneho sprievodcu: číslo nad objektom tučne, názov na ďalšom riadku kurzívou, bez zvislých čiar a s horizontálnymi oddeľovačmi.</p>",
     "<h2>Tabuľky</h2>",
     table_html,
     "<h2>Obrázky</h2>",
@@ -318,7 +722,12 @@ extract_confint <- function(model, terms) {
 }
 
 extract_emmeans_table <- function(model, outcome) {
-  emm_summary <- as.data.frame(summary(emmeans::emmeans(model, ~ guardrail * profile), infer = c(TRUE, TRUE)))
+  emm_summary <- as.data.frame(
+    summary(
+      emmeans::emmeans(model, ~ guardrail * profile, lmer.df = "satterthwaite"),
+      infer = c(TRUE, TRUE)
+    )
+  )
 
   lower_name <- dplyr::case_when(
     "lower.CL" %in% names(emm_summary) ~ "lower.CL",
@@ -349,6 +758,55 @@ extract_emmeans_table <- function(model, outcome) {
     )
 }
 
+extract_lmm_detail <- function(model) {
+  detail_parts <- c("p_value from lmerTest Satterthwaite approximation.")
+
+  singular_flag <- tryCatch(
+    lme4::isSingular(model, tol = 1e-4),
+    error = function(e) NA
+  )
+
+  if (isTRUE(singular_flag)) {
+    detail_parts <- c(detail_parts, "Singular fit detected (tol = 1e-4).")
+  }
+
+  convergence_messages <- tryCatch(
+    model@optinfo$conv$lme4$messages,
+    error = function(e) NULL
+  )
+
+  if (!is.null(convergence_messages) && length(convergence_messages) > 0) {
+    detail_parts <- c(
+      detail_parts,
+      paste("Convergence note:", paste(as.character(convergence_messages), collapse = " | "))
+    )
+  }
+
+  paste(detail_parts, collapse = " ")
+}
+
+extract_clmm_detail <- function(model, response_levels) {
+  detail_parts <- c(paste0("Response levels used: ", response_levels, "."))
+
+  convergence_code <- tryCatch(
+    {
+      code <- model$convergence
+      if (is.null(code) || length(code) == 0) {
+        NA_real_
+      } else {
+        suppressWarnings(as.numeric(code[[1]]))
+      }
+    },
+    error = function(e) NA
+  )
+
+  if (!is.na(convergence_code) && convergence_code != 0) {
+    detail_parts <- c(detail_parts, paste0("Non-zero convergence code: ", convergence_code, "."))
+  }
+
+  paste(detail_parts, collapse = " ")
+}
+
 fit_lmm <- function(data, outcome) {
   analysis_data <- data |>
     filter(!is.na(.data[[outcome]])) |>
@@ -372,7 +830,7 @@ fit_lmm <- function(data, outcome) {
       conf_low = NA_real_,
       conf_high = NA_real_,
       status = "skipped",
-      detail = "Insufficient rows or factor levels for LMM."
+      detail = "Nedostatočný počet riadkov alebo úrovní faktorov pre LMM."
     )
 
     emmeans_skipped <- tibble(
@@ -395,7 +853,7 @@ fit_lmm <- function(data, outcome) {
   )
 
   model <- tryCatch(
-    suppressWarnings(lme4::lmer(model_formula, data = analysis_data, REML = FALSE)),
+    suppressWarnings(lmerTest::lmer(model_formula, data = analysis_data, REML = FALSE)),
     error = function(e) e
   )
 
@@ -433,6 +891,8 @@ fit_lmm <- function(data, outcome) {
   coefficient_table$term <- rownames(coefficient_table)
   rownames(coefficient_table) <- NULL
   has_t_value <- "t value" %in% names(coefficient_table)
+  has_p_value <- "Pr(>|t|)" %in% names(coefficient_table)
+  model_detail <- extract_lmm_detail(model)
 
   confint_table <- extract_confint(model, coefficient_table$term)
 
@@ -443,11 +903,147 @@ fit_lmm <- function(data, outcome) {
     ) |>
     mutate(
       statistic = if (has_t_value) .data[["t value"]] else NA_real_,
-      p_value = NA_real_,
+      p_value = if (has_p_value) .data[["Pr(>|t|)"]] else NA_real_,
       outcome = outcome,
       model_type = "lmm",
       status = "ok",
-      detail = NA_character_
+      detail = model_detail
+    ) |>
+    select(
+      outcome, model_type, term, estimate, std_error,
+      statistic, p_value, status, detail
+    ) |>
+    left_join(confint_table, by = "term") |>
+    select(
+      outcome, model_type, term, estimate, std_error, statistic,
+      p_value, conf_low, conf_high, status, detail
+    )
+
+  emm_table <- tryCatch(
+    extract_emmeans_table(model, outcome),
+    error = function(e) {
+      tibble(
+        outcome = outcome,
+        guardrail = NA_character_,
+        profile = NA_character_,
+        emmean = NA_real_,
+        std_error = NA_real_,
+        conf_low = NA_real_,
+        conf_high = NA_real_,
+        status = "failed",
+        detail = conditionMessage(e)
+      )
+    }
+  )
+
+  list(model = model, tidy = tidy_table, emmeans = emm_table)
+}
+
+fit_lmm_sensitivity_transcript <- function(data, outcome) {
+  analysis_data <- data |>
+    filter(!is.na(.data[[outcome]])) |>
+    droplevels()
+
+  enough_data <- nrow(analysis_data) >= 8 &&
+    n_distinct(analysis_data$guardrail) >= 2 &&
+    n_distinct(analysis_data$profile) >= 2 &&
+    n_distinct(analysis_data$seed_id) >= 2 &&
+    n_distinct(analysis_data$transcript_id) >= 2 &&
+    n_distinct(analysis_data$rater_id) >= 2
+
+  if (!enough_data) {
+    skipped <- tibble(
+      outcome = outcome,
+      model_type = "lmm_sensitivity_transcript",
+      term = NA_character_,
+      estimate = NA_real_,
+      std_error = NA_real_,
+      statistic = NA_real_,
+      p_value = NA_real_,
+      conf_low = NA_real_,
+      conf_high = NA_real_,
+      status = "skipped",
+      detail = "Nedostatočný počet riadkov alebo úrovní faktorov pre sensitivity LMM na úrovni prepisu rozhovoru."
+    )
+
+    emmeans_skipped <- tibble(
+      outcome = outcome,
+      guardrail = NA_character_,
+      profile = NA_character_,
+      emmean = NA_real_,
+      std_error = NA_real_,
+      conf_low = NA_real_,
+      conf_high = NA_real_,
+      status = "skipped",
+      detail = "Sensitivity LMM na úrovni prepisu rozhovoru nebol odhadnutý."
+    )
+
+    return(list(model = NULL, tidy = skipped, emmeans = emmeans_skipped))
+  }
+
+  model_formula <- as.formula(
+    paste(outcome, "~ guardrail * profile + (1 | seed_id) + (1 | transcript_id) + (1 | rater_id)")
+  )
+
+  model <- tryCatch(
+    suppressWarnings(lmerTest::lmer(model_formula, data = analysis_data, REML = FALSE)),
+    error = function(e) e
+  )
+
+  if (inherits(model, "error")) {
+    failed <- tibble(
+      outcome = outcome,
+      model_type = "lmm_sensitivity_transcript",
+      term = NA_character_,
+      estimate = NA_real_,
+      std_error = NA_real_,
+      statistic = NA_real_,
+      p_value = NA_real_,
+      conf_low = NA_real_,
+      conf_high = NA_real_,
+      status = "failed",
+      detail = conditionMessage(model)
+    )
+
+    emmeans_failed <- tibble(
+      outcome = outcome,
+      guardrail = NA_character_,
+      profile = NA_character_,
+      emmean = NA_real_,
+      std_error = NA_real_,
+      conf_low = NA_real_,
+      conf_high = NA_real_,
+      status = "failed",
+      detail = "Odhad sensitivity LMM na úrovni prepisu rozhovoru zlyhal."
+    )
+
+    return(list(model = NULL, tidy = failed, emmeans = emmeans_failed))
+  }
+
+  coefficient_table <- as.data.frame(summary(model)$coefficients)
+  coefficient_table$term <- rownames(coefficient_table)
+  rownames(coefficient_table) <- NULL
+  has_t_value <- "t value" %in% names(coefficient_table)
+  has_p_value <- "Pr(>|t|)" %in% names(coefficient_table)
+  model_detail <- paste(
+    "Sensitivity model s random interceptom pre `transcript_id`.",
+    extract_lmm_detail(model)
+  )
+
+  confint_table <- extract_confint(model, coefficient_table$term)
+
+  tidy_table <- coefficient_table |>
+    rename(
+      estimate = Estimate,
+      std_error = `Std. Error`
+    ) |>
+    mutate(
+      statistic = if (has_t_value) .data[["t value"]] else NA_real_,
+      p_value = if (has_p_value) .data[["Pr(>|t|)"]] else NA_real_,
+      outcome = outcome,
+      model_type = "lmm_sensitivity_transcript",
+      status = "ok",
+      detail = model_detail
     ) |>
     select(
       outcome, model_type, term, estimate, std_error,
@@ -501,7 +1097,7 @@ fit_transcript_lmm <- function(data, outcome) {
       conf_low = NA_real_,
       conf_high = NA_real_,
       status = "skipped",
-      detail = "Insufficient transcript rows or factor levels for transcript-level LMM."
+      detail = "Nedostatočný počet riadkov alebo úrovní faktorov pre LMM na úrovni prepisu rozhovoru."
     )
 
     emmeans_skipped <- tibble(
@@ -513,7 +1109,7 @@ fit_transcript_lmm <- function(data, outcome) {
       conf_low = NA_real_,
       conf_high = NA_real_,
       status = "skipped",
-      detail = "Transcript-level LMM not fitted."
+      detail = "LMM na úrovni prepisu rozhovoru nebol odhadnutý."
     )
 
     return(list(model = NULL, tidy = skipped, emmeans = emmeans_skipped))
@@ -524,7 +1120,7 @@ fit_transcript_lmm <- function(data, outcome) {
   )
 
   model <- tryCatch(
-    suppressWarnings(lme4::lmer(model_formula, data = analysis_data, REML = FALSE)),
+    suppressWarnings(lmerTest::lmer(model_formula, data = analysis_data, REML = FALSE)),
     error = function(e) e
   )
 
@@ -552,7 +1148,7 @@ fit_transcript_lmm <- function(data, outcome) {
       conf_low = NA_real_,
       conf_high = NA_real_,
       status = "failed",
-      detail = "Transcript-level LMM fit failed."
+      detail = "Odhad LMM na úrovni prepisu rozhovoru zlyhal."
     )
 
     return(list(model = NULL, tidy = failed, emmeans = emmeans_failed))
@@ -562,6 +1158,8 @@ fit_transcript_lmm <- function(data, outcome) {
   coefficient_table$term <- rownames(coefficient_table)
   rownames(coefficient_table) <- NULL
   has_t_value <- "t value" %in% names(coefficient_table)
+  has_p_value <- "Pr(>|t|)" %in% names(coefficient_table)
+  model_detail <- extract_lmm_detail(model)
 
   confint_table <- extract_confint(model, coefficient_table$term)
 
@@ -572,11 +1170,11 @@ fit_transcript_lmm <- function(data, outcome) {
     ) |>
     mutate(
       statistic = if (has_t_value) .data[["t value"]] else NA_real_,
-      p_value = NA_real_,
+      p_value = if (has_p_value) .data[["Pr(>|t|)"]] else NA_real_,
       outcome = outcome,
       model_type = "transcript_lmm",
       status = "ok",
-      detail = NA_character_
+      detail = model_detail
     ) |>
     select(
       outcome, model_type, term, estimate, std_error,
@@ -613,9 +1211,10 @@ fit_clmm <- function(data, outcome) {
     filter(!is.na(.data[[outcome]])) |>
     mutate(response = ordered(.data[[outcome]])) |>
     droplevels()
+  response_levels <- n_distinct(analysis_data$response)
 
   enough_data <- nrow(analysis_data) >= 8 &&
-    n_distinct(analysis_data$response) >= 2 &&
+    response_levels >= 2 &&
     n_distinct(analysis_data$guardrail) >= 2 &&
     n_distinct(analysis_data$profile) >= 2 &&
     n_distinct(analysis_data$seed_id) >= 2 &&
@@ -634,7 +1233,7 @@ fit_clmm <- function(data, outcome) {
         conf_low = NA_real_,
         conf_high = NA_real_,
         status = "skipped",
-        detail = "Insufficient rows, levels or response variation for CLMM."
+        detail = "Nedostatočný počet riadkov, úrovní alebo variability odpovedí pre CLMM."
       )
     )
   }
@@ -670,6 +1269,7 @@ fit_clmm <- function(data, outcome) {
   coefficient_table <- as.data.frame(summary(model)$coefficients)
   coefficient_table$term <- rownames(coefficient_table)
   rownames(coefficient_table) <- NULL
+  model_detail <- extract_clmm_detail(model, response_levels)
 
   coefficient_table |>
     transmute(
@@ -683,7 +1283,7 @@ fit_clmm <- function(data, outcome) {
       conf_low = .data$Estimate - 1.96 * .data$`Std. Error`,
       conf_high = .data$Estimate + 1.96 * .data$`Std. Error`,
       status = "ok",
-      detail = NA_character_
+      detail = model_detail
     )
 }
 
@@ -701,7 +1301,7 @@ compute_alpha_omega <- function(data, variables, block_label) {
         alpha = NA_real_,
         omega = NA_real_,
         status = "skipped",
-        detail = "Insufficient rows or columns for alpha/omega."
+        detail = "Nedostatočný počet riadkov alebo stĺpcov pre alpha/omega."
       )
     )
   }
@@ -756,7 +1356,7 @@ compute_icc <- function(data, value_var, outcome_label) {
         conf_low = NA_real_,
         conf_high = NA_real_,
         status = "skipped",
-        detail = "Need at least 2 transcripts and 2 raters for ICC."
+      detail = "Na výpočet ICC sú potrebné aspoň 2 prepisy rozhovorov a 2 hodnotitelia."
       )
     )
   }
@@ -774,7 +1374,7 @@ compute_icc <- function(data, value_var, outcome_label) {
         conf_low = NA_real_,
         conf_high = NA_real_,
         status = "skipped",
-        detail = "Need at least 2 non-empty rater columns for ICC."
+        detail = "Na výpočet ICC sú potrebné aspoň 2 neprazdne stĺpce hodnotiteľov."
       )
     )
   }
@@ -823,7 +1423,7 @@ compute_spearman_matrix <- function(transcript_summary) {
           variable_2 = NA_character_,
           rho = NA_real_,
           status = "skipped",
-          detail = "Need at least 3 transcripts and 2 variables for Spearman matrix."
+          detail = "Na Spearmanovu maticu sú potrebné aspoň 3 prepisy rozhovorov a 2 premenné."
         ),
         matrix = NULL
       )
@@ -864,7 +1464,7 @@ run_pam_analysis <- function(transcript_summary) {
       component = "pam",
       outcome = NA_character_,
       status = "skipped",
-      detail = "Need at least 4 transcripts and 3 variables for PAM."
+      detail = "Na PAM analýzu sú potrebné aspoň 4 prepisy rozhovorov a 3 premenné."
     )
 
     return(list(
@@ -1255,6 +1855,10 @@ icc_summary <- bind_rows(
 rater_lmm_outcomes <- c("plausibility_index", "defect_index")
 rater_lmm_results <- lapply(rater_lmm_outcomes, function(outcome) fit_lmm(analysis_long, outcome))
 names(rater_lmm_results) <- rater_lmm_outcomes
+rater_lmm_sensitivity_results <- lapply(rater_lmm_outcomes, function(outcome) {
+  fit_lmm_sensitivity_transcript(analysis_long, outcome)
+})
+names(rater_lmm_sensitivity_results) <- rater_lmm_outcomes
 
 transcript_lmm_outcomes <- c("symptom_error_mean")
 if (has_non_missing(transcript_level_summary$severity_error)) {
@@ -1277,11 +1881,20 @@ emmeans_core_models <- bind_rows(c(
   lapply(rater_lmm_results, `[[`, "emmeans"),
   lapply(transcript_lmm_results, `[[`, "emmeans")
 ))
+lmm_sensitivity_transcript_models <- bind_rows(
+  lapply(rater_lmm_sensitivity_results, `[[`, "tidy")
+)
+emmeans_sensitivity_transcript_models <- bind_rows(
+  lapply(rater_lmm_sensitivity_results, `[[`, "emmeans")
+)
 
 clmm_outcomes <- c("g2", "g5", "s1", "s2", "guess_confidence")
 clmm_item_models <- bind_rows(lapply(clmm_outcomes, function(outcome) fit_clmm(analysis_long, outcome)))
 clmm_core_models <- clmm_item_models |>
-  filter(outcome %in% c("g2", "g5", "s1", "s2"))
+  filter(
+    outcome %in% c("g2", "g5", "s1", "s2"),
+    grepl("guardrail|profile", term)
+  )
 
 guess_origin_summary <- bind_rows(
   analysis_long |>
@@ -1325,7 +1938,7 @@ guess_origin_logit <- {
       conf_low = NA_real_,
       conf_high = NA_real_,
       status = "skipped",
-      detail = "Insufficient rows or binary variation for logistic model."
+      detail = "Nedostatočný počet riadkov alebo binárnej variability pre logistický model."
     )
   } else {
     model <- tryCatch(
@@ -1408,26 +2021,75 @@ expert_review_summary <- {
 spearman_result <- compute_spearman_matrix(transcript_level_summary)
 pam_result <- run_pam_analysis(transcript_level_summary)
 
+qc_dataset_summary_report <- humanize_qc_dataset_summary(qc_dataset_summary)
+descriptives_items_report <- humanize_descriptives_table(descriptives_items)
+descriptives_composites_report <- humanize_descriptives_table(descriptives_composites)
+internal_consistency_report <- humanize_internal_consistency(internal_consistency)
+icc_summary_report <- humanize_icc_table(icc_summary)
+lmm_core_models_report <- humanize_model_table(lmm_core_models)
+lmm_sensitivity_transcript_models_report <- humanize_model_table(lmm_sensitivity_transcript_models)
+clmm_item_models_report <- humanize_model_table(clmm_item_models)
+emmeans_core_models_report <- humanize_emmeans_table(emmeans_core_models)
+emmeans_sensitivity_transcript_models_report <- humanize_emmeans_table(emmeans_sensitivity_transcript_models)
+guess_origin_summary_report <- humanize_guess_origin_summary(guess_origin_summary)
+guess_origin_logit_report <- humanize_guess_origin_logit(guess_origin_logit)
+comment_summary_report <- humanize_comment_summary(comment_summary_stub)
+transcript_level_summary_report <- humanize_transcript_level_summary(transcript_level_summary)
+spearman_result_report <- humanize_spearman_table(spearman_result$table)
+pam_profiles_report <- humanize_pam_profiles(pam_result$profiles)
+pam_crosstab_report <- humanize_pam_crosstab(pam_result$crosstab)
+
 readr::write_csv(run_manifest, file.path(output_dir, "run_manifest.csv"))
 readr::write_csv(analysis_long, file.path(output_dir, "analysis_long.csv"))
 readr::write_csv(qc_dataset_summary, file.path(output_dir, "qc_dataset_summary.csv"))
+readr::write_csv(qc_dataset_summary_report, file.path(output_dir, "qc_dataset_summary_report.csv"))
 readr::write_csv(descriptives_items, file.path(output_dir, "descriptives_items.csv"))
+readr::write_csv(descriptives_items_report, file.path(output_dir, "descriptives_items_report.csv"))
 readr::write_csv(descriptives_composites, file.path(output_dir, "descriptives_composites.csv"))
+readr::write_csv(descriptives_composites_report, file.path(output_dir, "descriptives_composites_report.csv"))
 readr::write_csv(expert_review_summary, file.path(output_dir, "expert_review_summary.csv"))
 readr::write_csv(internal_consistency, file.path(output_dir, "internal_consistency.csv"))
+readr::write_csv(internal_consistency_report, file.path(output_dir, "internal_consistency_report.csv"))
 readr::write_csv(icc_summary, file.path(output_dir, "icc_summary.csv"))
+readr::write_csv(icc_summary_report, file.path(output_dir, "icc_summary_report.csv"))
 readr::write_csv(lmm_core_models, file.path(output_dir, "lmm_core_models.csv"))
+readr::write_csv(lmm_core_models_report, file.path(output_dir, "lmm_core_models_report.csv"))
+readr::write_csv(
+  lmm_sensitivity_transcript_models,
+  file.path(output_dir, "lmm_sensitivity_transcript_id_models.csv")
+)
+readr::write_csv(
+  lmm_sensitivity_transcript_models_report,
+  file.path(output_dir, "lmm_sensitivity_transcript_id_models_report.csv")
+)
 readr::write_csv(clmm_item_models, file.path(output_dir, "clmm_item_models.csv"))
+readr::write_csv(clmm_item_models_report, file.path(output_dir, "clmm_item_models_report.csv"))
 readr::write_csv(emmeans_core_models, file.path(output_dir, "emmeans_core_models.csv"))
+readr::write_csv(emmeans_core_models_report, file.path(output_dir, "emmeans_core_models_report.csv"))
+readr::write_csv(
+  emmeans_sensitivity_transcript_models,
+  file.path(output_dir, "emmeans_sensitivity_transcript_id_models.csv")
+)
+readr::write_csv(
+  emmeans_sensitivity_transcript_models_report,
+  file.path(output_dir, "emmeans_sensitivity_transcript_id_models_report.csv")
+)
 readr::write_csv(guess_origin_summary, file.path(output_dir, "guess_origin_summary.csv"))
+readr::write_csv(guess_origin_summary_report, file.path(output_dir, "guess_origin_summary_report.csv"))
 readr::write_csv(guess_origin_logit, file.path(output_dir, "guess_origin_logit.csv"))
+readr::write_csv(guess_origin_logit_report, file.path(output_dir, "guess_origin_logit_report.csv"))
 readr::write_csv(comment_summary_stub, file.path(output_dir, "comment_summary_stub.csv"))
+readr::write_csv(comment_summary_report, file.path(output_dir, "comment_summary_stub_report.csv"))
 readr::write_csv(transcript_level_summary, file.path(output_dir, "transcript_level_summary.csv"))
+readr::write_csv(transcript_level_summary_report, file.path(output_dir, "transcript_level_summary_report.csv"))
 readr::write_csv(spearman_result$table, file.path(output_dir, "spearman_transcript_composites.csv"))
+readr::write_csv(spearman_result_report, file.path(output_dir, "spearman_transcript_composites_report.csv"))
 readr::write_csv(pam_result$selection, file.path(output_dir, "pam_model_selection.csv"))
 readr::write_csv(pam_result$assignments, file.path(output_dir, "pam_cluster_assignments.csv"))
 readr::write_csv(pam_result$profiles, file.path(output_dir, "pam_cluster_profiles.csv"))
+readr::write_csv(pam_profiles_report, file.path(output_dir, "pam_cluster_profiles_report.csv"))
 readr::write_csv(pam_result$crosstab, file.path(output_dir, "pam_cluster_condition_crosstab.csv"))
+readr::write_csv(pam_crosstab_report, file.path(output_dir, "pam_cluster_condition_crosstab_report.csv"))
 readr::write_csv(pam_result$medoids, file.path(output_dir, "pam_cluster_medoids.csv"))
 
 table_2_data <- bind_rows(
@@ -1438,24 +2100,40 @@ table_6_data <- bind_rows(
   lmm_core_models |> mutate(model_family = "lmm"),
   clmm_core_models |> mutate(model_family = "clmm")
 )
+table_1_export <- qc_dataset_summary_report
+table_2_export <- humanize_descriptives_table(table_2_data)
+table_3_export <- humanize_item_frequencies(item_frequencies)
+table_4_export <- internal_consistency_report
+table_5_export <- icc_summary_report
+table_6_export <- humanize_model_table(table_6_data)
+table_s1_export <- spearman_result_report
+table_s2_export <- pam_profiles_report
+table_s3_export <- pam_crosstab_report
+table_s6_export <- lmm_sensitivity_transcript_models_report
 
-readr::write_csv(qc_dataset_summary, file.path(tables_dir, "table_1_dataset_summary.csv"))
+readr::write_csv(table_1_export, file.path(tables_dir, "table_1_dataset_summary.csv"))
 readr::write_csv(
-  table_2_data,
+  table_2_export,
   file.path(tables_dir, "table_2_descriptives.csv")
 )
-readr::write_csv(item_frequencies, file.path(tables_dir, "table_3_item_frequencies.csv"))
-readr::write_csv(internal_consistency, file.path(tables_dir, "table_4_internal_consistency.csv"))
-readr::write_csv(icc_summary, file.path(tables_dir, "table_5_icc.csv"))
+readr::write_csv(table_3_export, file.path(tables_dir, "table_3_item_frequencies.csv"))
+readr::write_csv(table_4_export, file.path(tables_dir, "table_4_internal_consistency.csv"))
+readr::write_csv(table_5_export, file.path(tables_dir, "table_5_icc.csv"))
 readr::write_csv(
-  table_6_data,
+  table_6_export,
   file.path(tables_dir, "table_6_mixed_models_core.csv")
 )
-readr::write_csv(spearman_result$table, file.path(tables_dir, "table_s1_spearman_transcript_composites.csv"))
-readr::write_csv(pam_result$profiles, file.path(tables_dir, "table_s2_pam_cluster_profiles.csv"))
-readr::write_csv(pam_result$crosstab, file.path(tables_dir, "table_s3_pam_cluster_by_condition.csv"))
+readr::write_csv(
+  table_s6_export,
+  file.path(tables_dir, "table_s6_lmm_sensitivity_transcript_id.csv")
+)
+readr::write_csv(table_s1_export, file.path(tables_dir, "table_s1_spearman_transcript_composites.csv"))
+readr::write_csv(table_s2_export, file.path(tables_dir, "table_s2_pam_cluster_profiles.csv"))
+readr::write_csv(table_s3_export, file.path(tables_dir, "table_s3_pam_cluster_by_condition.csv"))
 
 figure_1_path <- file.path(figures_dir, "figure_1_primary_outcomes_by_condition.png")
+figure_1a_path <- file.path(figures_dir, "figure_1a_plausibility_index_by_condition.png")
+figure_1b_path <- file.path(figures_dir, "figure_1b_defect_index_by_condition.png")
 if (nrow(analysis_long) > 0) {
   figure_1_data <- analysis_long |>
     select(any_of(c("guardrail", "profile", "plausibility_index", "defect_index"))) |>
@@ -1464,41 +2142,105 @@ if (nrow(analysis_long) > 0) {
       names_to = "outcome",
       values_to = "value"
     ) |>
+    mutate(
+      guardrail = factor(label_guardrail(.data$guardrail), levels = c("G0", "G1")),
+      profile = factor(label_profile(.data$profile), levels = c("P1", "P2", "P3")),
+      outcome = factor(
+        label_variable(.data$outcome),
+        levels = label_variable(c("plausibility_index", "defect_index"))
+      )
+    ) |>
     filter(!is.na(.data$value))
 
   if (nrow(figure_1_data) > 0) {
+    build_primary_outcome_boxplot <- function(data, outcome_label, title) {
+      ggplot(filter(data, .data$outcome == outcome_label), aes(x = profile, y = value, fill = guardrail)) +
+        geom_boxplot(alpha = 0.7, outlier.shape = NA) +
+        geom_jitter(width = 0.1, height = 0, alpha = 0.7, size = 2) +
+        labs(
+          title = title,
+          subtitle = paste("Zdroj dát:", map_named_values(source_mode, source_mode_label_map)),
+          x = "Profil odpovedania",
+          y = "Skóre",
+          fill = "Klinické usmernenie"
+        ) +
+        theme_minimal() +
+        theme(legend.position = "top")
+    }
+
     figure_1 <- ggplot(figure_1_data, aes(x = profile, y = value, fill = guardrail)) +
       geom_boxplot(alpha = 0.7, outlier.shape = NA) +
       geom_jitter(width = 0.1, height = 0, alpha = 0.7, size = 2) +
       facet_wrap(~ outcome, scales = "free_y") +
       labs(
-        title = "Primary outcomes by experimental condition",
-        subtitle = paste("Source mode:", source_mode),
-        x = "Profile",
-        y = "Score",
-        fill = "Guardrail"
+        title = "Primárne výstupné ukazovatele podľa experimentálnych podmienok",
+        subtitle = paste("Zdroj dát:", map_named_values(source_mode, source_mode_label_map)),
+        x = "Profil odpovedania",
+        y = "Skóre",
+        fill = "Klinické usmernenie"
       ) +
       theme_minimal()
 
+    figure_1a <- build_primary_outcome_boxplot(
+      figure_1_data,
+      label_variable("plausibility_index"),
+      "Index klinickej vierohodnosti podľa experimentálnych podmienok"
+    )
+    figure_1b <- build_primary_outcome_boxplot(
+      figure_1_data,
+      label_variable("defect_index"),
+      "Index defektov podľa experimentálnych podmienok"
+    )
+
     ggsave(figure_1_path, figure_1, width = 10, height = 6, dpi = 150)
+    ggsave(figure_1a_path, figure_1a, width = 8, height = 6, dpi = 150)
+    ggsave(figure_1b_path, figure_1b, width = 8, height = 6, dpi = 150)
   } else {
     placeholder_plot(
       figure_1_path,
-      "Figure 1 skipped",
-      "No non-missing primary outcome values available."
+      "Obrázok 1 nebol vytvorený",
+      "Nie sú dostupné nenulové hodnoty primárnych výstupných ukazovateľov."
+    )
+    placeholder_plot(
+      figure_1a_path,
+      "Obrázok 1A nebol vytvorený",
+      "Nie sú dostupné nenulové hodnoty indexu klinickej vierohodnosti."
+    )
+    placeholder_plot(
+      figure_1b_path,
+      "Obrázok 1B nebol vytvorený",
+      "Nie sú dostupné nenulové hodnoty indexu defektov."
     )
   }
 } else {
   placeholder_plot(
     figure_1_path,
-    "Figure 1 skipped",
-    "Analysis dataset is empty."
+    "Obrázok 1 nebol vytvorený",
+    "Analytický súbor je prázdny."
+  )
+  placeholder_plot(
+    figure_1a_path,
+    "Obrázok 1A nebol vytvorený",
+    "Analytický súbor je prázdny."
+  )
+  placeholder_plot(
+    figure_1b_path,
+    "Obrázok 1B nebol vytvorený",
+    "Analytický súbor je prázdny."
   )
 }
 
 figure_2_path <- file.path(figures_dir, "figure_2_emmeans_core_models.png")
 figure_2_data <- emmeans_core_models |>
-  filter(status == "ok", outcome %in% c("plausibility_index", "defect_index"))
+  filter(status == "ok", outcome %in% c("plausibility_index", "defect_index")) |>
+  mutate(
+    guardrail = factor(label_guardrail(.data$guardrail), levels = c("G0", "G1")),
+    profile = factor(label_profile(.data$profile), levels = c("P1", "P2", "P3")),
+    outcome = factor(
+      label_variable(.data$outcome),
+      levels = label_variable(c("plausibility_index", "defect_index"))
+    )
+  )
 
 if (nrow(figure_2_data) > 0) {
   figure_2 <- ggplot(figure_2_data, aes(x = profile, y = emmean, color = guardrail, group = guardrail)) +
@@ -1507,11 +2249,11 @@ if (nrow(figure_2_data) > 0) {
     geom_errorbar(aes(ymin = conf_low, ymax = conf_high), width = 0.1) +
     facet_wrap(~ outcome, scales = "free_y") +
     labs(
-      title = "Estimated marginal means for core mixed models",
-      subtitle = paste("Source mode:", source_mode),
-      x = "Profile",
-      y = "Estimated marginal mean",
-      color = "Guardrail"
+      title = "Odhadované marginálne priemery jadrových modelov",
+      subtitle = paste("Zdroj dát:", map_named_values(source_mode, source_mode_label_map)),
+      x = "Profil odpovedania",
+      y = "Odhadovaný marginálny priemer",
+      color = "Klinické usmernenie"
     ) +
     theme_minimal()
 
@@ -1519,22 +2261,32 @@ if (nrow(figure_2_data) > 0) {
 } else {
   placeholder_plot(
     figure_2_path,
-    "Figure 2 skipped",
-    "Estimated marginal means are unavailable for current data."
+    "Obrázok 2 nebol vytvorený",
+    "Odhadované marginálne priemery nie sú pre aktuálne dáta dostupné."
   )
 }
 
 figure_s1_path <- file.path(figures_dir, "figure_s1_spearman_heatmap.png")
 if (!is.null(spearman_result$matrix)) {
   heatmap_data <- as.data.frame(as.table(spearman_result$matrix)) |>
-    rename(variable_1 = Var1, variable_2 = Var2, rho = Freq)
+    rename(variable_1 = Var1, variable_2 = Var2, rho = Freq) |>
+    mutate(
+      variable_1 = factor(
+        label_variable(.data$variable_1),
+        levels = label_variable(c("plausibility_index", "defect_index", "symptom_error_mean", "g2", "g5"))
+      ),
+      variable_2 = factor(
+        label_variable(.data$variable_2),
+        levels = label_variable(c("plausibility_index", "defect_index", "symptom_error_mean", "g2", "g5"))
+      )
+    )
 
   figure_s1 <- ggplot(heatmap_data, aes(x = variable_1, y = variable_2, fill = rho)) +
     geom_tile(color = "white") +
     scale_fill_gradient2(low = "#b2182b", mid = "white", high = "#2166ac", midpoint = 0, limits = c(-1, 1)) +
     labs(
-      title = "Transcript-level Spearman correlations",
-      subtitle = paste("Source mode:", source_mode),
+      title = "Spearmanove korelácie na úrovni prepisov rozhovorov",
+      subtitle = paste("Zdroj dát:", map_named_values(source_mode, source_mode_label_map)),
       x = NULL,
       y = NULL,
       fill = "rho"
@@ -1546,8 +2298,8 @@ if (!is.null(spearman_result$matrix)) {
 } else {
   placeholder_plot(
     figure_s1_path,
-    "Figure S1 skipped",
-    "Too few transcript-level rows for Spearman matrix."
+    "Spearmanova heatmapa nebola vytvorená",
+    "Na Spearmanovu maticu je príliš málo riadkov na úrovni prepisov rozhovorov."
   )
 }
 
@@ -1556,11 +2308,11 @@ if (!is.null(pam_result$coordinates)) {
   figure_s2 <- ggplot(pam_result$coordinates, aes(x = dim1, y = dim2, color = cluster, label = transcript_id)) +
     geom_point(size = 3) +
     labs(
-      title = "PAM cluster map",
-      subtitle = paste("Source mode:", source_mode),
-      x = "Dimension 1",
-      y = "Dimension 2",
-      color = "Cluster"
+      title = "Mapa klastrov PAM",
+      subtitle = paste("Zdroj dát:", map_named_values(source_mode, source_mode_label_map)),
+      x = "Dimenzia 1",
+      y = "Dimenzia 2",
+      color = "Klastr"
     ) +
     theme_minimal()
 
@@ -1568,44 +2320,44 @@ if (!is.null(pam_result$coordinates)) {
 } else {
   placeholder_plot(
     figure_s2_path,
-    "Figure S2 skipped",
-    "Too few transcript-level rows for PAM."
+    "Mapa PAM klastrov nebola vytvorená",
+    "Na PAM analýzu je príliš málo riadkov na úrovni prepisov rozhovorov."
   )
 }
 
 main_table_specs <- list(
   list(
-    data = qc_dataset_summary,
+    data = table_1_export,
     caption_label = "Tabuľka 1",
-    caption_title = "Základná charakteristika datasetu",
-    note = paste("Source mode:", source_mode)
+    caption_title = "Základná charakteristika súboru hodnotení",
+    note = paste("Zdroj dát:", map_named_values(source_mode, source_mode_label_map))
   ),
   list(
-    data = table_2_data,
+    data = table_2_export,
     caption_label = "Tabuľka 2",
     caption_title = "Deskriptívne ukazovatele položiek a kompozitov",
-    note = "Export spája item-level a composite-level deskriptíva do jedného manuscript-ready prehľadu."
+    note = "Export spája deskriptíva na úrovni položiek a kompozitov do jedného prehľadu pripraveného pre rukopis."
   ),
   list(
-    data = item_frequencies,
+    data = table_3_export,
     caption_label = "Tabuľka 3",
     caption_title = "Frekvenčné rozdelenie kľúčových položiek",
     note = "Určené najmä pre G1 až G5, S1, S2 a R1 až R5; pri finálnom reporte sa dá podľa potreby zúžiť."
   ),
   list(
-    data = internal_consistency,
+    data = table_4_export,
     caption_label = "Tabuľka 4",
-    caption_title = "Vnútorná konzistencia ratingových blokov",
+    caption_title = "Vnútorná konzistencia hodnotiacich blokov",
     note = NULL
   ),
   list(
-    data = icc_summary,
+    data = table_5_export,
     caption_label = "Tabuľka 5",
-    caption_title = "Interrater reliabilita hlavných outcome-ov",
+    caption_title = "Zhoda medzi hodnotiteľmi pri hlavných výstupných ukazovateľoch",
     note = NULL
   ),
   list(
-    data = table_6_data,
+    data = table_6_export,
     caption_label = "Tabuľka 6",
     caption_title = "Súhrn jadrových zmiešaných modelov",
     note = "V kompaktnej podobe spája LMM a kľúčové CLMM výstupy."
@@ -1625,13 +2377,20 @@ for (table_idx in seq_along(main_table_specs)) {
 
 main_figure_specs <- list(
   list(
-    image_rel_path = file.path("..", "..", "figures", basename(figure_1_path)),
+    image_rel_path = file.path("..", "..", "figures", basename(figure_1a_path)),
     caption_label = "Obrázok 1",
-    caption_title = "Primárne outcome-y podľa experimentálnych podmienok"
+    caption_title = "Index klinickej vierohodnosti podľa experimentálnych podmienok",
+    note = "Poznámka. Čierne body predstavujú jednotlivé hodnotenia; boxy zobrazujú medián a interkvartilové rozpätie. Vyššie skóre znamená vyššiu klinickú vierohodnosť."
+  ),
+  list(
+    image_rel_path = file.path("..", "..", "figures", basename(figure_1b_path)),
+    caption_label = "Obrázok 2",
+    caption_title = "Index defektov podľa experimentálnych podmienok",
+    note = "Poznámka. Čierne body predstavujú jednotlivé hodnotenia; boxy zobrazujú medián a interkvartilové rozpätie. Vyššie skóre znamená viac defektov, teda menej priaznivý výsledok."
   ),
   list(
     image_rel_path = file.path("..", "..", "figures", basename(figure_2_path)),
-    caption_label = "Obrázok 2",
+    caption_label = "Obrázok 3",
     caption_title = "Odhadované marginálne priemery jadrových modelov"
   )
 )

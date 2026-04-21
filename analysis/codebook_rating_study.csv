@@ -1,10 +1,10 @@
 variable,label,measurement_level,coding,block,role,recommended_analysis
 record_id,Jedinečný identifikátor riadku hodnotenia,string,text,raw metadata,primary key,Bez analýzy
 rater_id,ID hodnotiteľa,string,text,design metadata,random effect,(1 | rater_id)
-transcript_id,ID transkriptu,string,text,design metadata,cluster id,(1 | transcript_id) alebo join na transcripts.csv
+transcript_id,ID prepisu rozhovoru,string,text,design metadata,cluster id,(1 | transcript_id) alebo join na transcripts.csv
 seed_id,ID seedu,categorical,S01-S12,predictor / block,random effect,(1 | seed_id)
-guardrail,Prompt guardrail,binary factor,0=off; 1=on,fixed effect,primary predictor,fixed effect
-profile,Response-style profile,categorical factor,R1=zdrzanlivejsi (manuscript P1); R2=vyvazeny (manuscript P2); R3=rozvinutejsi (manuscript P3),fixed effect,primary predictor,fixed effect
+guardrail,Štruktúrujúce klinické usmernenie,binary factor,0=off; 1=on,fixed effect,primary predictor,fixed effect
+profile,Profil štýlu odpovedania,categorical factor,R1=zdrzanlivejsi (manuscript P1); R2=vyvazeny (manuscript P2); R3=rozvinutejsi (manuscript P3),fixed effect,primary predictor,fixed effect
 variant_id,Finálny variant,categorical factor,G0_R1 až G1_R3,design metadata,descriptive / QC,descriptives
 backend_model,Použitý model/backend,categorical,text,QC metadata,descriptive / sensitivity,descriptives
 target_turns,Cieľový počet turnov,integer,24 odporúčané,QC metadata,covariate (optional),optional covariate
@@ -15,15 +15,15 @@ G2,Prirodzenosť jazyka a štýlu odpovedí,ordinal Likert,1-5,primary outcome,s
 G3,Vnútorná konzistentnosť rozhovoru,ordinal Likert,1-5,primary outcome,single item,CLMM alebo descriptives
 G4,Súlad rozhovoru s obrazom depresívnej symptomatiky,ordinal Likert,1-5,primary outcome,single item,CLMM alebo descriptives
 G5,Použiteľnosť rozhovoru na tréningové / výučbové účely,ordinal Likert,1-5,primary outcome,single item,CLMM alebo descriptives
-A1,PHQ-9 self-report metadata: depresívna nálada,transcript-level ordinal metadata,0-3,transcript metadata,symptom anchor profile,error vs seed anchor
-A2,PHQ-9 self-report metadata: strata záujmu / anhedónia,transcript-level ordinal metadata,0-3,transcript metadata,symptom anchor profile,error vs seed anchor
-A3,PHQ-9 self-report metadata: poruchy spánku,transcript-level ordinal metadata,0-3,transcript metadata,symptom anchor profile,error vs seed anchor
-A4,PHQ-9 self-report metadata: zmeny apetítu / hmotnosti,transcript-level ordinal metadata,0-3,transcript metadata,symptom anchor profile,error vs seed anchor
-A5,PHQ-9 self-report metadata: psychomotorické spomalenie alebo nepokoj,transcript-level ordinal metadata,0-3,transcript metadata,symptom anchor profile,error vs seed anchor
-A6,PHQ-9 self-report metadata: únava / nízka energia,transcript-level ordinal metadata,0-3,transcript metadata,symptom anchor profile,error vs seed anchor
-A7,PHQ-9 self-report metadata: pocity viny / bezcennosti,transcript-level ordinal metadata,0-3,transcript metadata,symptom anchor profile,error vs seed anchor
-A8,PHQ-9 self-report metadata: zhoršená koncentrácia / rozhodovanie,transcript-level ordinal metadata,0-3,transcript metadata,symptom anchor profile,error vs seed anchor
-A9,PHQ-9 self-report metadata: pasívne myšlienky na smrť,transcript-level ordinal metadata,0-3,transcript metadata,symptom anchor profile,error vs seed anchor
+A1,PHQ-9 symptomatické metadata: depresívna nálada,transcript-level ordinal metadata,0-3,transcript metadata,symptom anchor profile,error vs seed anchor
+A2,PHQ-9 symptomatické metadata: strata záujmu / anhedónia,transcript-level ordinal metadata,0-3,transcript metadata,symptom anchor profile,error vs seed anchor
+A3,PHQ-9 symptomatické metadata: poruchy spánku,transcript-level ordinal metadata,0-3,transcript metadata,symptom anchor profile,error vs seed anchor
+A4,PHQ-9 symptomatické metadata: zmeny apetítu / hmotnosti,transcript-level ordinal metadata,0-3,transcript metadata,symptom anchor profile,error vs seed anchor
+A5,PHQ-9 symptomatické metadata: psychomotorické spomalenie alebo nepokoj,transcript-level ordinal metadata,0-3,transcript metadata,symptom anchor profile,error vs seed anchor
+A6,PHQ-9 symptomatické metadata: únava / nízka energia,transcript-level ordinal metadata,0-3,transcript metadata,symptom anchor profile,error vs seed anchor
+A7,PHQ-9 symptomatické metadata: pocity viny / bezcennosti,transcript-level ordinal metadata,0-3,transcript metadata,symptom anchor profile,error vs seed anchor
+A8,PHQ-9 symptomatické metadata: zhoršená koncentrácia / rozhodovanie,transcript-level ordinal metadata,0-3,transcript metadata,symptom anchor profile,error vs seed anchor
+A9,PHQ-9 symptomatické metadata: pasívne myšlienky na smrť,transcript-level ordinal metadata,0-3,transcript metadata,symptom anchor profile,error vs seed anchor
 S1,Ľudský odhad celkovej závažnosti depresívnej symptomatiky,ordinal Likert,1-5,human rating,severity judgment,CLMM alebo descriptives; direct error vs 1-5 seed anchor
 S2,Ľudský odhad funkčného dopadu na bežné fungovanie,ordinal Likert,1-5,human rating,functional impact judgment,CLMM alebo descriptives; direct error vs 1-5 seed anchor
 R1,Prítomnosť vnútorných kontradikcií v rozhovore,ordinal Likert,1-5,QC / defect outcome,defect severity,index + CLMM
@@ -34,8 +34,8 @@ R5,Neprimeraná dramatizácia alebo neprirodzená expresivita,ordinal Likert,1-5
 guessed_origin,Odhad pôvodu rozhovoru,nominal,ai_generated / human_simulated / real_participant / unsure,exploratory outcome,categorical,frekvencie; multinom/logit optional
 guess_confidence,Istota odhadu pôvodu,ordinal Likert,1-5,exploratory outcome,single item,CLMM alebo descriptives
 comment,Komentár hodnotiteľa,long text,free text,qualitative outcome,open comment,tematické kódovanie
-plausibility_index,Kompozit klinickej plausibility,derived numeric,"mean(G1,G3,G4)",derived primary outcome,composite,LMM
-symptom_error_mean,Priemerná absolútna chyba A1-A9 voči seedu,derived numeric,mean(abs(Ai - Ai_anchor)),derived transcript-level fidelity,error composite,transcript-level descriptives / exploratory comparison
+plausibility_index,Kompozit klinickej vierohodnosti,derived numeric,"mean(G1,G3,G4)",derived primary outcome,composite,LMM
+symptom_error_mean,Priemerná absolútna chyba v symptomatických doménach A1-A9 voči seedu,derived numeric,mean(abs(Ai - Ai_anchor)),derived transcript-level fidelity,error composite,transcript-level descriptives / exploratory comparison
 severity_error,Absolútna chyba S1 voči seedu,derived numeric,abs(S1 - S1_anchor),derived secondary outcome,error score,direct 1-5 error score
 impact_error,Absolútna chyba S2 voči seedu,derived numeric,abs(S2 - S2_anchor),derived secondary outcome,error score,direct 1-5 error score
-defect_index,Kompozit defektov / red flags,derived numeric,mean(R1:R5),derived QC outcome,composite,LMM
+defect_index,Kompozit defektov,derived numeric,mean(R1:R5),derived QC outcome,composite,LMM

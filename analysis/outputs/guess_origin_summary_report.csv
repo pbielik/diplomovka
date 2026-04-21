@@ -1,0 +1,41 @@
+guessed_origin,n,grouping,guardrail,profile,prop
+AI-generovaný rozhovor,21,Celkovo,NA,NA,0.10552763819095477
+Ľudsky simulovaný rozhovor,31,Celkovo,NA,NA,0.15577889447236182
+Reálny participant,6,Celkovo,NA,NA,0.03015075376884422
+Nevyplnené,141,Celkovo,NA,NA,0.7085427135678392
+AI-generovaný rozhovor,19,Klinické usmernenie,G0,NA,0.16101694915254236
+Ľudsky simulovaný rozhovor,27,Klinické usmernenie,G0,NA,0.2288135593220339
+Reálny participant,3,Klinické usmernenie,G0,NA,0.025423728813559324
+Nevyplnené,69,Klinické usmernenie,G0,NA,0.5847457627118644
+AI-generovaný rozhovor,2,Klinické usmernenie,G1,NA,0.024691358024691357
+Ľudsky simulovaný rozhovor,4,Klinické usmernenie,G1,NA,0.04938271604938271
+Reálny participant,3,Klinické usmernenie,G1,NA,0.037037037037037035
+Nevyplnené,72,Klinické usmernenie,G1,NA,0.8888888888888888
+AI-generovaný rozhovor,13,Profil,NA,P1,0.16666666666666666
+Ľudsky simulovaný rozhovor,15,Profil,NA,P1,0.19230769230769232
+Reálny participant,5,Profil,NA,P1,0.0641025641025641
+Nevyplnené,45,Profil,NA,P1,0.5769230769230769
+AI-generovaný rozhovor,5,Profil,NA,P2,0.08333333333333333
+Ľudsky simulovaný rozhovor,7,Profil,NA,P2,0.11666666666666667
+Nevyplnené,48,Profil,NA,P2,0.8
+AI-generovaný rozhovor,3,Profil,NA,P3,0.04918032786885246
+Ľudsky simulovaný rozhovor,9,Profil,NA,P3,0.14754098360655737
+Reálny participant,1,Profil,NA,P3,0.01639344262295082
+Nevyplnené,48,Profil,NA,P3,0.7868852459016393
+AI-generovaný rozhovor,11,Klinické usmernenie × profil,G0,P1,0.2391304347826087
+Ľudsky simulovaný rozhovor,11,Klinické usmernenie × profil,G0,P1,0.2391304347826087
+Reálny participant,3,Klinické usmernenie × profil,G0,P1,0.06521739130434782
+Nevyplnené,21,Klinické usmernenie × profil,G0,P1,0.45652173913043476
+AI-generovaný rozhovor,5,Klinické usmernenie × profil,G0,P2,0.1388888888888889
+Ľudsky simulovaný rozhovor,7,Klinické usmernenie × profil,G0,P2,0.19444444444444445
+Nevyplnené,24,Klinické usmernenie × profil,G0,P2,0.6666666666666666
+AI-generovaný rozhovor,3,Klinické usmernenie × profil,G0,P3,0.08333333333333333
+Ľudsky simulovaný rozhovor,9,Klinické usmernenie × profil,G0,P3,0.25
+Nevyplnené,24,Klinické usmernenie × profil,G0,P3,0.6666666666666666
+AI-generovaný rozhovor,2,Klinické usmernenie × profil,G1,P1,0.0625
+Ľudsky simulovaný rozhovor,4,Klinické usmernenie × profil,G1,P1,0.125
+Reálny participant,2,Klinické usmernenie × profil,G1,P1,0.0625
+Nevyplnené,24,Klinické usmernenie × profil,G1,P1,0.75
+Nevyplnené,24,Klinické usmernenie × profil,G1,P2,1
+Reálny participant,1,Klinické usmernenie × profil,G1,P3,0.04
+Nevyplnené,24,Klinické usmernenie × profil,G1,P3,0.96

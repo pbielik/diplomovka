@@ -1,6 +1,6 @@
 # Statistical Calculations For Statistician Review
 
-> Posledná aktualizácia: 2026-04-20
+> Posledná aktualizácia: 2026-04-21
 > Účel: mať na jednom mieste prehľad toho, aké štatistické výpočty sa v projekte aktuálne robia, v ktorých skriptoch sú implementované a ktoré z nich patria k pilotnej validácii seedov a rater dotazníka vs. k hlavným hypotézam diplomovky.
 
 ## 1. Source Of Truth
@@ -119,6 +119,7 @@ Použité balíky v `analysis/scripts/thesis_rating_pipeline.R`:
 - `ggplot2`
 - `psych`
 - `lme4`
+- `lmerTest`
 - `ordinal`
 - `emmeans`
 - `cluster`
@@ -635,8 +636,10 @@ Outcome-y:
 Odhady:
 
 - fixed effects coefficients,
+- p-hodnoty z `lmerTest` so Satterthwaite aproximáciou,
 - Wald CI cez `confint(..., method = "Wald")`,
-- `emmeans` pre `guardrail x profile`.
+- `emmeans` pre `guardrail x profile`,
+- diagnostické poznámky v stĺpci `detail`, najmä pri singularite alebo konvergenčných upozorneniach.
 
 Skip pravidlo:
 
@@ -647,6 +650,14 @@ and >= 2 levels of profile
 and >= 2 seeds
 and >= 2 raters
 ```
+
+Doplnkový sensitivity model:
+
+```text
+outcome ~ guardrail * profile + (1 | seed_id) + (1 | transcript_id) + (1 | rater_id)
+```
+
+Táto sensitivity vetva sa aktuálne exportuje samostatne pre `plausibility_index` a `defect_index`. Jej funkciou je robustness check, nie náhrada hlavného modelu.
 
 ## 4.7.2 Transcript-level LMM
 
@@ -674,6 +685,12 @@ Outcome-y:
 - `symptom_error_mean`
 - podľa dostupnosti `severity_error`
 - podľa dostupnosti `impact_error`
+
+Odhady:
+
+- p-hodnoty z `lmerTest` so Satterthwaite aproximáciou,
+- Wald CI cez `confint(..., method = "Wald")`,
+- diagnostické poznámky v stĺpci `detail`, najmä pri singularite alebo konvergenčných upozorneniach.
 
 Skip pravidlo:
 
@@ -717,6 +734,12 @@ Odhady:
 conf_low = Estimate - 1.96 * SE
 conf_high = Estimate + 1.96 * SE
 ```
+
+Poznámka:
+
+- raw export `clmm_item_models.csv` obsahuje aj threshold/cut-point termy,
+- hlavná core tabuľka pre hypotézy ich filtruje a ponecháva len efektové termy s `guardrail`, `profile` a ich interakciou,
+- stĺpec `detail` nesie minimálne počet použitých response kategórií a prípadnú poznámku ku konvergencii.
 
 Skip pravidlo:
 
@@ -824,10 +847,11 @@ Toto sú body, ktoré by mal štatistik explicitne posúdiť:
 
 1. Je rozumné používať `ICC2k` ako hlavný agreement index pre kompozity a `S1/S2`, alebo by bolo vhodnejšie doplniť weighted agreement metric pre ordinálne ratingy?
 2. Je obhájiteľné brať `plausibility_index`, `defect_index`, `symptom_error_mean`, `severity_error`, `impact_error` ako približne intervalové outcome-y pre `LMM`?
-3. Má `severity_error` a `impact_error` ostať len ako secondary / supplement vetva, alebo sa dajú obhájiť aj v jadre?
-4. Má pilotný expert review ostať pri priemeroch a support proporciách, alebo doplniť formálnejší `I-CVI` / `S-CVI`?
-5. Je transcript-level model pre `symptom_error_mean` s random interceptom len pre `seed_id` dostatočný, alebo by bolo vhodné iné riešenie pri plnom datasete?
-6. Je `PAM` vhodné ponechať ako appendix, alebo ho pri finálnom reporte radšej vypustiť, ak nebude veľmi stabilné?
+3. Je pre túto diplomovku prijateľné používať pri `LMM` p-hodnoty z `lmerTest` so Satterthwaite aproximáciou a zároveň reportovať aj Wald `95 % CI` a modelové diagnostické poznámky?
+4. Má `severity_error` a `impact_error` ostať len ako secondary / supplement vetva, alebo sa dajú obhájiť aj v jadre?
+5. Má pilotný expert review ostať pri priemeroch a support proporciách, alebo doplniť formálnejší `I-CVI` / `S-CVI`?
+6. Je transcript-level model pre `symptom_error_mean` s random interceptom len pre `seed_id` dostatočný, alebo by bolo vhodné iné riešenie pri plnom datasete?
+7. Je `PAM` vhodné ponechať ako appendix, alebo ho pri finálnom reporte radšej vypustiť, ak nebude veľmi stabilné?
 
 ## 6. Najkratšia Verzia
 

@@ -82,6 +82,60 @@ Praktický framing práce má byť posunutý tak, aby sa hlavný prínos diplomo
 4. Predkladaná práca presne toto testuje: či odborníci považujú AI-generované rozhovory za vierohodné, konzistentné a použiteľné na tréning.
 5. Praktický prínos práce pre psychológiu teda spočíva v tom, že pomáha určiť podmienky, za ktorých môžu byť takéto simulácie rozumne nasadené vo vzdelávaní.
 
+## Ak sa komisia spýta na `CVI`, Delphi alebo autorský nástroj
+
+Toto je pravdepodobne jedna z prirodzených metodických otázok. Bezpečná línia odpovede je:
+
+- nepoužívam autorský nástroj preto, že by som chcel obísť štandardné metodické postupy,
+- používam ho preto, že hodnotím veľmi špecifický objekt: kvalitu `AI`-generovaného simulovaného klinického rozhovoru,
+- na tento presný účel som nemal k dispozícii hotový validovaný nástroj, ktorý by súčasne pokrýval klinickú vierohodnosť, prirodzenosť, konzistentnosť, symptomatickú primeranosť, tréningovú použiteľnosť a defekty,
+- `CVI` logiku som neodmietol; použil som ju v podobe predbežnej expertnej obsahovej kontroly položiek a seed scenárov,
+- `CVI` však samo osebe nestačí na hlavný cieľ práce, pretože rieši najmä obsahovú primeranosť položiek, nie neskoršie psychometrické správanie nástroja v dátach ani efekt experimentálnych faktorov.
+
+### Krátka verzia odpovede
+
+> Autorský nástroj som nepoužil preto, že by som nechcel štandardnú validáciu, ale preto, že skúmaný objekt je špecifický a hotový nástroj pre hodnotenie kvality AI simulovaného klinického rozhovoru som nemal k dispozícii. `CVI` alebo podobné expert-panelové prístupy sú vhodné pre obsahovú kontrolu položiek a scenárov, a práve v tejto vrstve som ich logiku aj využil. Hlavné výskumné otázky však vyžadovali aj analýzu vnútornej konzistencie, zhody medzi hodnotiteľmi a modelovanie efektu `guardrail` a štýlu odpovedania, takže `CVI` nemohlo byť jediným nosným metodickým rámcom.
+
+### Vecné jadro odpovede
+
+1. `Prečo nie hotový nástroj`
+   - V práci sa nehodnotí depresia ako taká ani bežný screening.
+   - Hodnotí sa kvalita simulovaného rozhovoru ako špecifický výskumný artefakt.
+   - Potreboval som preto rámec, ktorý pokrýva viac vrstiev naraz: `G1-G5`, `S1-S2` a `R1-R5`.
+
+2. `Prečo nestačí CVI`
+   - `CVI` je dobré na otázku, či sú položky relevantné a zrozumiteľné.
+   - Nie je to však odpoveď na otázku, ako sa nástroj správa po nasadení do ratingovej štúdie.
+   - Samotné `CVI` nepovie, či sa položky správajú konzistentne, či sa experti zhodujú a či experimentálne manipulácie menia výsledok.
+
+3. `Čo som teda urobil namiesto toho`
+   - Najprv prebehla predbežná expertná obsahová kontrola položiek a seed scenárov.
+   - Potom som v ostrých dátach sledoval vnútornú konzistenciu, `ICC` a mixed-model analytickú vetvu.
+   - Teda: obsahová kalibrácia najprv, psychometrické a inferenčné overovanie potom.
+
+4. `Prečo nehovorím o plnej validácii`
+   - Expert panel mal `n = 6`, takže číselné ukazovatele obsahovej validity treba čítať opatrne.
+   - Preto túto vrstvu neprezentujem ako definitívnu psychometrickú validáciu ani ako formálny Delphi proces.
+   - Bezpečnejšie a presnejšie pomenovanie je predbežná expertná obsahová kontrola alebo pilotný expert review pass.
+
+### Jedna veta, ak bude treba úplne stručnú reakciu
+
+> `CVI` by bolo vhodné pre obsahovú validitu položiek, ale nie ako jediný rámec pre celú túto štúdiu; preto som pri autorskom nástroji spojil predbežnú expert review vrstvu s neskorším overovaním cez vnútornú konzistenciu, `ICC` a mixed models.
+
+### Čomu sa pri odpovedi radšej vyhnúť
+
+- nehovoriť, že nástroj je „plne validovaný“,
+- netvrdiť, že `CVI` je zlé alebo zastarané,
+- netvrdiť, že `Delphi` by bolo nesprávne; presnejšie je povedať, že dizajn tejto práce nebol formálny viac-kolový Delphi proces,
+- neprezentovať expert review vrstvu ako hlavný dôkaz kvality celého merania.
+
+### Interná opora v rukopise
+
+- logika expertnej evaluácie a vrstiev kvality je v [20_introduction.md](/Users/pavol.bielik/dev/src/github.com/pbielik/diplomovka/manuscript/20_introduction.md:63),
+- status autorského nástroja a dôvod, prečo sa sleduje vnútorná konzistencia a zhoda medzi hodnotiteľmi, je v [30_method.md](/Users/pavol.bielik/dev/src/github.com/pbielik/diplomovka/manuscript/30_method.md:87),
+- predbežná expertná obsahová kontrola položiek a seed scenárov je opísaná v [30_method.md](/Users/pavol.bielik/dev/src/github.com/pbielik/diplomovka/manuscript/30_method.md:91),
+- opatrný framing pilotného expert review passu je rozpracovaný aj v [expert_content_review_framework.md](/Users/pavol.bielik/dev/src/github.com/pbielik/diplomovka/analysis/expert_content_review_framework.md:9).
+
 ## Prečo je to dobré pre psychológiu
 
 ### 1. Znižuje to rozdiel medzi teóriou a prvým kontaktom s klientom
